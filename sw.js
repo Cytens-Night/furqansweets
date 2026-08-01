@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furqan-card-pwa-v13-crm-access-fix';
+const CACHE_NAME = 'furqan-card-pwa-v15-smart-install';
 const ASSETS_TO_CACHE = [
   './card.html',
   './card.css',
@@ -45,9 +45,43 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
-    })
-  );
+  if (event.request.method !== 'GET') return;
+
+  const isHtml = event.request.destination === 'document' || 
+                 event.request.url.endsWith('.html') || 
+                 event.request.url.endsWith('/');
+
+  if (isHtml) {
+    // Network-First for HTML: Always fetch newest version, fallback to cache if offline
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+          return networkResponse;
+        })
+        .catch(() => {
+          return caches.match(event.request).then(cached => cached || caches.match('./card.html'));
+        })
+    );
+  } else {
+    // Stale-While-Revalidate for static assets: return cache immediately, update in background
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        const fetchPromise = fetch(event.request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return networkResponse;
+        }).catch(() => {/* offline or ignore */});
+
+        return cachedResponse || fetchPromise;
+      })
+    );
+  }
 });
