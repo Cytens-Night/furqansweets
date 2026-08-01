@@ -3,58 +3,67 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainContent = document.getElementById('main-content');
     const loadingAudio = document.getElementById('loading-audio');
 
-    // Attempt to play the audio as soon as possible so it says Furqan Sweets out loud
-    if (loadingAudio) {
-        loadingAudio.currentTime = 0;
-        loadingAudio.volume = 1.0;
-        loadingAudio.play().catch(e => {
-            console.warn("Browser prevented autoplay. Will play on first interaction.", e);
-            const playOnTouch = () => {
-                loadingAudio.currentTime = 0;
-                loadingAudio.volume = 1.0;
-                loadingAudio.play().catch(() => {});
-                window.removeEventListener('touchstart', playOnTouch);
-                window.removeEventListener('click', playOnTouch);
-            };
-            window.addEventListener('touchstart', playOnTouch, { once: true });
-            window.addEventListener('click', playOnTouch, { once: true });
-        });
-    }
+    // Check if user has already loaded the site in this session OR navigated internally between pages
+    const hasLoadedBefore = sessionStorage.getItem('furqan_loaded');
+    const isInternalNavigation = document.referrer && document.referrer.includes(window.location.host);
 
-    // Display the loading animation for 3.5 seconds
-    setTimeout(() => {
-        // Fade out the loader
-        if (loaderContainer) loaderContainer.style.opacity = '0';
-        
-        // Fade out the audio smoothly over 1 second to match the CSS opacity transition
-        if (loadingAudio && !loadingAudio.paused) {
-            let volume = 1.0;
-            const fadeAudioInterval = setInterval(() => {
-                volume -= 0.05;
-                if (volume <= 0.01) {
-                    loadingAudio.volume = 0;
-                    loadingAudio.pause();
-                    clearInterval(fadeAudioInterval);
-                } else {
-                    loadingAudio.volume = volume;
-                }
-            }, 50); // 20 intervals of 50ms = 1 second fade out
+    if (hasLoadedBefore === 'true' || isInternalNavigation) {
+        // Instant seamless navigation without showing loader or playing intro audio!
+        if (loaderContainer) {
+            loaderContainer.style.display = 'none';
+            loaderContainer.style.opacity = '0';
+        }
+        if (mainContent) {
+            mainContent.style.display = 'block';
+            mainContent.style.opacity = '1';
+        }
+        sessionStorage.setItem('furqan_loaded', 'true');
+    } else {
+        // First visit in session: play intro audio and show loading screen
+        if (loadingAudio) {
+            loadingAudio.currentTime = 0;
+            loadingAudio.volume = 1.0;
+            loadingAudio.play().catch(e => {
+                console.warn("Browser prevented autoplay. Will play on first interaction.", e);
+                const playOnTouch = () => {
+                    loadingAudio.currentTime = 0;
+                    loadingAudio.volume = 1.0;
+                    loadingAudio.play().catch(() => {});
+                    window.removeEventListener('touchstart', playOnTouch);
+                    window.removeEventListener('click', playOnTouch);
+                };
+                window.addEventListener('touchstart', playOnTouch, { once: true });
+                window.addEventListener('click', playOnTouch, { once: true });
+            });
         }
 
-        // Wait for the fade out to complete, then hide the loader and show main content
         setTimeout(() => {
-            if (loaderContainer) loaderContainer.style.display = 'none';
-            if (mainContent) {
-                mainContent.style.display = 'block';
-                
-                // Trigger a small reflow to ensure the transition applies smoothly
-                void mainContent.offsetWidth;
-                
-                // Fade in the main content
-                mainContent.style.opacity = '1';
+            if (loaderContainer) loaderContainer.style.opacity = '0';
+            if (loadingAudio && !loadingAudio.paused) {
+                let volume = 1.0;
+                const fadeAudioInterval = setInterval(() => {
+                    volume -= 0.05;
+                    if (volume <= 0.01) {
+                        loadingAudio.volume = 0;
+                        loadingAudio.pause();
+                        clearInterval(fadeAudioInterval);
+                    } else {
+                        loadingAudio.volume = volume;
+                    }
+                }, 50);
             }
-        }, 1000); // 1 second matching the CSS transition duration
-    }, 1800); // Wait 1.8 seconds before starting the fade out
+
+            setTimeout(() => {
+                if (loaderContainer) loaderContainer.style.display = 'none';
+                if (mainContent) {
+                    mainContent.style.display = 'block';
+                    void mainContent.offsetWidth;
+                    mainContent.style.opacity = '1';
+                }
+                sessionStorage.setItem('furqan_loaded', 'true');
+            }, 1000);
+        }, 1800);
+    }
 
     // ==========================================
     // BULK MODAL LOGIC
@@ -328,17 +337,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (biscuitsHome && biscuitList.length > 0) {
                     biscuitsHome.innerHTML = biscuitList.map(item => `
-                        <div class="collection-card">
+                        <div class="collection-card" onclick="window.location.href='shop.html'" title="Click to view in Shop">
                             <img src="${item.image}" alt="${item.name}" class="collection-img">
                             <h4 class="product-name">${item.name}</h4>
+                            <p style="margin: 4px 0 0 0; color: #ff5e00; font-weight: 700; font-size: 0.95rem;">£${item.price}</p>
                         </div>
                     `).join('');
                 }
                 if (extraSnacksHome && extraList.length > 0) {
                     extraSnacksHome.innerHTML = extraList.map(item => `
-                        <div class="collection-card">
+                        <div class="collection-card" onclick="window.location.href='shop.html'" title="Click to view in Shop">
                             <img src="${item.image}" alt="${item.name}" class="collection-img">
                             <h4 class="product-name">${item.name}</h4>
+                            <p style="margin: 4px 0 0 0; color: #ff5e00; font-weight: 700; font-size: 0.95rem;">£${item.price}</p>
                         </div>
                     `).join('');
                 }
