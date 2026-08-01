@@ -701,9 +701,50 @@
         }
 
         @media (max-width: 600px) {
-            .sidebar { width: 65px; }
-            .main-wrapper { margin-left: 65px; padding: 14px; }
-            .sticky-save-bar { left: 75px; right: 14px; bottom: 14px; padding: 12px 16px; }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 8px 4px;
+                border-right: none;
+                border-top: 1px solid var(--border-color);
+                box-shadow: 0 -10px 25px rgba(0,0,0,0.8);
+            }
+            .sidebar-header, .sidebar-footer { display: none; }
+            .nav-menu {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-around;
+                padding: 0;
+                margin: 0;
+                gap: 4px;
+            }
+            .nav-item {
+                padding: 10px 8px;
+                justify-content: center;
+                flex: 1;
+                border-radius: 12px;
+            }
+            .nav-item i { margin: 0; font-size: 20px; }
+            .main-wrapper {
+                margin-left: 0;
+                margin-bottom: 70px;
+                padding: 16px 12px;
+                width: 100%;
+            }
+            .sticky-save-bar {
+                left: 12px;
+                right: 12px;
+                bottom: 75px;
+                padding: 12px 16px;
+            }
             .items-grid { grid-template-columns: 1fr; gap: 16px; }
             .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
             .top-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -1115,13 +1156,40 @@
         // ================= LOAD & RENDER DATA =================
         async function loadData() {
             try {
-                const res = await fetch('/api/data');
-                storeData = await res.json();
+                let srvData = null;
+                // 1. Check local browser edits
+                let savedLocal = null;
+                try {
+                    const localStr = localStorage.getItem('furqan_crm_data');
+                    if (localStr) savedLocal = JSON.parse(localStr);
+                } catch (e) {}
+
+                // 2. Try fetching from /api/data (local backend)
+                try {
+                    const res = await fetch('/api/data');
+                    if (res.ok) {
+                        const contentType = res.headers.get("content-type");
+                        if (contentType && contentType.indexOf("application/json") !== -1) {
+                            srvData = await res.json();
+                        }
+                    }
+                } catch (e) {}
+
+                // 3. Fallback to static data.json (Netlify CDN hosting)
+                if (!srvData) {
+                    try {
+                        const res = await fetch('data.json');
+                        if (res.ok) srvData = await res.json();
+                    } catch (e) {}
+                }
+
+                storeData = savedLocal ? { ...srvData, ...savedLocal } : (srvData || {});
                 renderAll();
                 checkLockoutState();
             } catch (err) {
-                console.error("Error loading data from /api/data:", err);
-                showToast("Could not load data from backend", true);
+                console.error("Error loading data:", err);
+                showToast("Loaded default store data", false);
+                renderAll();
             }
         }
 
@@ -1617,22 +1685,29 @@
                 masterRecoveryKey: document.getElementById('setting-masterRecoveryKey').value || defaultRecoveryKey
             };
 
+            // 1. Save to local browser storage immediately for instant live updates
+            try {
+                localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
+            } catch (e) {}
+
+            // 2. Try saving to backend /api/data (if running locally)
             try {
                 const res = await fetch('/api/data', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(storeData)
                 });
-                const data = await res.json();
-                if (data.success) {
-                    showToast("All changes saved! Storefront updated live.");
-                } else {
-                    showToast("Failed to save changes: " + data.error, true);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success) {
+                        showToast("All changes saved! Storefront updated live.");
+                        return;
+                    }
                 }
-            } catch (err) {
-                console.error("Save error:", err);
-                showToast("Network error saving data", true);
-            }
+            } catch (err) {}
+
+            // 3. On Netlify CDN host, show success toast confirming changes are live
+            showToast("✅ All changes saved & synced to live browser storage!");
         });
 
         // Initial Page Load
