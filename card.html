@@ -20,6 +20,11 @@
             e.preventDefault();
             window.deferredPwaPrompt = e;
         });
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js', { scope: './' });
+            });
+        }
     </script>
     <!-- Lucide Icons (React-style crisp SVG icons) -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -388,21 +393,6 @@
                     <button id="btn-got-it-ios" class="modal-pill-btn dark-btn" style="width: 100%; padding: 10px; font-size: 0.88rem;">
                         ✓ Got it, I'll Add to Home Screen
                     </button>
-                </div>
-
-                <!-- SAMSUNG & ANDROID GUIDE BOX -->
-                <div id="pwa-android-guide-box" style="display: none; width: 100%; background: rgba(200,90,23,0.08); border: 1.5px solid rgba(200,90,23,0.35); border-radius: 16px; padding: 16px; margin-top: 10px; text-align: left;">
-                    <div style="font-weight: 700; color: var(--accent-brown-orange); margin-bottom: 8px; font-size: 0.92rem; display: flex; align-items: center; gap: 6px;">
-                        <i data-lucide="download" style="width: 16px; height: 16px;"></i> Samsung &amp; Android Install:
-                    </div>
-                    <div style="font-size: 0.84rem; color: var(--text-dark); line-height: 1.5; margin-bottom: 12px;">
-                        1. Tap your browser menu icon (<b>⋮</b> or <b>☰</b>).<br>
-                        2. Select <b>"Install app"</b> or <b>"Add to Home screen"</b>.
-                    </div>
-                    <button id="btn-got-it-android" class="modal-pill-btn dark-btn" style="width: 100%; padding: 10px; font-size: 0.88rem;">
-                        ✓ Got it
-                    </button>
-                </div>
             </div>
         </div>
     </div>
