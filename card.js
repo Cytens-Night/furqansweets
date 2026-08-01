@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 1) Try Native 1-Click Browser PWA Install Prompt (Android / Chrome / Samsung Internet / Desktop)
+        // 1) Try Native 1-Click Browser PWA Install Prompt (Android / Chrome / Edge / Desktop)
         const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
         if (promptObj) {
             promptObj.prompt();
@@ -266,22 +266,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 2) If on iPhone / iOS Safari (Apple blocks programmatic install prompts):
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        if (isIOS) {
-            if (pwaModal) {
-                const iosHint = document.getElementById('pwa-ios-hint');
-                if (iosHint) iosHint.style.display = 'block';
-                pwaModal.style.display = 'flex';
-                initIcons();
+        // 2) If native prompt is not ready (iPhone iOS Safari, or Samsung Internet / Android where menu is needed):
+        // NEVER download an HTML file! NEVER open share sheet!
+        // Open clean Official App Sheet with device-specific guide:
+        if (pwaModal) {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const iosBox = document.getElementById('pwa-ios-guide-box');
+            const androidBox = document.getElementById('pwa-android-guide-box');
+            if (isIOS) {
+                if (iosBox) iosBox.style.display = 'block';
+                if (androidBox) androidBox.style.display = 'none';
+            } else {
+                if (iosBox) iosBox.style.display = 'none';
+                if (androidBox) androidBox.style.display = 'block';
             }
-            return;
+            pwaModal.style.display = 'flex';
+            initIcons();
         }
-
-        // 3) On Samsung/Android if prompt wasn't captured (e.g. already installed or browser menu required):
-        // NEVER download an HTML file! Explain native PWA installation cleanly:
-        showToast("To install App: Tap browser menu (⋮ or ☰) -> 'Install App' or 'Add to Home screen'");
-        if (pwaModal) pwaModal.style.display = 'none';
     };
 
     if (btnInstallPwa) {
@@ -294,15 +295,35 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnTriggerPwaInstall) {
         btnTriggerPwaInstall.addEventListener('click', async (e) => {
             e.preventDefault();
-            await handlePwaInstallRequest();
+            const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
+            if (promptObj) {
+                promptObj.prompt();
+                const { outcome } = await promptObj.userChoice;
+                if (outcome === 'accepted') {
+                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
+                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+                }
+                deferredPwaPrompt = null;
+                if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
+                if (pwaModal) pwaModal.style.display = 'none';
+            } else {
+                showToast("✓ Please follow the 2 simple steps below:");
+            }
         });
     }
 
     const btnGotItIos = document.getElementById('btn-got-it-ios');
+    const btnGotItAndroid = document.getElementById('btn-got-it-android');
     if (btnGotItIos) {
         btnGotItIos.addEventListener('click', () => {
             if (pwaModal) pwaModal.style.display = 'none';
             showToast("✓ Ready! Tap Share ↑ in Safari menu anytime.");
+        });
+    }
+    if (btnGotItAndroid) {
+        btnGotItAndroid.addEventListener('click', () => {
+            if (pwaModal) pwaModal.style.display = 'none';
+            showToast("✓ Ready! Tap browser menu (⋮ or ☰) to install.");
         });
     }
 
