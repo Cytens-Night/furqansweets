@@ -241,8 +241,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const pwaModal = document.getElementById('pwa-install-modal');
     const btnTriggerPwaInstall = document.getElementById('btn-trigger-pwa-install');
 
+    const isStandaloneApp = () => {
+        return window.matchMedia('(display-mode: standalone)').matches ||
+               window.navigator.standalone === true ||
+               window.location.search.includes('source=pwa') ||
+               document.referrer.includes('android-app://');
+    };
+
     if (btnInstallPwa && pwaModal) {
         btnInstallPwa.addEventListener('click', () => {
+            if (isStandaloneApp()) {
+                showToast("✓ App is already installed and running on your device!");
+                return;
+            }
             pwaModal.style.display = 'flex';
             initIcons();
         });
@@ -250,43 +261,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (btnTriggerPwaInstall) {
         btnTriggerPwaInstall.addEventListener('click', async () => {
+            if (isStandaloneApp()) {
+                showToast("✓ App is already installed and running on your device!");
+                if (pwaModal) pwaModal.style.display = 'none';
+                return;
+            }
+
             if (deferredPwaPrompt) {
                 deferredPwaPrompt.prompt();
                 const { outcome } = await deferredPwaPrompt.userChoice;
                 if (outcome === 'accepted') {
-                    showToast("Installing Furqan Sweets App...");
+                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
                     if (pwaModal) pwaModal.style.display = 'none';
                 }
                 deferredPwaPrompt = null;
             } else {
-                // FALLBACK + INSTANT OFFLINE STANDALONE APP DOWNLOAD
-                const offlineAppHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Furqan Sweets - VIP Card</title>
-    <meta name="theme-color" content="#FF5E00">
-    <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #0F0D0C; overflow: hidden; display: flex; align-items: center; justify-content: center; font-family: sans-serif; }
-        iframe { width: 100%; height: 100%; border: none; }
-    </style>
-</head>
-<body>
-    <iframe src="${window.location.href}" allow="clipboard-write; camera"></iframe>
-</body>
-</html>`;
-                const blob = new Blob([offlineAppHtml], { type: 'text/html' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'Furqan_Sweets_VIP_Card.html';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-
-                showToast("Offline VIP Card downloaded! Open file anytime for standalone access.");
+                // Never download HTML files or show "Download again?" popup. Provide native device instructions instead.
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    showToast("To install on iPhone: Tap Share button (square with arrow) below & select 'Add to Home Screen'");
+                } else {
+                    showToast("To install: Tap browser menu (⋮) at top right & select 'Install App' or 'Add to Home screen'");
+                }
                 if (pwaModal) pwaModal.style.display = 'none';
             }
         });
