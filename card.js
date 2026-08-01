@@ -245,30 +245,13 @@ document.addEventListener("DOMContentLoaded", () => {
                window.navigator.standalone === true;
     };
 
-    const updateSmartPwaModal = () => {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const iosBox = document.getElementById('pwa-ios-box');
-        const androidBox = document.getElementById('pwa-android-box');
-        const btnText = btnTriggerPwaInstall ? btnTriggerPwaInstall.querySelector('span') : null;
-
-        if (isIOS) {
-            if (iosBox) iosBox.style.display = 'block';
-            if (androidBox) androidBox.style.display = 'none';
-            if (btnText) btnText.textContent = "Got It (Tap Share Below ↓)";
-        } else {
-            if (iosBox) iosBox.style.display = 'none';
-            if (androidBox) androidBox.style.display = 'block';
-            if (btnText) {
-                btnText.textContent = deferredPwaPrompt ? "Install App Now (1-Click)" : "Install via Browser Menu (⋮)";
-            }
-        }
-    };
-
-    const handleDirectPwaInstall = async () => {
+    const handlePwaInstallRequest = async () => {
         if (isStandaloneApp()) {
             showToast("✓ App is already installed and running on your device!");
             return;
         }
+
+        // 1) Try Native 1-Click Browser Install Prompt (Android / Chrome / Desktop)
         const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
         if (promptObj) {
             promptObj.prompt();
@@ -276,38 +259,56 @@ document.addEventListener("DOMContentLoaded", () => {
             if (outcome === 'accepted') {
                 showToast("✓ Installing Furqan Sweets App to your Home Screen...");
                 if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+                if (pwaModal) pwaModal.style.display = 'none';
             }
             deferredPwaPrompt = null;
             if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
             return;
         }
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'Furqan Sweets - Luxury Somali Sweets',
-                    text: 'Install Furqan Sweets App for quick ordering and wholesale pricing.',
-                    url: window.location.href
-                });
-            } catch (err) {
-                // User closed native system share sheet
+
+        // 2) If native prompt is not ready (iPhone iOS Safari, or custom browser), open our clean Sleek App Card!
+        // NEVER call navigator.share()!
+        if (pwaModal) {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const iosHint = document.getElementById('pwa-ios-hint');
+            if (iosHint) {
+                iosHint.style.display = isIOS ? 'block' : 'none';
             }
-            return;
+            pwaModal.style.display = 'flex';
+            initIcons();
         }
-        showToast("✓ App is ready to install from your browser menu!");
     };
 
     if (btnInstallPwa) {
         btnInstallPwa.addEventListener('click', async (e) => {
             e.preventDefault();
-            await handleDirectPwaInstall();
+            await handlePwaInstallRequest();
         });
     }
 
     if (btnTriggerPwaInstall) {
         btnTriggerPwaInstall.addEventListener('click', async (e) => {
             e.preventDefault();
-            await handleDirectPwaInstall();
-            if (pwaModal) pwaModal.style.display = 'none';
+            const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
+            if (promptObj) {
+                promptObj.prompt();
+                const { outcome } = await promptObj.userChoice;
+                if (outcome === 'accepted') {
+                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
+                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+                }
+                deferredPwaPrompt = null;
+                if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
+                if (pwaModal) pwaModal.style.display = 'none';
+            } else {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    showToast("Tap Share ↑ in Safari's bottom menu and select Add to Home Screen (+)");
+                } else {
+                    showToast("Tap your browser menu ⋮ at the top right and select Install App");
+                }
+                if (pwaModal) pwaModal.style.display = 'none';
+            }
         });
     }
 
