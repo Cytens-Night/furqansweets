@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furqan Sweets - Shop Snacks</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Shop specific styles to ensure it looks unique */
+        body {
+            background-color: #faf8f5;
+        }
+        .shop-header {
+            text-align: center;
+            padding: 80px 20px 60px 20px;
+            background: linear-gradient(135deg, #ffefe0 0%, #fff 100%);
+            border-bottom: 2px solid #ffefe0;
+            position: relative;
+        }
+        .shop-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: #ff5e00;
+            border-radius: 10px;
+        }
+        .shop-header h1 {
+            color: #c92a00;
+            font-size: 3.5rem;
+            margin: 0 0 15px 0;
+            letter-spacing: -1px;
+        }
+        .shop-header p {
+            font-size: 1.25rem;
+            color: #6b4c3a;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .shop-container {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .shop-category {
+            margin-bottom: 80px;
+        }
+        
+        .shop-category h2 {
+            font-size: 2.5rem;
+            color: #4a2311;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .shop-category h2::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 40px;
+            background: #ff5e00;
+            border-radius: 5px;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .shop-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border-color: #ffefe0;
+        }
+
+        .shop-card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .shop-card:hover .shop-card-img {
+            transform: scale(1.05);
+        }
+
+        .shop-card-title {
+            font-size: 1.4rem;
+            color: #4a2311;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+
+        .shop-card-price {
+            color: #ff5e00;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            background: #fff3e6;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .shop-card-btn {
+            background: #fff;
+            color: #c92a00;
+            border: 2px solid #ffb03a;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+        .shop-card-btn:hover {
+            background: #ffb03a;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 176, 58, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- WELCOME BANNER -->
+        <div class="welcome-banner" style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <p style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <strong>Open Everyday:</strong> 9am - 10pm <span style="font-size: 0.8em; opacity: 0.8; margin-left: 5px;">(Times may vary)</span>
+            </p>
+            <span style="opacity: 0.4;">|</span>
+            <p style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <a href="#" class="call-modal-trigger" style="color: #ffb03a; text-decoration: none; font-weight: bold;">020 8838 3030</a>
+            </p>
+        </div>
+
+    <!-- TOP MENU -->
+    <header class="top-menu">
+        <div class="header-logo-container">
+            <a href="index.html"><img src="assets/furqansweets_logo.svg" alt="Furqan Sweets" class="header-logo"></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html#halwa" class="nav-link">Halwa</a>
+            <a href="index.html#bulk" class="nav-link">Bulk Orders</a>
+            <a href="shop.html" class="nav-link shop-link">Shop Snacks</a>
+        </nav>
+    </header>
+
+    <div class="shop-header">
+        <h1>Our Bakery & Snacks</h1>
+        <p>Enjoy our freshly baked biscuits and traditional Somali snacks. Perfect to pair with our signature Halwa or a hot cup of tea!</p>
+    </div>
+
+    <div class="shop-container">
+        <!-- EXTRA SNACKS SECTION -->
+        <div class="shop-category">
+            <h2>Extra Snacks <span class="translation" style="font-size: 0.5em; font-weight: 300;">Fudud Dheeraad ah</span></h2>
+            <div class="shop-grid">
+                <div class="shop-card">
+                    <img src="assets/qumbo caano.jpeg" alt="Qumbo Caano" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Qumbo Caano</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/qumbo.jpeg" alt="Qumbo" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Qumbo</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/loos.jpeg" alt="Loos" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Loos</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/sisin.jpeg" alt="Sisin" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Sisin</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/shushumo.jpeg" alt="Shushumo" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Shushumo</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/buskut.jpeg" alt="Buskut" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Buskut</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/biscuit.jpeg" alt="Biscuit" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Biscuit</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BISCUITS SECTION -->
+        <div class="shop-category">
+            <h2>Biscuits Bags <span class="translation" style="font-size: 0.5em; font-weight: 300;">Buskud</span></h2>
+            <div class="shop-grid">
+                <div class="shop-card">
+                    <img src="assets/use as is.jpg" alt="Biscuit Bag 1" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Large Biscuit Packet 1</h4>
+                        <p class="shop-card-price">£4.00</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (2).jpg" alt="Biscuit Bag 2" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Large Biscuit Packet 2</h4>
+                        <p class="shop-card-price">£4.00</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (3).jpg" alt="Biscuit Bag 3" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Large Biscuit Packet 3</h4>
+                        <p class="shop-card-price">£4.00</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (4).jpg" alt="Biscuit Bag 4" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Large Biscuit Packet 4</h4>
+                        <p class="shop-card-price">£4.00</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (5).jpg" alt="Biscuit Bag 5" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Large Biscuit Packet 5</h4>
+                        <p class="shop-card-price">£4.00</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (6).jpg" alt="Biscuit Bag 6" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Large Biscuit Packet 6</h4>
+                        <p class="shop-card-price">£4.00</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (7).jpg" alt="Biscuit Bag 7" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Small Biscuit Packet 1</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (8).jpg" alt="Biscuit Bag 8" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Small Biscuit Packet 2</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (9).jpg" alt="Biscuit Bag 9" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Small Biscuit Packet 3</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (10).jpg" alt="Biscuit Bag 10" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Small Biscuit Packet 4</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (11).jpg" alt="Biscuit Bag 11" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Small Biscuit Packet 5</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="shop-card">
+                    <img src="assets/use as is (12).jpg" alt="Biscuit Bag 12" class="shop-card-img">
+                    <div>
+                        <h4 class="shop-card-title">Small Biscuit Packet 6</h4>
+                        <p class="shop-card-price">£2.50</p>
+                        <button class="shop-card-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
