@@ -265,7 +265,8 @@ body::-webkit-scrollbar, html::-webkit-scrollbar {
     cursor: pointer;
     flex-shrink: 0; /* Prevent shrinking so horizontal scroll works */
     width: 200px;
-    height: 250px;
+    min-height: 260px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
