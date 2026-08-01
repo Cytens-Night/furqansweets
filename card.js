@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 if (loaderContainer) loaderContainer.style.display = 'none';
             }, 1000);
-        }, 2800);
+        }, 1800);
     }
 
     // 1. INITIALIZE LUCIDE REACT-STYLE SVG ICONS
