@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furqan-card-pwa-v8-audio-loading-screen';
+const CACHE_NAME = 'furqan-card-pwa-v9-seamless-splash';
 const ASSETS_TO_CACHE = [
   './card.html',
   './card.css',
