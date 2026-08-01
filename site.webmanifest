@@ -1,6 +1,7 @@
 {
   "name": "Furqansweets",
   "short_name": "Furqansweets",
+  "start_url": "index.html?source=pwa",
   "icons": [
     {
       "src": "web-app-manifest-192x192.png",
