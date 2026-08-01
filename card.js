@@ -299,43 +299,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // Determine if device uses touch
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    if (btnWebsitePreview && hoverCard) {
+    const websitePreviewModal = document.getElementById('website-preview-modal');
+    if (btnWebsitePreview) {
         btnWebsitePreview.addEventListener('click', (e) => {
-            if (isTouchDevice) {
-                // On Touch/Mobile Devices:
-                // First tap -> Show Floating Hover Preview Card
-                // Second tap -> Navigate to the website in a NEW TAB!
-                if (!isMobilePreviewShown) {
-                    e.preventDefault();
-                    hoverCard.classList.add('show-preview');
-                    isMobilePreviewShown = true;
-                } else {
-                    e.preventDefault();
-                    window.open('index.html', '_blank', 'noopener,noreferrer');
-                    isMobilePreviewShown = false;
-                }
-            } else {
-                // On Desktop (non-touch):
-                // Let the click navigate directly to index.html in a new tab immediately!
-                e.preventDefault();
-                window.open('index.html', '_blank', 'noopener,noreferrer');
-            }
-        });
-
-        // Clicking the floating preview card itself opens index.html in a new tab
-        hoverCard.addEventListener('click', (e) => {
             e.preventDefault();
-            window.open('index.html', '_blank', 'noopener,noreferrer');
-            isMobilePreviewShown = false;
-        });
-
-        // Tapping outside closes the floating preview on mobile
-        document.addEventListener('click', (e) => {
-            if (hoverWrapper && !hoverWrapper.contains(e.target)) {
-                hoverCard.classList.remove('show-preview');
-                isMobilePreviewShown = false;
+            if (websitePreviewModal) {
+                websitePreviewModal.style.display = 'flex';
+                initIcons();
+            } else {
+                window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
             }
         });
+
+        if (hoverCard) {
+            hoverCard.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (websitePreviewModal) {
+                    websitePreviewModal.style.display = 'flex';
+                    initIcons();
+                } else {
+                    window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
+                }
+            });
+        }
     }
 
     // 6. THE OPENING LID (`#box-lid`) -> WHITE CARD EXPANDS & REPLACES INFO VIEW WITH PREVIEWS!
