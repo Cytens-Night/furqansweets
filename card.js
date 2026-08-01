@@ -264,57 +264,50 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    if (btnInstallPwa && pwaModal) {
+    const handleDirectPwaInstall = async () => {
+        if (isStandaloneApp()) {
+            showToast("✓ App is already installed and running on your device!");
+            return;
+        }
+        const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
+        if (promptObj) {
+            promptObj.prompt();
+            const { outcome } = await promptObj.userChoice;
+            if (outcome === 'accepted') {
+                showToast("✓ Installing Furqan Sweets App to your Home Screen...");
+                if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+            }
+            deferredPwaPrompt = null;
+            if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
+            return;
+        }
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'Furqan Sweets - Luxury Somali Sweets',
+                    text: 'Install Furqan Sweets App for quick ordering and wholesale pricing.',
+                    url: window.location.href
+                });
+            } catch (err) {
+                // User closed native system share sheet
+            }
+            return;
+        }
+        showToast("✓ App is ready to install from your browser menu!");
+    };
+
+    if (btnInstallPwa) {
         btnInstallPwa.addEventListener('click', async (e) => {
             e.preventDefault();
-            if (isStandaloneApp()) {
-                showToast("✓ App is already installed and running on your device!");
-                return;
-            }
-            // Smart 1-Click Instant Installation if browser native prompt is ready!
-            if (deferredPwaPrompt) {
-                deferredPwaPrompt.prompt();
-                const { outcome } = await deferredPwaPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
-                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
-                }
-                deferredPwaPrompt = null;
-                return;
-            }
-            // Otherwise show smart personalized modal
-            updateSmartPwaModal();
-            pwaModal.style.display = 'flex';
-            initIcons();
+            await handleDirectPwaInstall();
         });
     }
 
     if (btnTriggerPwaInstall) {
-        btnTriggerPwaInstall.addEventListener('click', async () => {
-            if (isStandaloneApp()) {
-                showToast("✓ App is already installed and running on your device!");
-                if (pwaModal) pwaModal.style.display = 'none';
-                return;
-            }
-
-            if (deferredPwaPrompt) {
-                deferredPwaPrompt.prompt();
-                const { outcome } = await deferredPwaPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
-                    if (pwaModal) pwaModal.style.display = 'none';
-                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
-                }
-                deferredPwaPrompt = null;
-            } else {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    showToast("To install on iPhone: Tap Share button (square with arrow ↑) below & select 'Add to Home Screen'");
-                } else {
-                    showToast("To install: Tap browser menu (⋮) at top right & select 'Install App' or 'Add to Home screen'");
-                }
-                if (pwaModal) pwaModal.style.display = 'none';
-            }
+        btnTriggerPwaInstall.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await handleDirectPwaInstall();
+            if (pwaModal) pwaModal.style.display = 'none';
         });
     }
 
