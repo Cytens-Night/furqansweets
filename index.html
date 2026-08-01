@@ -255,22 +255,19 @@
         </section>
 
         <!-- INTERACTIVE STORE MAP & DIGITAL BUSINESS CARD QR SECTION (MOBILE-OPTIMIZED, NO EMOJIS, REACT ICONS) -->
-        <section class="visit-us-section" id="visit-us" style="margin: 60px auto; max-width: 1260px; padding: 50px 30px; background-color: #fff5ec; border-radius: 32px; border: 1px solid rgba(255, 94, 0, 0.22); box-shadow: 0 20px 50px rgba(74, 35, 17, 0.08); position: relative; overflow: hidden;">
+        <section class="visit-us-section" id="visit-us" style="margin: 60px auto; max-width: 1260px; padding: 50px 35px; background-color: #fff5ec; border-radius: 32px; border: 1px solid rgba(255, 94, 0, 0.22); box-shadow: 0 20px 50px rgba(74, 35, 17, 0.08); position: relative; overflow: hidden;">
             <!-- Mobile & Small Screen Responsive Style Block -->
             <style>
                 @media (max-width: 640px) {
-                    .visit-us-section { padding: 32px 14px !important; margin: 35px auto !important; border-radius: 24px !important; }
+                    .visit-us-section { padding: 32px 16px !important; margin: 35px auto !important; border-radius: 24px !important; }
                     .visit-us-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-                    .map-container-card, .qr-card-container { padding: 22px 16px !important; border-radius: 20px !important; }
-                    .map-container-card h3, .qr-card-container h3 { font-size: 1.25rem !important; }
+                    .store-info-card, .map-display-card { padding: 24px 18px !important; border-radius: 20px !important; }
+                    .store-info-card h3 { font-size: 1.3rem !important; }
                     .store-nav-badge { padding: 16px 14px !important; flex-direction: column !important; gap: 14px !important; text-align: center !important; }
                     .store-nav-badge-left { flex-direction: column !important; text-align: center !important; gap: 12px !important; width: 100% !important; justify-content: center !important; }
                     .store-nav-badge-left > div { text-align: center !important; }
                     .store-nav-badge-btn { width: 100% !important; justify-content: center !important; padding: 12px 18px !important; font-size: 0.82rem !important; box-sizing: border-box !important; }
-                    .qr-slide-card { max-width: 100% !important; width: 100% !important; }
-                    .qr-carousel-arrow { width: 38px !important; height: 38px !important; font-size: 1.3rem !important; margin: 0 6px !important; flex-shrink: 0 !important; }
-                    .qr-slide-action-btn { width: 100% !important; box-sizing: border-box !important; text-align: center !important; justify-content: center !important; }
-                    .qr-indicator-pills { flex-wrap: wrap !important; justify-content: center !important; gap: 10px !important; }
+                    .map-display-iframe { height: 260px !important; }
                 }
             </style>
 
@@ -285,205 +282,170 @@
                     London Flagship Bakehouse
                 </div>
                 <h2 class="section-title" style="margin-bottom: 8px; color: #4a2311; font-size: 2.3rem; letter-spacing: -0.5px;">Visit Our Bakery &amp; Store <span class="translation" style="font-size: 0.55em; display: block; color: #8c5d45; font-weight: 500; margin-top: 6px;">Booqo Wershadayada &amp; Dukaanka London</span></h2>
-                <p style="color: #6b4c3a; font-size: 1.08rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">Scan or tap our interactive QR codes to save our digital card &amp; leave a review, or get instant navigation to our London NW10 store.</p>
+                <p style="color: #6b4c3a; font-size: 1.08rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">Get instant directions or scan the QR code to visit our London NW10 flagship store for authentic Somali sweets.</p>
             </div>
 
-            <div class="visit-us-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; align-items: stretch; position: relative; z-index: 2;">
-                <!-- LEFT CARD: STORE LOCATION, EMBEDDED MAP & SEPARATE MAP QR CODE -->
-                <div class="map-container-card" style="background: #ffffff; border: 1px solid rgba(255, 94, 0, 0.2); border-radius: 26px; padding: 30px; box-shadow: 0 15px 35px rgba(74, 35, 17, 0.07); display: flex; flex-direction: column; justify-content: space-between;">
+            <!-- 2-COLUMN STORE INFO & GOOGLE MAP GRID -->
+            <div class="visit-us-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 35px; align-items: stretch; position: relative; z-index: 2;">
+                <!-- LEFT COLUMN: STORE INFORMATION & SEPARATE MAP QR CODE -->
+                <div class="store-info-card" style="background: #ffffff; border: 1px solid rgba(255, 94, 0, 0.2); border-radius: 26px; padding: 32px; box-shadow: 0 15px 35px rgba(74, 35, 17, 0.07); display: flex; flex-direction: column; justify-content: space-between;">
                     <div>
-                        <h3 style="color: #c92a00; font-size: 1.45rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                            <span style="background: rgba(255, 94, 0, 0.12); width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #c92a00;">
-                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <h3 style="color: #c92a00; font-size: 1.45rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+                            <span style="background: rgba(255, 94, 0, 0.12); width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #c92a00;">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                             </span>
                             Furqan Sweets Flagship Store
                         </h3>
-                        <div style="color: #4a2311; font-size: 0.98rem; line-height: 1.7; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
-                            <div style="display: flex; align-items: flex-start; gap: 12px;">
-                                <span style="color: #FF5E00; margin-top: 2px;">
-                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <div style="color: #4a2311; font-size: 1.02rem; line-height: 1.8; margin-bottom: 25px; display: flex; flex-direction: column; gap: 15px;">
+                            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                                <span style="color: #FF5E00; margin-top: 3px;">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                                 </span>
                                 <div>
-                                    <strong style="color: #c92a00;">Address:</strong> 
-                                    <span>Furqan Sweet, 175 Hillside, London NW10 8LL</span>
+                                    <strong style="color: #c92a00; display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Address</strong> 
+                                    <span style="font-weight: 500;">Furqan Sweet, 175 Hillside, London NW10 8LL</span>
                                 </div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
                                 <span style="color: #FF5E00;">
-                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                                 </span>
                                 <div>
-                                    <strong style="color: #c92a00;">Phone:</strong> 
+                                    <strong style="color: #c92a00; display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Phone</strong> 
                                     <a href="tel:02088383030" style="color: #4a2311; text-decoration: none; font-weight: 700;">020 8838 3030</a>
                                 </div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
                                 <span style="color: #FF5E00;">
-                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                                 </span>
                                 <div>
-                                    <strong style="color: #c92a00;">Hours:</strong> 
-                                    <span>9:00 AM – 10:00 PM <span style="opacity:0.8;">(Everyday)</span></span>
+                                    <strong style="color: #c92a00; display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Opening Hours</strong> 
+                                    <span>9:00 AM – 10:00 PM <span style="opacity:0.85;">(Everyday)</span></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- GOOGLE MAP EMBED WITH HIDDEN TOP-LEFT GOOGLE BANNER (CRISP LIGHT DAYLIGHT THEME) -->
-                    <div style="position: relative; width: 100%; height: 260px; border-radius: 18px; overflow: hidden; border: 1px solid rgba(74, 35, 17, 0.12); box-shadow: 0 10px 25px rgba(74, 35, 17, 0.08); margin-bottom: 18px;">
-                        <iframe 
-                            src="https://www.google.com/maps?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL&output=embed" 
-                            style="position: absolute; top: -55px; left: 0; width: 100%; height: calc(100% + 55px); border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
                     </div>
 
                     <!-- SEPARATE MAP QR CODE (BEAUTIFUL INTERACTIVE DIRECTION BADGE) -->
-                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" class="store-nav-badge" style="display: flex; align-items: center; justify-content: space-between; background: #fff5ec; border: 1px solid rgba(255, 94, 0, 0.35); border-radius: 18px; padding: 14px 18px; text-decoration: none; color: #4a2311; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(74, 35, 17, 0.05);" onmouseover="this.style.borderColor='rgba(255, 94, 0, 0.8)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px rgba(255,94,0,0.15)';" onmouseout="this.style.borderColor='rgba(255, 94, 0, 0.35)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(74, 35, 17, 0.05)';">
-                        <div class="store-nav-badge-left" style="display: flex; align-items: center; gap: 15px;">
-                            <div style="background: #fff; padding: 4px; border-radius: 10px; border: 1px solid rgba(74,35,17,0.08); box-shadow: 0 4px 10px rgba(74,35,17,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DFurqan%2BSweet%2B175%2BHillside%2BLondon%2BNW10%2B8LL&color=4A2311&bgcolor=FFFFFF" alt="Google Maps QR" style="width: 54px; height: 54px; display: block; border-radius: 6px;">
+                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" class="store-nav-badge" style="display: flex; align-items: center; justify-content: space-between; background: #fff5ec; border: 1px solid rgba(255, 94, 0, 0.35); border-radius: 20px; padding: 18px 20px; text-decoration: none; color: #4a2311; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(74, 35, 17, 0.06);" onmouseover="this.style.borderColor='rgba(255, 94, 0, 0.8)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(255,94,0,0.15)';" onmouseout="this.style.borderColor='rgba(255, 94, 0, 0.35)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(74, 35, 17, 0.06)';">
+                        <div class="store-nav-badge-left" style="display: flex; align-items: center; gap: 16px;">
+                            <div style="background: #fff; padding: 6px; border-radius: 12px; border: 1px solid rgba(74,35,17,0.08); box-shadow: 0 4px 12px rgba(74,35,17,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DFurqan%2BSweet%2B175%2BHillside%2BLondon%2BNW10%2B8LL&color=4A2311&bgcolor=FFFFFF" alt="Google Maps QR" style="width: 60px; height: 60px; display: block; border-radius: 6px;">
                             </div>
                             <div style="text-align: left;">
-                                <div style="font-size: 0.98rem; font-weight: 700; color: #4a2311; display: flex; align-items: center; gap: 6px;">
+                                <div style="font-size: 1.05rem; font-weight: 700; color: #4a2311; display: flex; align-items: center; gap: 6px;">
                                     Store Navigation QR
                                 </div>
-                                <div style="font-size: 0.78rem; color: #8c5d45; margin-top: 2px;">Tap or scan for Google Maps directions</div>
+                                <div style="font-size: 0.82rem; color: #8c5d45; margin-top: 3px;">Tap or scan for instant Google Maps directions</div>
                             </div>
                         </div>
-                        <div class="store-nav-badge-btn" style="background: #FF5E00; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 8px 14px; border-radius: 50px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(255, 94, 0, 0.3); flex-shrink: 0;">
+                        <div class="store-nav-badge-btn" style="background: #FF5E00; color: #fff; font-size: 0.78rem; font-weight: 700; padding: 10px 18px; border-radius: 50px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 14px rgba(255, 94, 0, 0.3); flex-shrink: 0;">
                             GET DIRECTIONS
                             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </div>
                     </a>
                 </div>
 
-                <!-- RIGHT CARD: TAP OR SCAN VIP CARD & REVIEWS CAROUSEL -->
-                <div class="qr-card-container" style="background: #ffffff; border: 1px solid rgba(255, 94, 0, 0.2); border-radius: 26px; padding: 32px 25px; box-shadow: 0 15px 35px rgba(74, 35, 17, 0.07); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; transition: all 0.3s ease;">
-                    <div style="position: absolute; top: -50px; right: -50px; width: 140px; height: 140px; background: rgba(255, 94, 0, 0.08); border-radius: 50%; filter: blur(35px); pointer-events: none;"></div>
-                    
-                    <!-- TAP OR SCAN BADGE -->
-                    <div style="background: rgba(255, 94, 0, 0.12); border: 1px solid rgba(255, 94, 0, 0.35); color: #c92a00; padding: 6px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(255,94,0,0.08);">
-                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                        TAP OR SCAN
+                <!-- RIGHT COLUMN: INTERACTIVE GOOGLE MAP IFRAME -->
+                <div class="map-display-card" style="background: #ffffff; border: 1px solid rgba(255, 94, 0, 0.2); border-radius: 26px; padding: 32px; box-shadow: 0 15px 35px rgba(74, 35, 17, 0.07); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+                        <span style="font-size: 0.9rem; font-weight: 700; color: #4a2311; display: flex; align-items: center; gap: 8px;">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FF5E00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                            Live Location Map
+                        </span>
+                        <span style="font-size: 0.78rem; color: #8c5d45; font-weight: 600;">London NW10 8LL</span>
                     </div>
 
-                    <h3 style="color: #4a2311; font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;">Interactive Digital Cards</h3>
-                    <p style="color: #6b4c3a; font-size: 0.85rem; margin-bottom: 22px;">Use mobile camera to scan QR or tap card to open</p>
-
-                    <!-- CAROUSEL TRACK -->
-                    <div style="display: flex; align-items: center; justify-content: center; width: 100%; position: relative;">
-                        <!-- PREV ARROW -->
-                        <button id="web-qr-prev" class="qr-carousel-arrow" aria-label="Previous QR" style="background: #fff5ec; border: 1px solid rgba(74,35,17,0.18); color: #4a2311; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-right: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='#FF5E00'; this.style.color='#fff'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='#fff5ec'; this.style.color='#4a2311'; this.style.borderColor='rgba(74,35,17,0.18)';">&lsaquo;</button>
-
-                        <!-- SLIDE 0: VIP DIGITAL BUSINESS CARD -->
-                        <div id="web-qr-slide-0" class="qr-slide-card" style="display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
-                            <a href="card.html" target="_blank" style="background: #fff; padding: 18px; border-radius: 22px; border: 1px solid rgba(74,35,17,0.1); box-shadow: 0 10px 25px rgba(74,35,17,0.08); display: block; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.04)';" onmouseout="this.style.transform='scale(1)';">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.furqansweets.co.uk%2Fcard.html&color=4A2311&bgcolor=FFFFFF" alt="VIP Card QR" style="width: 175px; height: 175px; display: block; border-radius: 10px;">
-                            </a>
-                            <div style="font-size: 1.1rem; font-weight: 700; color: #4a2311; margin-top: 16px;">VIP Digital Business Card</div>
-                            <div style="font-size: 0.8rem; color: #8c5d45; margin-top: 3px;">Save store phone, address &amp; offline app</div>
-                            <a href="card.html" target="_blank" class="qr-slide-action-btn" style="margin-top: 14px; background: rgba(255,94,0,0.12); border: 1px solid rgba(255,94,0,0.35); color: #c92a00; font-size: 0.78rem; font-weight: 700; padding: 8px 16px; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                                TAP CARD TO LAUNCH APP
-                            </a>
-                        </div>
-
-                        <!-- SLIDE 1: GOOGLE REVIEWS & RATINGS -->
-                        <div id="web-qr-slide-1" class="qr-slide-card" style="display: none; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
-                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" style="background: #fff; padding: 18px; border-radius: 22px; border: 1px solid rgba(74,35,17,0.1); box-shadow: 0 10px 25px rgba(74,35,17,0.08); display: block; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.04)';" onmouseout="this.style.transform='scale(1)';">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3DFurqan%2BSweets%2BLondon%2BReviews&color=4A2311&bgcolor=FFFFFF" alt="Google Reviews QR" style="width: 175px; height: 175px; display: block; border-radius: 10px;">
-                            </a>
-                            <div style="font-size: 1.1rem; font-weight: 700; color: #4a2311; margin-top: 16px;">Google Reviews &amp; Ratings</div>
-                            <div style="font-size: 0.8rem; color: #8c5d45; margin-top: 3px;">Scan or tap to leave a 5-star review</div>
-                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" class="qr-slide-action-btn" style="margin-top: 14px; background: rgba(255,94,0,0.12); border: 1px solid rgba(255,94,0,0.35); color: #c92a00; font-size: 0.78rem; font-weight: 700; padding: 8px 16px; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-                                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="color: #c92a00;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                TAP TO OPEN GOOGLE REVIEWS
-                            </a>
-                        </div>
-
-                        <!-- NEXT ARROW -->
-                        <button id="web-qr-next" class="qr-carousel-arrow" aria-label="Next QR" style="background: #fff5ec; border: 1px solid rgba(74,35,17,0.18); color: #4a2311; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='#FF5E00'; this.style.color='#fff'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='#fff5ec'; this.style.color='#4a2311'; this.style.borderColor='rgba(74,35,17,0.18)';">&rsaquo;</button>
+                    <!-- GOOGLE MAP EMBED (CRISP DAYLIGHT THEME, NO BANNER OVERLAP) -->
+                    <div style="position: relative; width: 100%; height: 350px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(74, 35, 17, 0.12); box-shadow: 0 10px 25px rgba(74, 35, 17, 0.08); flex-grow: 1;">
+                        <iframe 
+                            class="map-display-iframe"
+                            src="https://www.google.com/maps?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL&output=embed" 
+                            style="position: absolute; top: -55px; left: 0; width: 100%; height: calc(100% + 55px); border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
-
-                    <!-- LABELED CAROUSEL PILL INDICATORS -->
-                    <div class="qr-indicator-pills" style="display: flex; align-items: center; gap: 14px; margin-top: 25px;">
-                        <button id="web-dot-0" style="background: rgba(255, 94, 0, 0.15); border: 1px solid #FF5E00; color: #c92a00; font-size: 0.78rem; font-weight: 700; padding: 6px 16px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease;">
-                            <span id="dot-indicator-0" style="display: inline-block; width: 8px; height: 8px; background: #FF5E00; border-radius: 50%;"></span>
-                            VIP Card
-                        </button>
-                        <button id="web-dot-1" style="background: #fff5ec; border: 1px solid rgba(74, 35, 17, 0.18); color: #8c5d45; font-size: 0.78rem; font-weight: 600; padding: 6px 16px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease;">
-                            <span id="dot-indicator-1" style="display: inline-block; width: 8px; height: 8px; background: rgba(74,35,17,0.3); border-radius: 50%;"></span>
-                            Reviews
-                        </button>
-                    </div>
-
-                    <script>
-                        (function() {
-                            let s = 0;
-                            const s0 = document.getElementById('web-qr-slide-0');
-                            const s1 = document.getElementById('web-qr-slide-1');
-                            const d0 = document.getElementById('web-dot-0');
-                            const d1 = document.getElementById('web-dot-1');
-                            const i0 = document.getElementById('dot-indicator-0');
-                            const i1 = document.getElementById('dot-indicator-1');
-                            function renderWebQr() {
-                                if (s === 0) {
-                                    if(s0) s0.style.display = 'flex'; if(s1) s1.style.display = 'none';
-                                    if(d0) { d0.style.background = 'rgba(255, 94, 0, 0.15)'; d0.style.borderColor = '#FF5E00'; d0.style.color = '#c92a00'; }
-                                    if(i0) i0.style.background = '#FF5E00';
-                                    if(d1) { d1.style.background = '#fff5ec'; d1.style.borderColor = 'rgba(74, 35, 17, 0.18)'; d1.style.color = '#8c5d45'; }
-                                    if(i1) i1.style.background = 'rgba(74,35,17,0.3)';
-                                } else {
-                                    if(s0) s0.style.display = 'none'; if(s1) s1.style.display = 'flex';
-                                    if(d1) { d1.style.background = 'rgba(255, 94, 0, 0.15)'; d1.style.borderColor = '#FF5E00'; d1.style.color = '#c92a00'; }
-                                    if(i1) i1.style.background = '#FF5E00';
-                                    if(d0) { d0.style.background = '#fff5ec'; d0.style.borderColor = 'rgba(74, 35, 17, 0.18)'; d0.style.color = '#8c5d45'; }
-                                    if(i0) i0.style.background = 'rgba(74,35,17,0.3)';
-                                }
-                            }
-                            document.getElementById('web-qr-prev')?.addEventListener('click', () => { s = 1 - s; renderWebQr(); });
-                            document.getElementById('web-qr-next')?.addEventListener('click', () => { s = 1 - s; renderWebQr(); });
-                            d0?.addEventListener('click', () => { s = 0; renderWebQr(); });
-                            d1?.addEventListener('click', () => { s = 1; renderWebQr(); });
-                            let touchStartX = 0;
-                            const qrBox = s0?.parentElement;
-                            if (qrBox) {
-                                qrBox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-                                qrBox.addEventListener('touchend', e => {
-                                    const diff = touchStartX - e.changedTouches[0].screenX;
-                                    if (Math.abs(diff) > 40) { s = 1 - s; renderWebQr(); }
-                                }, { passive: true });
-                            }
-                        })();
-                    </script>
                 </div>
             </div>
         </section>
 
         <!-- REVIEWS SECTION -->
         <section class="reviews-section">
+            <!-- Mobile & Small Screen Responsive Style Block for Google Reviews QR Banner -->
+            <style>
+                @media (max-width: 640px) {
+                    .google-reviews-banner { padding: 26px 18px !important; border-radius: 22px !important; flex-direction: column !important; text-align: center !important; gap: 24px !important; }
+                    .google-reviews-banner-left { text-align: center !important; }
+                    .google-reviews-banner-left > div { justify-content: center !important; }
+                    .google-reviews-action-btn { width: 100% !important; justify-content: center !important; padding: 14px 20px !important; font-size: 0.85rem !important; box-sizing: border-box !important; }
+                    .google-reviews-qr-card { width: 100% !important; max-width: 220px !important; margin: 0 auto !important; }
+                }
+            </style>
+
             <h2 class="section-title">What Our Customers Say <span class="translation" style="font-size: 0.6em;">Maxay Macaamiisheenu Yiraahdaan</span></h2>
             <div class="reviews-grid">
                 <div class="review-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="stars" style="color: #FFB000; display: flex; gap: 4px; margin-bottom: 12px;">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
                     <p class="review-text">"Absolutely the best Somali Halwa I have ever tasted outside of Mogadishu! It's perfectly sweet, fresh, and reminds me of home."<span class="translation" style="display: block; margin-top: 10px; font-size: 0.85em;">"Runtii waa Xalwadii Soomaaliyeed ee ugu fiicnayd ee aan abid dhadhamiyo meel ka baxsan Muqdisho! Waa mid si fiican u macaan, cusub, oo i xasuusinaysa dhulkeygii."</span></p>
                     <p class="reviewer-name">- Ahmed M.</p>
                 </div>
                 <div class="review-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="stars" style="color: #FFB000; display: flex; gap: 4px; margin-bottom: 12px;">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
                     <p class="review-text">"I ordered a bulk bucket for my sister's wedding and everyone was asking where it came from. So rich and delicious!"<span class="translation" style="display: block; margin-top: 10px; font-size: 0.85em;">"Waxaan u dalbaday baaldi weyn arooska walaashay, qof kastana wuxuu i weydiinayay meesha ay ka timid. Aad bay u qani tahay oo u dhadhan fiican tahay!"</span></p>
                     <p class="reviewer-name">- Fadumo S.</p>
                 </div>
                 <div class="review-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="stars" style="color: #FFB000; display: flex; gap: 4px; margin-bottom: 12px;">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
                     <p class="review-text">"The sesame halwa is incredibly addictive. Their biscuits also go perfectly with my afternoon shaah. Highly recommend!"<span class="translation" style="display: block; margin-top: 10px; font-size: 0.85em;">"Xalwo sisintu aad bay u macaan tahay. Buskudkooda wuxuu sidoo kale si fiican ula socdaa shaahayga galabnimada. Aad baan ugu talinayaa!"</span></p>
                     <p class="reviewer-name">- Omar Ali</p>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 35px;">
-                <button onclick="alert('Thank you for your review! Our moderation team will verify and post it shortly.')" style="background: linear-gradient(135deg, #FF5E00, #E04800); color: #fff; border: none; padding: 14px 32px; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 8px 20px rgba(255, 94, 0, 0.3); transition: all 0.3s ease;">
-                    ✍️ Leave a Review <span class="translation" style="display: block; font-size: 0.75em; opacity: 0.9;">Qor Aragtidaada</span>
-                </button>
+
+            <!-- GOOGLE REVIEWS INTERACTIVE QR BANNER (NO EMOJIS, MOBILE OPTIMIZED) -->
+            <div class="google-reviews-banner" style="margin: 45px auto 0; max-width: 980px; background: #ffffff; border: 1px solid rgba(255, 94, 0, 0.25); border-radius: 28px; padding: 35px 38px; box-shadow: 0 15px 40px rgba(74, 35, 17, 0.08); display: flex; align-items: center; justify-content: space-between; gap: 35px;">
+                <div class="google-reviews-banner-left" style="flex: 1; text-align: left;">
+                    <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 94, 0, 0.12); border: 1px solid rgba(255, 94, 0, 0.35); color: #c92a00; padding: 6px 16px; border-radius: 50px; font-size: 0.78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        Verified Google Reviews
+                    </div>
+                    <h3 style="color: #4a2311; font-size: 1.7rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3;">
+                        Love Our Sweets? Leave Us a 5-Star Review on Google
+                        <span class="translation" style="display: block; font-size: 0.55em; color: #8c5d45; font-weight: 500; margin-top: 5px;">Ma jeceshahay macmacaankeena? Qiimeyn 5-xidigood ah nooga tag Google</span>
+                    </h3>
+                    <p style="color: #6b4c3a; font-size: 1.02rem; line-height: 1.6; margin-bottom: 22px; max-width: 520px;">
+                        Your reviews help our London bakery grow and share authentic Somali sweets with more families. Scan the QR code or tap the button below!
+                    </p>
+                    <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" rel="noopener noreferrer" class="google-reviews-action-btn" style="display: inline-flex; align-items: center; gap: 10px; background: #FF5E00; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 50px; font-size: 0.92rem; font-weight: 700; letter-spacing: 0.5px; box-shadow: 0 8px 25px rgba(255, 94, 0, 0.3); transition: all 0.3s ease;" onmouseover="this.style.background='#c92a00'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#FF5E00'; this.style.transform='translateY(0)';">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        TAP TO OPEN GOOGLE REVIEWS
+                    </a>
+                </div>
+
+                <div class="google-reviews-qr-card" style="background: #ffffff; border: 1px solid rgba(74, 35, 17, 0.12); border-radius: 24px; padding: 18px; box-shadow: 0 10px 30px rgba(74, 35, 17, 0.07); display: flex; flex-direction: column; align-items: center; text-align: center; flex-shrink: 0;">
+                    <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" rel="noopener noreferrer" style="display: block; background: #fff; padding: 8px; border-radius: 14px; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.04)';" onmouseout="this.style.transform='scale(1)';">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3DFurqan%2BSweets%2BLondon%2BReviews&color=4A2311&bgcolor=FFFFFF" alt="Google Reviews QR Code" style="width: 150px; height: 150px; display: block; border-radius: 8px;">
+                    </a>
+                    <span style="font-size: 0.85rem; font-weight: 700; color: #4a2311; margin-top: 10px; display: block;">Scan with Camera</span>
+                    <span style="font-size: 0.72rem; color: #8c5d45; margin-top: 2px;">Google Reviews QR</span>
+                </div>
             </div>
         </section>
         <!-- FOOTER SECTION -->
