@@ -215,15 +215,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 5.4 PWA STANDALONE DETECTOR & INSTALL BUTTON HANDLER
     function checkPwaInstalledStatus() {
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
-                             window.navigator.standalone === true ||
-                             document.referrer.includes('android-app://') ||
-                             window.location.search.includes('source=pwa');
+                             window.navigator.standalone === true;
         const btnInstallPwaEl = document.getElementById('btn-install-pwa');
         if (btnInstallPwaEl) {
             if (isStandalone) {
-                // Already running inside installed PWA app -> hide install button!
+                // Already running inside installed PWA app -> hide install button
                 btnInstallPwaEl.style.display = 'none';
             } else {
+                // In normal browser tab -> ALWAYS show download/install button so user can install again!
                 btnInstallPwaEl.style.display = 'flex';
             }
         }
@@ -243,9 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isStandaloneApp = () => {
         return window.matchMedia('(display-mode: standalone)').matches ||
-               window.navigator.standalone === true ||
-               window.location.search.includes('source=pwa') ||
-               document.referrer.includes('android-app://');
+               window.navigator.standalone === true;
     };
 
     const updateSmartPwaModal = () => {
