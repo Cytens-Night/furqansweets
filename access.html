@@ -1014,6 +1014,53 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Bulk Orders &amp; Halwa Variant Pricing</h2>
+                        <span class="form-hint">Manage wholesale bucket pricing, weights, description, and default Halwa pricing</span>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Bulk Base Weight / Label (Display)</label>
+                        <input type="text" id="setting-bulkWeight" class="form-input" value="15kg Base Bucket">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Display Price Text</label>
+                        <input type="text" id="setting-bulkPrice" class="form-input" value="£120">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Base Weight (kg)</label>
+                        <input type="number" id="setting-bulkBaseKgNum" class="form-input" value="15">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Base Price (£)</label>
+                        <input type="number" id="setting-bulkBasePriceNum" class="form-input" value="120">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Extra Price / kg (£)</label>
+                        <input type="number" id="setting-bulkExtraKgPrice" class="form-input" value="9">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Homepage Halwa Default Price / kg</label>
+                        <input type="text" id="setting-halwaBasePrice" class="form-input" value="£10 / kg">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Bulk Package Description</label>
+                        <input type="text" id="setting-bulkDesc" class="form-input" value="Serves approx 120 - 150 people. Easily add more kg to fit your guest list.">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Section Title (English)</label>
+                        <input type="text" id="setting-bulkTitle" class="form-input" value="Perfect for Every Occasion">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Section Title (Somali Translation)</label>
+                        <input type="text" id="setting-bulkTitleSomali" class="form-input" value="Ku Habboon Munaasabad Kasta">
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- TAB 2: HALWA PRODUCTS -->
@@ -1256,6 +1303,15 @@
             document.getElementById('setting-heroTitleSomali').value = s.heroTitleSomali || 'Ma u xiistay Macmacaan Soomaaliyeed?';
             document.getElementById('setting-heroSubtitle').value = s.heroSubtitle || 'Freshly made, perfectly sweet, deeply rich.';
             document.getElementById('setting-heroSubtitleSomali').value = s.heroSubtitleSomali || 'Cusub, macaan oo si fiican loo sameeyay.';
+            document.getElementById('setting-bulkWeight').value = s.bulkWeight || '15kg Base Bucket';
+            document.getElementById('setting-bulkPrice').value = s.bulkPrice || '£120';
+            document.getElementById('setting-bulkDesc').value = s.bulkDesc || 'Serves approx 120 - 150 people. Easily add more kg to fit your guest list.';
+            document.getElementById('setting-bulkTitle').value = s.bulkTitle || 'Perfect for Every Occasion';
+            document.getElementById('setting-bulkTitleSomali').value = s.bulkTitleSomali || 'Ku Habboon Munaasabad Kasta';
+            document.getElementById('setting-bulkBaseKgNum').value = s.bulkBaseKgNum || '15';
+            document.getElementById('setting-bulkBasePriceNum').value = s.bulkBasePriceNum || '120';
+            document.getElementById('setting-bulkExtraKgPrice').value = s.bulkExtraKgPrice || '9';
+            document.getElementById('setting-halwaBasePrice').value = s.halwaBasePrice || '£10 / kg';
             document.getElementById('setting-adminPin').value = s.adminPin || '2026';
             document.getElementById('setting-ownerEmail').value = s.ownerEmail || 'owner@furqansweets.co.uk';
             document.getElementById('setting-masterRecoveryKey').value = s.masterRecoveryKey || 'FURQAN-2026-RECOVERY';
@@ -1733,6 +1789,15 @@
                 heroTitleSomali: document.getElementById('setting-heroTitleSomali').value,
                 heroSubtitle: document.getElementById('setting-heroSubtitle').value,
                 heroSubtitleSomali: document.getElementById('setting-heroSubtitleSomali').value,
+                bulkWeight: document.getElementById('setting-bulkWeight').value,
+                bulkPrice: document.getElementById('setting-bulkPrice').value,
+                bulkDesc: document.getElementById('setting-bulkDesc').value,
+                bulkTitle: document.getElementById('setting-bulkTitle').value,
+                bulkTitleSomali: document.getElementById('setting-bulkTitleSomali').value,
+                bulkBaseKgNum: document.getElementById('setting-bulkBaseKgNum').value || '15',
+                bulkBasePriceNum: document.getElementById('setting-bulkBasePriceNum').value || '120',
+                bulkExtraKgPrice: document.getElementById('setting-bulkExtraKgPrice').value || '9',
+                halwaBasePrice: document.getElementById('setting-halwaBasePrice').value || '£10 / kg',
                 adminPin: document.getElementById('setting-adminPin').value || '2026',
                 ownerEmail: document.getElementById('setting-ownerEmail').value || defaultOwnerEmail,
                 masterRecoveryKey: document.getElementById('setting-masterRecoveryKey').value || defaultRecoveryKey
