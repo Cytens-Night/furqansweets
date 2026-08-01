@@ -363,7 +363,7 @@
             margin-left: 0;
             margin-top: 85px;
             flex: 1;
-            padding: 28px 48px 120px 48px;
+            padding: 28px 48px 160px 48px;
             max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
@@ -389,49 +389,46 @@
             margin-top: 4px;
         }
 
-        /* Sticky Action Bar */
+        /* Hovering Floating Save Button (No Giant Banner) */
         .sticky-save-bar {
             position: fixed;
-            bottom: 24px;
-            right: 48px;
-            left: 328px;
-            background: rgba(25, 21, 19, 0.88);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            padding: 16px 28px;
-            border-radius: 18px;
+            bottom: 28px;
+            right: 32px;
+            z-index: 9999;
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: var(--shadow-lg);
-            z-index: 50;
+            justify-content: flex-end;
         }
 
         .save-bar-info {
-            font-size: 0.95rem;
-            color: var(--text-muted);
+            display: none;
         }
 
         .btn-save-primary {
             background: linear-gradient(135deg, var(--accent-orange) 0%, #D94A00 100%);
             color: #fff;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 28px;
+            border-radius: 50px;
             font-family: 'Outfit', sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 6px 20px rgba(255,94,0,0.35);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(255,94,0,0.5), 0 0 40px rgba(255,176,58,0.25);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .btn-save-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255,94,0,0.5);
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 14px 35px rgba(255,94,0,0.7), 0 0 50px rgba(255,176,58,0.4);
+            background: linear-gradient(135deg, #FF6F1E 0%, #E65200 100%);
         }
 
         /* ================= TABS PANELS ================= */
@@ -756,15 +753,14 @@
             .main-wrapper {
                 margin-left: 0;
                 margin-top: 20px;
-                margin-bottom: 75px;
-                padding: 16px 12px;
+                padding: 16px 12px 160px 12px;
                 width: 100%;
             }
             .sticky-save-bar {
-                left: 12px;
-                right: 12px;
-                bottom: 78px;
-                padding: 12px 16px;
+                left: auto;
+                right: 18px;
+                bottom: 82px;
+                padding: 0;
             }
             .items-grid { grid-template-columns: 1fr; gap: 16px; }
             .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
