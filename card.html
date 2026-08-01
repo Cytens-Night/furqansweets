@@ -357,46 +357,24 @@
         </div>
     </div>
 
-    <!-- ================== MODAL 5: PWA INSTALL MODAL ================== -->
+    <!-- ================== MODAL 5: SLEEK PWA INSTALL CARD ================== -->
     <div id="pwa-install-modal" class="card-modal-overlay">
-        <div class="card-modal" style="max-width: 440px;">
+        <div class="card-modal" style="max-width: 400px; padding: 28px 24px;">
             <button class="close-modal-btn">&times;</button>
-            <div class="modal-title-text" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i data-lucide="smartphone" style="color: var(--accent-brown-orange);"></i>
-                <span>Install Furqan Sweets PWA</span>
-            </div>
-            <div class="modal-desc-text">Add this luxury standalone card to your mobile phone's Home Screen for instant offline access and VIP ordering.</div>
+            <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div style="width: 72px; height: 72px; background: #15120F; border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.25); margin-bottom: 14px; border: 1.5px solid rgba(200,90,23,0.35);">
+                    <img src="assets/furqansweets_logo.svg" alt="App Icon" style="width: 44px; height: auto;">
+                </div>
+                <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-dark); margin: 0 0 6px 0;">Furqan Sweets App</h3>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0 0 20px 0; line-height: 1.4;">Instant VIP offline access, seamless ordering, and wholesale pricing on your Home Screen.</p>
 
-            <div id="pwa-ios-box" style="background: rgba(200, 90, 23, 0.08); border: 1px solid rgba(200, 90, 23, 0.35); border-radius: 14px; padding: 18px 20px; text-align: left; margin: 18px 0; font-size: 0.88rem; color: var(--text-dark);">
-                <div style="font-weight: 700; color: var(--accent-brown-orange); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
-                    <i data-lucide="share" style="width: 18px; height: 18px;"></i> iPhone &amp; iPad (iOS Safari):
-                </div>
-                <div style="line-height: 1.5; margin-bottom: 12px;">
-                    1. Tap the <b>Share</b> button <span style="display:inline-block; padding: 2px 6px; background:#fff; border-radius:6px; border:1px solid #ccc; font-weight:bold;">&uarr;</span> at the bottom of Safari.<br>
-                    2. Scroll down and select <b>"Add to Home Screen" (+)</b>.<br>
-                    3. Tap <b>"Add"</b> in the top right corner.
-                </div>
-            </div>
-
-            <div id="pwa-android-box" style="background: rgba(200, 90, 23, 0.08); border: 1px solid rgba(200, 90, 23, 0.35); border-radius: 14px; padding: 18px 20px; text-align: left; margin: 18px 0; font-size: 0.88rem; color: var(--text-dark);">
-                <div style="font-weight: 700; color: var(--accent-brown-orange); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;">
-                    <i data-lucide="download" style="width: 18px; height: 18px;"></i> Android / Chrome / PC:
-                </div>
-                <div style="line-height: 1.5;">
-                    1. Click <b>"Install App Now"</b> below (if available).<br>
-                    2. Or tap the browser menu <b>(&#8942;)</b> at the top right.<br>
-                    3. Select <b>"Install App"</b> or <b>"Add to Home screen"</b>.
-                </div>
-            </div>
-
-            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
-                <button id="btn-trigger-pwa-install" class="modal-pill-btn gold-btn" style="flex: 1.3; padding: 14px 20px;">
+                <button id="btn-trigger-pwa-install" class="modal-pill-btn gold-btn" style="width: 100%; padding: 15px 24px; font-size: 1rem; margin-bottom: 10px;">
                     <i data-lucide="download" class="btn-icon-svg"></i>
                     <span>Install App Now</span>
                 </button>
-                <button class="modal-pill-btn dark-btn btn-close-modal" style="flex: 1; padding: 14px 18px;">
-                    Close
-                </button>
+                <div id="pwa-ios-hint" style="display: none; font-size: 0.78rem; color: var(--accent-brown-orange); margin-top: 8px;">
+                    Tap Safari's Share button ↑ and select <b>Add to Home Screen (+)</b>
+                </div>
             </div>
         </div>
     </div>
