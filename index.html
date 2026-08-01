@@ -16,20 +16,6 @@
     <!-- AUDIO FOR LOADING SCREEN -->
     <audio id="loading-audio" src="assets/furqan sweets audio.wav?v=2" preload="auto"></audio>
 
-    <!-- SMART PWA & SESSION SPLASH PREVENTER (PREVENTS DOUBLE LOADING SCREEN IN PWA STANDALONE MODE) -->
-    <script>
-        (function() {
-            var isPwa = window.matchMedia('(display-mode: standalone)').matches || 
-                        window.navigator.standalone === true || 
-                        window.location.search.indexOf('source=pwa') !== -1 || 
-                        document.referrer.indexOf('android-app://') !== -1;
-            var isReload = sessionStorage.getItem('furqan_splash_shown') === 'true';
-            if (isPwa || isReload) {
-                document.write('<style>#loader-container { display: none !important; } #main-content { display: block !important; opacity: 1 !important; }</style>');
-            }
-        })();
-    </script>
-
     <!-- LOADING SCREEN -->
     <div id="loader-container">
         <div class="logo-wrapper">
