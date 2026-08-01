@@ -228,9 +228,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     async function loadStorefrontData() {
         try {
-            const res = await fetch('/api/data');
-            if (!res.ok) return;
-            const data = await res.json();
+            let srvData = null;
+            let savedLocal = null;
+            try {
+                const localStr = localStorage.getItem('furqan_crm_data');
+                if (localStr) savedLocal = JSON.parse(localStr);
+            } catch (e) {}
+
+            try {
+                const res = await fetch('/api/data');
+                if (res.ok) {
+                    const contentType = res.headers.get("content-type");
+                    if (contentType && contentType.indexOf("application/json") !== -1) {
+                        srvData = await res.json();
+                    }
+                }
+            } catch (e) {}
+
+            if (!srvData) {
+                try {
+                    const res = await fetch('data.json');
+                    if (res.ok) srvData = await res.json();
+                } catch (e) {}
+            }
+
+            const data = savedLocal ? { ...srvData, ...savedLocal } : (srvData || null);
+            if (!data) return;
 
             // 1. Apply Site Settings
             if (data.siteSettings) {
