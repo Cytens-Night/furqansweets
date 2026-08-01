@@ -199,7 +199,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 5.4 PWA INSTALL BUTTON & NATIVE PROMPT + STANDALONE OFFLINE HTML APP DOWNLOAD
+    // 5.4 PWA STANDALONE DETECTOR & INSTALL BUTTON HANDLER
+    function checkPwaInstalledStatus() {
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                             window.navigator.standalone === true ||
+                             document.referrer.includes('android-app://') ||
+                             window.location.search.includes('source=pwa');
+        const btnInstallPwaEl = document.getElementById('btn-install-pwa');
+        if (btnInstallPwaEl) {
+            if (isStandalone) {
+                // Already running inside installed PWA app -> hide install button!
+                btnInstallPwaEl.style.display = 'none';
+            } else {
+                btnInstallPwaEl.style.display = 'flex';
+            }
+        }
+    }
+    checkPwaInstalledStatus();
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', checkPwaInstalledStatus);
+
     let deferredPwaPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
