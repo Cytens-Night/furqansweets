@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furqan-card-pwa-v15-smart-install';
+const CACHE_NAME = 'furqan-card-pwa-v18-native-app';
 const ASSETS_TO_CACHE = [
   './card.html',
   './card.css',
@@ -47,8 +47,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
-  const isHtml = event.request.destination === 'document' || 
-                 event.request.url.endsWith('.html') || 
+  const isHtml = event.request.mode === 'navigate' ||
+                 event.request.destination === 'document' || 
+                 event.request.url.includes('.html') || 
                  event.request.url.endsWith('/');
 
   if (isHtml) {
