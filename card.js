@@ -245,41 +245,52 @@ document.addEventListener("DOMContentLoaded", () => {
                window.navigator.standalone === true;
     };
 
+    const waitForPromptObj = async () => {
+        let promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
+        if (promptObj) return promptObj;
+        // On mobile Android/Samsung, wait briefly if Service Worker is finishing activation
+        for (let i = 0; i < 12; i++) {
+            await new Promise(r => setTimeout(r, 200));
+            promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
+            if (promptObj) return promptObj;
+        }
+        return null;
+    };
+
     const handlePwaInstallRequest = async () => {
         if (isStandaloneApp()) {
             showToast("✓ App is already installed and running on your device!");
             return;
         }
 
-        // 1) Try Native 1-Click Browser PWA Install Prompt (Android / Chrome / Edge / Desktop)
-        const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
-        if (promptObj) {
-            promptObj.prompt();
-            const { outcome } = await promptObj.userChoice;
-            if (outcome === 'accepted') {
-                showToast("✓ Installing Furqan Sweets App to your Home Screen...");
-                if (btnInstallPwa) btnInstallPwa.style.display = 'none';
-                if (pwaModal) pwaModal.style.display = 'none';
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        // 1) FOR SAMSUNG / ANDROID / WINDOWS / CHROME:
+        // NEVER show instructions! Always auto-give the install APK prompt!
+        if (!isIOS) {
+            const promptObj = await waitForPromptObj();
+            if (promptObj) {
+                promptObj.prompt();
+                const { outcome } = await promptObj.userChoice;
+                if (outcome === 'accepted') {
+                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
+                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+                    if (pwaModal) pwaModal.style.display = 'none';
+                }
+                deferredPwaPrompt = null;
+                if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
+                return;
             }
-            deferredPwaPrompt = null;
-            if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
+            // If prompt already fired/installed previously or browser banner is in URL bar
+            showToast("✓ Installing App... Check top address bar install badge.");
+            if (pwaModal) pwaModal.style.display = 'none';
             return;
         }
 
-        // 2) If native prompt is not ready (iPhone iOS Safari, or Samsung Internet / Android where menu is needed):
-        // NEVER download an HTML file! NEVER open share sheet!
-        // Open clean Official App Sheet with device-specific guide:
+        // 2) ONLY ON IPHONE / IOS (where Apple iOS Safari blocks native app install prompts):
         if (pwaModal) {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             const iosBox = document.getElementById('pwa-ios-guide-box');
-            const androidBox = document.getElementById('pwa-android-guide-box');
-            if (isIOS) {
-                if (iosBox) iosBox.style.display = 'block';
-                if (androidBox) androidBox.style.display = 'none';
-            } else {
-                if (iosBox) iosBox.style.display = 'none';
-                if (androidBox) androidBox.style.display = 'block';
-            }
+            if (iosBox) iosBox.style.display = 'block';
             pwaModal.style.display = 'flex';
             initIcons();
         }
@@ -295,35 +306,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnTriggerPwaInstall) {
         btnTriggerPwaInstall.addEventListener('click', async (e) => {
             e.preventDefault();
-            const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
-            if (promptObj) {
-                promptObj.prompt();
-                const { outcome } = await promptObj.userChoice;
-                if (outcome === 'accepted') {
-                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
-                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
-                }
-                deferredPwaPrompt = null;
-                if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
-                if (pwaModal) pwaModal.style.display = 'none';
-            } else {
-                showToast("✓ Please follow the 2 simple steps below:");
-            }
+            await handlePwaInstallRequest();
         });
     }
 
     const btnGotItIos = document.getElementById('btn-got-it-ios');
-    const btnGotItAndroid = document.getElementById('btn-got-it-android');
     if (btnGotItIos) {
         btnGotItIos.addEventListener('click', () => {
             if (pwaModal) pwaModal.style.display = 'none';
             showToast("✓ Ready! Tap Share ↑ in Safari menu anytime.");
-        });
-    }
-    if (btnGotItAndroid) {
-        btnGotItAndroid.addEventListener('click', () => {
-            if (pwaModal) pwaModal.style.display = 'none';
-            showToast("✓ Ready! Tap browser menu (⋮ or ☰) to install.");
         });
     }
 
