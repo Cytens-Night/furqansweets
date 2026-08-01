@@ -1,32 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 0. CINEMATIC LOADING SCREEN & AUDIO (IDENTICAL TO MAIN WEBSITE)
+    // 0. CINEMATIC LOADING SCREEN & AUDIO (SKIP IN STANDALONE PWA MODE OR RETURN SESSIONS TO PREVENT DOUBLE LOAD)
     const loaderContainer = document.getElementById('loader-container');
     const loadingAudio = document.getElementById('loading-audio');
 
-    if (loadingAudio) {
-        loadingAudio.play().catch(e => console.warn("Browser prevented autoplay", e));
-    }
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                         window.navigator.standalone === true || 
+                         window.location.search.includes('source=pwa') || 
+                         document.referrer.includes('android-app://');
+    const isReload = sessionStorage.getItem('furqan_card_splash_shown') === 'true';
 
-    if (loaderContainer) {
-        setTimeout(() => {
-            loaderContainer.style.opacity = '0';
-            if (loadingAudio && !loadingAudio.paused) {
-                let volume = 1.0;
-                const fadeAudioInterval = setInterval(() => {
-                    volume -= 0.05;
-                    if (volume <= 0.01) {
-                        loadingAudio.volume = 0;
-                        loadingAudio.pause();
-                        clearInterval(fadeAudioInterval);
-                    } else {
-                        loadingAudio.volume = volume;
-                    }
-                }, 50);
-            }
+    if (isStandalone || isReload) {
+        if (loaderContainer) loaderContainer.style.display = 'none';
+    } else {
+        sessionStorage.setItem('furqan_card_splash_shown', 'true');
+        if (loadingAudio) {
+            loadingAudio.play().catch(e => console.warn("Browser prevented autoplay", e));
+        }
+
+        if (loaderContainer) {
             setTimeout(() => {
-                loaderContainer.style.display = 'none';
-            }, 1000);
-        }, 2800);
+                if (loaderContainer) loaderContainer.style.opacity = '0';
+                if (loadingAudio && !loadingAudio.paused) {
+                    let volume = 1.0;
+                    const fadeAudioInterval = setInterval(() => {
+                        volume -= 0.05;
+                        if (volume <= 0.01) {
+                            loadingAudio.volume = 0;
+                            loadingAudio.pause();
+                            clearInterval(fadeAudioInterval);
+                        } else {
+                            loadingAudio.volume = volume;
+                        }
+                    }, 50);
+                }
+                setTimeout(() => {
+                    if (loaderContainer) loaderContainer.style.display = 'none';
+                }, 1000);
+            }, 2800);
+        }
     }
 
     // 1. INITIALIZE LUCIDE REACT-STYLE SVG ICONS
