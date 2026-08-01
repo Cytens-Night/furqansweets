@@ -124,7 +124,9 @@ body {
 /* WHEN PREVIEWS ARE UNBOXED: BOX EXPANDS AND EASES INTO SHOWCASE VIEW! */
 .black-box-flipper.expanded-showcase {
     max-width: 580px;
-    height: 550px;
+    height: auto;
+    min-height: 530px;
+    max-height: 82vh;
 }
 
 .black-box-flipper.flipped {
@@ -137,7 +139,7 @@ body {
     background: var(--card-bg);
     border: 3px solid var(--accent-brown-orange);
     border-top: 6px solid var(--accent-brown-orange);
-    border-radius: 8px 8px 26px 26px;
+    border-radius: 12px 12px 28px 28px;
     box-shadow: var(--shadow-card), var(--shadow-orange), inset 0 4px 18px rgba(200, 90, 23, 0.10);
     padding: 34px 26px 26px 26px;
     display: flex;
@@ -145,7 +147,7 @@ body {
     align-items: center;
     justify-content: space-between;
     backface-visibility: hidden;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .box-front {
@@ -186,11 +188,14 @@ body {
     transform: scale(0.94);
     position: absolute;
     inset: 0;
-    padding: 24px 26px;
+    padding: 16px 14px;
     display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
 }
 
 /* When Expanded State is active: Replace Info view with Showcase view! */
@@ -207,6 +212,10 @@ body {
     transform: scale(1);
     display: flex;
     position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Top Left Flip QR Button (SVG Icon) */
@@ -214,8 +223,8 @@ body {
     position: absolute;
     top: 20px;
     left: 20px;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     border-radius: 12px;
     background: var(--btn-light-bg);
     border: 1px solid var(--card-border);
@@ -225,10 +234,13 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
-    z-index: 5;
+    z-index: 100 !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.btn-flip-qr:hover {
+.btn-flip-qr:hover,
+.btn-flip-qr:active {
     border-color: var(--accent-brown-orange);
     background: #EFE9DE;
     transform: scale(1.08);
@@ -239,8 +251,8 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     border-radius: 12px;
     background: var(--btn-light-bg);
     border: 1px solid var(--card-border);
@@ -250,10 +262,13 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
-    z-index: 5;
+    z-index: 100 !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.btn-install-pwa:hover {
+.btn-install-pwa:hover,
+.btn-install-pwa:active {
     border-color: var(--accent-brown-orange);
     background: #EFE9DE;
     transform: scale(1.08);
@@ -1035,7 +1050,9 @@ body {
     .black-box-flipper.expanded-showcase {
         width: 94vw;
         max-width: 350px;
-        height: 540px;
+        height: auto;
+        min-height: 500px;
+        max-height: 82vh;
     }
     .box-face {
         padding: 20px 16px;
@@ -1043,10 +1060,11 @@ body {
     /* Top header buttons scaled & spaced to never touch the brand logo */
     .btn-flip-qr,
     .btn-install-pwa {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
         top: 14px;
         border-radius: 10px;
+        z-index: 100 !important;
     }
     .btn-flip-qr {
         left: 14px;
@@ -1122,16 +1140,19 @@ body {
     .black-box-flipper.expanded-showcase {
         width: 96vw;
         max-width: 310px;
-        height: 500px;
+        height: auto;
+        min-height: 470px;
+        max-height: 82vh;
     }
     .box-face {
         padding: 16px 12px;
     }
     .btn-flip-qr,
     .btn-install-pwa {
-        width: 33px;
-        height: 33px;
+        width: 34px;
+        height: 34px;
         top: 10px;
+        z-index: 100 !important;
     }
     .btn-flip-qr {
         left: 10px;
