@@ -253,8 +253,26 @@
             </div>
         </section>
 
-        <!-- INTERACTIVE STORE MAP & DIGITAL BUSINESS CARD QR SECTION -->
+        <!-- INTERACTIVE STORE MAP & DIGITAL BUSINESS CARD QR SECTION (MOBILE-OPTIMIZED, NO EMOJIS, REACT ICONS) -->
         <section class="visit-us-section" id="visit-us" style="margin: 60px auto; max-width: 1260px; padding: 50px 30px; background: linear-gradient(135deg, rgba(35, 25, 19, 0.92) 0%, rgba(18, 14, 11, 0.98) 50%, rgba(28, 19, 14, 0.94) 100%); border-radius: 32px; border: 1px solid rgba(255, 94, 0, 0.3); box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 50px rgba(255, 94, 0, 0.1), inset 0 1px 1px rgba(255,255,255,0.08); position: relative; overflow: hidden;">
+            <!-- Mobile & Small Screen Responsive Style Block -->
+            <style>
+                @media (max-width: 640px) {
+                    .visit-us-section { padding: 32px 14px !important; margin: 35px auto !important; border-radius: 24px !important; }
+                    .visit-us-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+                    .map-container-card, .qr-card-container { padding: 22px 16px !important; border-radius: 20px !important; }
+                    .map-container-card h3, .qr-card-container h3 { font-size: 1.25rem !important; }
+                    .store-nav-badge { padding: 16px 14px !important; flex-direction: column !important; gap: 14px !important; text-align: center !important; }
+                    .store-nav-badge-left { flex-direction: column !important; text-align: center !important; gap: 12px !important; width: 100% !important; justify-content: center !important; }
+                    .store-nav-badge-left > div { text-align: center !important; }
+                    .store-nav-badge-btn { width: 100% !important; justify-content: center !important; padding: 12px 18px !important; font-size: 0.82rem !important; box-sizing: border-box !important; }
+                    .qr-slide-card { max-width: 100% !important; width: 100% !important; }
+                    .qr-carousel-arrow { width: 38px !important; height: 38px !important; font-size: 1.3rem !important; margin: 0 6px !important; flex-shrink: 0 !important; }
+                    .qr-slide-action-btn { width: 100% !important; box-sizing: border-box !important; text-align: center !important; justify-content: center !important; }
+                    .qr-indicator-pills { flex-wrap: wrap !important; justify-content: center !important; gap: 10px !important; }
+                }
+            </style>
+
             <!-- Subtle Decorative Amber Accent Glows -->
             <div style="position: absolute; top: -100px; left: -100px; width: 300px; height: 300px; background: rgba(255, 94, 0, 0.15); border-radius: 50%; filter: blur(90px); pointer-events: none;"></div>
             <div style="position: absolute; bottom: -100px; right: -100px; width: 300px; height: 300px; background: rgba(200, 90, 23, 0.15); border-radius: 50%; filter: blur(90px); pointer-events: none;"></div>
@@ -269,7 +287,7 @@
                 <p style="color: #ccc; font-size: 1.08rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">Scan or tap our interactive QR codes to save our digital card &amp; leave a review, or get instant navigation to our London NW10 store.</p>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; align-items: stretch; position: relative; z-index: 2;">
+            <div class="visit-us-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; align-items: stretch; position: relative; z-index: 2;">
                 <!-- LEFT CARD: STORE LOCATION, EMBEDDED MAP & SEPARATE MAP QR CODE -->
                 <div class="map-container-card" style="background: linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.018) 100%); border: 1px solid rgba(255, 94, 0, 0.22); border-radius: 26px; padding: 30px; box-shadow: 0 20px 45px rgba(0,0,0,0.45); display: flex; flex-direction: column; justify-content: space-between;">
                     <div>
@@ -279,18 +297,33 @@
                             </span>
                             Furqan Sweets Flagship Store
                         </h3>
-                        <div style="color: #ddd; font-size: 0.98rem; line-height: 1.7; margin-bottom: 18px; display: flex; flex-direction: column; gap: 8px;">
-                            <div style="display: flex; align-items: flex-start; gap: 10px;">
-                                <strong style="color: #FFB088; min-width: 80px;">Address:</strong> 
-                                <span>Furqan Sweet, 175 Hillside, London NW10 8LL</span>
+                        <div style="color: #ddd; font-size: 0.98rem; line-height: 1.7; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                <span style="color: #FF5E00; margin-top: 2px;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                </span>
+                                <div>
+                                    <strong style="color: #FFB088;">Address:</strong> 
+                                    <span>Furqan Sweet, 175 Hillside, London NW10 8LL</span>
+                                </div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <strong style="color: #FFB088; min-width: 80px;">Phone:</strong> 
-                                <a href="tel:02088383030" style="color: #fff; text-decoration: none; font-weight: 600;">020 8838 3030</a>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #FF5E00;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                </span>
+                                <div>
+                                    <strong style="color: #FFB088;">Phone:</strong> 
+                                    <a href="tel:02088383030" style="color: #fff; text-decoration: none; font-weight: 600;">020 8838 3030</a>
+                                </div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <strong style="color: #FFB088; min-width: 80px;">Hours:</strong> 
-                                <span>9:00 AM – 10:00 PM <span style="opacity:0.8;">(Everyday)</span></span>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #FF5E00;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                </span>
+                                <div>
+                                    <strong style="color: #FFB088;">Hours:</strong> 
+                                    <span>9:00 AM – 10:00 PM <span style="opacity:0.8;">(Everyday)</span></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -304,9 +337,9 @@
                     </div>
 
                     <!-- SEPARATE MAP QR CODE (BEAUTIFUL INTERACTIVE DIRECTION BADGE) -->
-                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(255, 94, 0, 0.12), rgba(255, 94, 0, 0.05)); border: 1px solid rgba(255, 94, 0, 0.35); border-radius: 18px; padding: 14px 18px; text-decoration: none; color: #fff; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(255, 94, 0, 0.08);" onmouseover="this.style.borderColor='rgba(255, 94, 0, 0.8)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px rgba(255,94,0,0.2)';" onmouseout="this.style.borderColor='rgba(255, 94, 0, 0.35)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(255,94,0,0.08)';">
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div style="background: #fff; padding: 4px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" class="store-nav-badge" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(255, 94, 0, 0.12), rgba(255, 94, 0, 0.05)); border: 1px solid rgba(255, 94, 0, 0.35); border-radius: 18px; padding: 14px 18px; text-decoration: none; color: #fff; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(255, 94, 0, 0.08);" onmouseover="this.style.borderColor='rgba(255, 94, 0, 0.8)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px rgba(255,94,0,0.2)';" onmouseout="this.style.borderColor='rgba(255, 94, 0, 0.35)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(255,94,0,0.08)';">
+                        <div class="store-nav-badge-left" style="display: flex; align-items: center; gap: 15px;">
+                            <div style="background: #fff; padding: 4px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DFurqan%2BSweet%2B175%2BHillside%2BLondon%2BNW10%2B8LL&color=FF5E00&bgcolor=FFFFFF" alt="Google Maps QR" style="width: 54px; height: 54px; display: block; border-radius: 6px;">
                             </div>
                             <div style="text-align: left;">
@@ -316,9 +349,9 @@
                                 <div style="font-size: 0.78rem; color: #FFB088; margin-top: 2px;">Tap or scan for Google Maps directions</div>
                             </div>
                         </div>
-                        <div style="background: #FF5E00; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 7px 12px; border-radius: 50px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(255, 94, 0, 0.4);">
+                        <div class="store-nav-badge-btn" style="background: #FF5E00; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 8px 14px; border-radius: 50px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(255, 94, 0, 0.4); flex-shrink: 0;">
                             GET DIRECTIONS
-                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </div>
                     </a>
                 </div>
@@ -327,9 +360,9 @@
                 <div class="qr-card-container" style="background: linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.018) 100%); border: 1px solid rgba(255, 94, 0, 0.22); border-radius: 26px; padding: 32px 25px; box-shadow: 0 20px 45px rgba(0,0,0,0.45); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; transition: all 0.3s ease;">
                     <div style="position: absolute; top: -50px; right: -50px; width: 140px; height: 140px; background: rgba(255, 94, 0, 0.12); border-radius: 50%; filter: blur(35px); pointer-events: none;"></div>
                     
-                    <!-- TAP OR SCAN BADGE -->
+                    <!-- TAP OR SCAN BADGE (PROFESSIONAL ICON, NO EMOJI) -->
                     <div style="background: rgba(255, 94, 0, 0.15); border: 1px solid rgba(255, 94, 0, 0.45); color: #FF5E00; padding: 6px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(255,94,0,0.15);">
-                        <span style="display: inline-block; width: 8px; height: 8px; background: #FF5E00; border-radius: 50%; box-shadow: 0 0 8px #FF5E00;"></span>
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                         TAP OR SCAN
                     </div>
 
@@ -339,34 +372,40 @@
                     <!-- CAROUSEL TRACK -->
                     <div style="display: flex; align-items: center; justify-content: center; width: 100%; position: relative;">
                         <!-- PREV ARROW -->
-                        <button id="web-qr-prev" aria-label="Previous QR" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: #FF5E00; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-right: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='rgba(255,94,0,0.2)'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.18)';">&lsaquo;</button>
+                        <button id="web-qr-prev" class="qr-carousel-arrow" aria-label="Previous QR" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: #FF5E00; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-right: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='rgba(255,94,0,0.2)'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.18)';">&lsaquo;</button>
 
                         <!-- SLIDE 0: VIP DIGITAL BUSINESS CARD -->
-                        <div id="web-qr-slide-0" style="display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
+                        <div id="web-qr-slide-0" class="qr-slide-card" style="display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
                             <a href="card.html" target="_blank" style="background: #fff; padding: 18px; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 30px rgba(255, 94, 0, 0.25); display: block; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.04)';" onmouseout="this.style.transform='scale(1)';">
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.furqansweets.co.uk%2Fcard.html&color=120F0D&bgcolor=FFFFFF" alt="VIP Card QR" style="width: 175px; height: 175px; display: block; border-radius: 10px;">
                             </a>
                             <div style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-top: 16px;">VIP Digital Business Card</div>
                             <div style="font-size: 0.8rem; color: #FFB088; margin-top: 3px;">Save store phone, address &amp; offline app</div>
-                            <a href="card.html" target="_blank" style="margin-top: 12px; background: rgba(255,94,0,0.15); border: 1px solid rgba(255,94,0,0.4); color: #FF5E00; font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 50px; text-decoration: none; display: inline-block;">👆 TAP CARD TO LAUNCH APP</a>
+                            <a href="card.html" target="_blank" class="qr-slide-action-btn" style="margin-top: 14px; background: rgba(255,94,0,0.15); border: 1px solid rgba(255,94,0,0.4); color: #FF5E00; font-size: 0.78rem; font-weight: 700; padding: 8px 16px; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                TAP CARD TO LAUNCH APP
+                            </a>
                         </div>
 
                         <!-- SLIDE 1: GOOGLE REVIEWS & RATINGS -->
-                        <div id="web-qr-slide-1" style="display: none; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
+                        <div id="web-qr-slide-1" class="qr-slide-card" style="display: none; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
                             <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" style="background: #fff; padding: 18px; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 30px rgba(255, 94, 0, 0.25); display: block; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.04)';" onmouseout="this.style.transform='scale(1)';">
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3DFurqan%2BSweets%2BLondon%2BReviews&color=120F0D&bgcolor=FFFFFF" alt="Google Reviews QR" style="width: 175px; height: 175px; display: block; border-radius: 10px;">
                             </a>
                             <div style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-top: 16px;">Google Reviews &amp; Ratings</div>
                             <div style="font-size: 0.8rem; color: #FFB088; margin-top: 3px;">Scan or tap to leave a 5-star review</div>
-                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" style="margin-top: 12px; background: rgba(255,94,0,0.15); border: 1px solid rgba(255,94,0,0.4); color: #FF5E00; font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 50px; text-decoration: none; display: inline-block;">⭐ TAP TO OPEN GOOGLE REVIEWS</a>
+                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" class="qr-slide-action-btn" style="margin-top: 14px; background: rgba(255,94,0,0.15); border: 1px solid rgba(255,94,0,0.4); color: #FF5E00; font-size: 0.78rem; font-weight: 700; padding: 8px 16px; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="color: #FFB088;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                TAP TO OPEN GOOGLE REVIEWS
+                            </a>
                         </div>
 
                         <!-- NEXT ARROW -->
-                        <button id="web-qr-next" aria-label="Next QR" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: #FF5E00; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='rgba(255,94,0,0.2)'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.18)';">&rsaquo;</button>
+                        <button id="web-qr-next" class="qr-carousel-arrow" aria-label="Next QR" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: #FF5E00; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='rgba(255,94,0,0.2)'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.18)';">&rsaquo;</button>
                     </div>
 
                     <!-- LABELED CAROUSEL PILL INDICATORS -->
-                    <div style="display: flex; align-items: center; gap: 14px; margin-top: 25px;">
+                    <div class="qr-indicator-pills" style="display: flex; align-items: center; gap: 14px; margin-top: 25px;">
                         <button id="web-dot-0" style="background: rgba(255, 94, 0, 0.2); border: 1px solid #FF5E00; color: #fff; font-size: 0.78rem; font-weight: 700; padding: 6px 16px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease;">
                             <span id="dot-indicator-0" style="display: inline-block; width: 8px; height: 8px; background: #FF5E00; border-radius: 50%;"></span>
                             VIP Card
