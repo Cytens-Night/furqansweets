@@ -4,8 +4,8 @@
   "description": "Authentic Somali Halwa & Bakery — Standalone Digital Business Card PWA",
   "start_url": "card.html?source=pwa",
   "display": "standalone",
-  "background_color": "#0F0D0C",
-  "theme_color": "#FF5E00",
+  "background_color": "#fffdfa",
+  "theme_color": "#fffdfa",
   "orientation": "portrait-primary",
   "icons": [
     {
