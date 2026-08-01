@@ -276,7 +276,13 @@
             justify-content: center;
             gap: 8px;
             overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             white-space: nowrap;
+        }
+
+        .nav-list::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-item {
@@ -404,7 +410,7 @@
             border: none;
             padding: 0;
             box-shadow: none;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: flex-end;
         }
@@ -719,42 +725,57 @@
             .form-grid-full { grid-column: span 1; }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
-                height: 68px;
+                height: 72px;
                 position: fixed;
                 top: auto;
                 bottom: 0;
                 left: 0;
                 right: 0;
                 flex-direction: row;
-                justify-content: space-around;
-                padding: 6px 4px;
+                justify-content: flex-start;
+                padding: 6px 12px;
                 border-bottom: none;
                 border-top: 1px solid var(--border-color);
                 box-shadow: 0 -10px 25px rgba(0,0,0,0.85);
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .sidebar::-webkit-scrollbar {
+                display: none;
             }
             .sidebar-header, .sidebar-footer { display: none; }
             .nav-list {
                 display: flex;
                 flex-direction: row;
-                width: 100%;
-                justify-content: space-around;
-                padding: 0;
+                width: max-content;
+                justify-content: flex-start;
+                padding: 0 6px;
                 margin: 0;
-                gap: 4px;
+                gap: 10px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .nav-list::-webkit-scrollbar {
+                display: none;
             }
             .nav-item {
-                padding: 10px 8px;
+                padding: 10px 16px;
                 justify-content: center;
-                flex: 1;
+                flex: 0 0 auto;
                 border-radius: 12px;
-                flex-direction: column;
-                gap: 4px;
-                font-size: 0.72rem;
+                flex-direction: row;
+                gap: 8px;
+                font-size: 0.85rem;
+                white-space: nowrap;
             }
-            .nav-item i { margin: 0; width: 22px; height: 22px; }
+            .nav-item i { margin: 0; width: 20px; height: 20px; }
             .main-wrapper {
                 margin-left: 0;
                 margin-top: 20px;
@@ -764,7 +785,7 @@
             .sticky-save-bar {
                 left: auto;
                 right: 18px;
-                bottom: 82px;
+                bottom: 84px;
                 padding: 0;
             }
             .items-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -886,6 +907,10 @@
                     <i data-lucide="shield-check"></i>
                     <span class="nav-text">Security & Recovery</span>
                 </li>
+                <a href="index.html" target="_blank" class="nav-item" style="text-decoration: none;">
+                    <i data-lucide="external-link"></i>
+                    <span class="nav-text">View Storefront</span>
+                </a>
             </ul>
         </div>
 
@@ -1564,6 +1589,8 @@
                 pinModal.style.opacity = '0';
                 setTimeout(() => {
                     pinModal.style.display = 'none';
+                    const saveBar = document.querySelector('.sticky-save-bar');
+                    if (saveBar) saveBar.style.display = 'flex';
                 }, 400);
                 showToast("Dashboard unlocked successfully");
             } else {
@@ -1579,6 +1606,8 @@
         // ================= LOGOUT BUTTON =================
         function logoutCrm() {
             sessionStorage.removeItem('crm_unlocked');
+            const saveBar = document.querySelector('.sticky-save-bar');
+            if (saveBar) saveBar.style.display = 'none';
             showToast("🔒 Logged out of CRM session.");
             pinInput.value = '';
             pinError.style.display = 'none';
@@ -1679,6 +1708,8 @@
                 setTimeout(() => {
                     recoveryModal.style.display = 'none';
                     pinModal.style.display = 'none';
+                    const saveBar = document.querySelector('.sticky-save-bar');
+                    if (saveBar) saveBar.style.display = 'flex';
                 }, 300);
             } else {
                 showToast("Invalid recovery credentials. Please check your email and Master Key.", true);
@@ -1735,6 +1766,14 @@
         // Initial Page Load
         window.addEventListener('DOMContentLoaded', () => {
             loadData();
+            const saveBar = document.querySelector('.sticky-save-bar');
+            if (sessionStorage.getItem('crm_unlocked') === 'true') {
+                const pinModalEl = document.getElementById('pin-modal');
+                if (pinModalEl) pinModalEl.style.display = 'none';
+                if (saveBar) saveBar.style.display = 'flex';
+            } else {
+                if (saveBar) saveBar.style.display = 'none';
+            }
             if (typeof lucide !== 'undefined') lucide.createIcons();
         });
     </script>
