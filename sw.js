@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furqan-card-pwa-v9-seamless-splash';
+const CACHE_NAME = 'furqan-card-pwa-v10-preview-and-qr-fix';
 const ASSETS_TO_CACHE = [
   './card.html',
   './card.css',
