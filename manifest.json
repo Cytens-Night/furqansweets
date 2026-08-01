@@ -1,4 +1,5 @@
 {
+  "id": "/card.html",
   "name": "Furqan Sweets — VIP Business Card",
   "short_name": "Furqan Card",
   "description": "Authentic Somali Halwa & Bakery — Standalone Digital Business Card PWA",
@@ -8,6 +9,7 @@
   "background_color": "#fffdfa",
   "theme_color": "#fffdfa",
   "orientation": "portrait-primary",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "web-app-manifest-192x192.png",
