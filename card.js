@@ -1,43 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 0. CINEMATIC LOADING SCREEN & AUDIO (SKIP IN STANDALONE PWA MODE OR RETURN SESSIONS TO PREVENT DOUBLE LOAD)
+    // 0. CINEMATIC LOADING SCREEN & AUDIO (SAYS FURQAN SWEETS OUT LOUD!)
     const loaderContainer = document.getElementById('loader-container');
     const loadingAudio = document.getElementById('loading-audio');
 
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                         window.navigator.standalone === true || 
-                         window.location.search.includes('source=pwa') || 
-                         document.referrer.includes('android-app://');
-    const isReload = sessionStorage.getItem('furqan_card_splash_shown') === 'true';
+    if (loadingAudio) {
+        loadingAudio.currentTime = 0;
+        loadingAudio.volume = 1.0;
+        loadingAudio.play().catch(e => {
+            console.warn("Browser prevented autoplay. Will play on first interaction.", e);
+            const playOnTouch = () => {
+                loadingAudio.currentTime = 0;
+                loadingAudio.volume = 1.0;
+                loadingAudio.play().catch(() => {});
+                window.removeEventListener('touchstart', playOnTouch);
+                window.removeEventListener('click', playOnTouch);
+            };
+            window.addEventListener('touchstart', playOnTouch, { once: true });
+            window.addEventListener('click', playOnTouch, { once: true });
+        });
+    }
 
-    if (isStandalone || isReload) {
-        if (loaderContainer) loaderContainer.style.display = 'none';
-    } else {
-        sessionStorage.setItem('furqan_card_splash_shown', 'true');
-        if (loadingAudio) {
-            loadingAudio.play().catch(e => console.warn("Browser prevented autoplay", e));
-        }
-
-        if (loaderContainer) {
+    if (loaderContainer) {
+        setTimeout(() => {
+            if (loaderContainer) loaderContainer.style.opacity = '0';
+            if (loadingAudio && !loadingAudio.paused) {
+                let volume = 1.0;
+                const fadeAudioInterval = setInterval(() => {
+                    volume -= 0.05;
+                    if (volume <= 0.01) {
+                        loadingAudio.volume = 0;
+                        loadingAudio.pause();
+                        clearInterval(fadeAudioInterval);
+                    } else {
+                        loadingAudio.volume = volume;
+                    }
+                }, 50);
+            }
             setTimeout(() => {
-                if (loaderContainer) loaderContainer.style.opacity = '0';
-                if (loadingAudio && !loadingAudio.paused) {
-                    let volume = 1.0;
-                    const fadeAudioInterval = setInterval(() => {
-                        volume -= 0.05;
-                        if (volume <= 0.01) {
-                            loadingAudio.volume = 0;
-                            loadingAudio.pause();
-                            clearInterval(fadeAudioInterval);
-                        } else {
-                            loadingAudio.volume = volume;
-                        }
-                    }, 50);
-                }
-                setTimeout(() => {
-                    if (loaderContainer) loaderContainer.style.display = 'none';
-                }, 1000);
-            }, 2800);
-        }
+                if (loaderContainer) loaderContainer.style.display = 'none';
+            }, 1000);
+        }, 2800);
     }
 
     // 1. INITIALIZE LUCIDE REACT-STYLE SVG ICONS
