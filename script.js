@@ -77,22 +77,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const addBtns = document.querySelectorAll('.add-btn');
     const resetBtn = document.querySelector('.reset-btn');
 
+    let bulkBaseKg = 15;
+    let bulkBasePrice = 120;
+    let bulkExtraKgPrice = 9;
     let currentWeight = 15; // base 15kg
-    const basePrice = 140;
-    const pricePerExtraKg = 9; // Bulk rate assumption
 
     function updateModalDisplay() {
-        displayWeight.textContent = currentWeight;
-        let extraWeight = currentWeight - 15;
-        let totalPrice = basePrice + (extraWeight * pricePerExtraKg);
-        displayPrice.textContent = totalPrice;
+        if (displayWeight) displayWeight.textContent = currentWeight;
+        let extraWeight = currentWeight - bulkBaseKg;
+        let totalPrice = bulkBasePrice + (Math.max(0, extraWeight) * bulkExtraKgPrice);
+        if (displayPrice) displayPrice.textContent = totalPrice;
+        const baseInfoEl = document.querySelector('.base-info');
+        if (baseInfoEl) {
+            baseInfoEl.innerHTML = `Base: <strong>${bulkBaseKg}kg</strong> - £${bulkBasePrice}`;
+        }
     }
 
     if (openBulkModalBtn && bulkModal) {
         const openBulk = (e) => {
             if (e) e.preventDefault();
             bulkModal.style.display = 'flex';
-            currentWeight = 15; // Reset on open
+            currentWeight = bulkBaseKg; // Reset on open
             updateModalDisplay();
         };
 
@@ -119,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         resetBtn.addEventListener('click', () => {
-            currentWeight = 15;
+            currentWeight = bulkBaseKg;
             updateModalDisplay();
         });
     }
@@ -308,6 +313,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 const heroSubEl = document.querySelector('.hero-cta p');
                 if (heroSubEl && s.heroSubtitle) {
                     heroSubEl.innerHTML = `${s.heroSubtitle} <span class="translation">${s.heroSubtitleSomali || ''}</span>`;
+                }
+                // Bulk Orders Pricing & Texts
+                const bulkWeightEl = document.querySelector('.bulk-weight');
+                if (bulkWeightEl && s.bulkWeight) bulkWeightEl.textContent = s.bulkWeight;
+                const bulkPriceEl = document.querySelector('.bulk-price');
+                if (bulkPriceEl && s.bulkPrice) bulkPriceEl.textContent = s.bulkPrice;
+                const bulkDescEl = document.querySelector('.bulk-desc');
+                if (bulkDescEl && s.bulkDesc) bulkDescEl.textContent = s.bulkDesc;
+                const bulkTitleEl = document.querySelector('.bulk-content-left h2');
+                if (bulkTitleEl && s.bulkTitle) {
+                    bulkTitleEl.innerHTML = `${s.bulkTitle} <span class="translation" style="font-size: 0.6em; margin-top: 5px;">${s.bulkTitleSomali || ''}</span>`;
+                }
+                if (s.bulkBaseKgNum) {
+                    bulkBaseKg = parseFloat(s.bulkBaseKgNum) || 15;
+                    currentWeight = bulkBaseKg;
+                }
+                if (s.bulkBasePriceNum) {
+                    bulkBasePrice = parseFloat(s.bulkBasePriceNum) || 120;
+                }
+                if (s.bulkExtraKgPrice) {
+                    bulkExtraKgPrice = parseFloat(s.bulkExtraKgPrice) || 9;
+                }
+                if (typeof updateModalDisplay === 'function') {
+                    updateModalDisplay();
+                }
+                if (s.halwaBasePrice) {
+                    document.querySelectorAll('.hero-variants .price').forEach(p => {
+                        p.textContent = s.halwaBasePrice;
+                    });
                 }
             }
 
