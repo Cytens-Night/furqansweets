@@ -117,18 +117,18 @@ document.addEventListener("DOMContentLoaded", () => {
             "TEL;TYPE=CELL,VOICE:07956 911 759",
             // EMAIL & WEBSITE LINK
             "EMAIL;TYPE=WORK,INTERNET,PREF:owner@furqansweets.co.uk",
-            "URL;TYPE=WORK:https://cytens-night.github.io/furqansweets/",
+            "URL;TYPE=WORK:https://www.furqansweets.co.uk/card.html",
             // ADDRESS
             "ADR;TYPE=WORK:;;175 Hillside;London;;NW10 8LL;United Kingdom",
             // ALL RELEVANT KEYWORD TAGS
             "CATEGORIES:somali,shop,halwa,stonebridge,wedding,eid,xalwo,bakery,sweets,london,wholesale,kakawood,sambusa",
-            "NOTE:Furqan Sweets — Authentic Somali Halwa (Xalwo)\\, Bakery & Sweets Shop in Stonebridge London.\\nSpecializing in Weddings\\, Eid celebrations\\, and wholesale orders.\\nTags: somali\\, shop\\, halwa\\, stonebridge\\, wedding\\, eid\\, xalwo\\, bakery\\, kakawood\\, sambusa\\nStore (Main): 020 8838 3030 | Wholesale/Mobile: 07956 911 759\\nAddress: 175 Hillside\\, London NW10 8LL\\nWebsite: https://cytens-night.github.io/furqansweets/"
+            "NOTE:Furqan Sweets — Authentic Somali Halwa (Xalwo)\\, Bakery & Sweets Shop in Stonebridge London.\\nSpecializing in Weddings\\, Eid celebrations\\, and wholesale orders.\\nTags: somali\\, shop\\, halwa\\, stonebridge\\, wedding\\, eid\\, xalwo\\, bakery\\, kakawood\\, sambusa\\nStore (Main): 020 8838 3030 | Wholesale/Mobile: 07956 911 759\\nAddress: 175 Hillside\\, London NW10 8LL\\nWebsite: https://www.furqansweets.co.uk/card.html"
         ];
 
         if (logoBase64) {
             vcfLines.push("PHOTO;ENCODING=b;TYPE=PNG:" + logoBase64);
         } else {
-            vcfLines.push("PHOTO;VALUE=URI;TYPE=PNG:https://cytens-night.github.io/furqansweets/assets/halwa_main.png");
+            vcfLines.push("PHOTO;VALUE=URI;TYPE=PNG:https://www.furqansweets.co.uk/assets/halwa_main.png");
         }
 
         vcfLines.push("REV:" + new Date().toISOString());
@@ -302,28 +302,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
     const websitePreviewModal = document.getElementById('website-preview-modal');
-    if (btnWebsitePreview) {
-        btnWebsitePreview.addEventListener('click', (e) => {
+    const showWebsitePreviewModal = (e) => {
+        if (e) {
             e.preventDefault();
-            if (websitePreviewModal) {
-                websitePreviewModal.style.display = 'flex';
-                initIcons();
-            } else {
-                window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
-            }
-        });
-
-        if (hoverCard) {
-            hoverCard.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (websitePreviewModal) {
-                    websitePreviewModal.style.display = 'flex';
-                    initIcons();
-                } else {
-                    window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
-                }
-            });
+            e.stopPropagation();
         }
+        if (websitePreviewModal) {
+            websitePreviewModal.style.display = 'flex';
+            initIcons();
+        } else {
+            window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
+        }
+    };
+
+    if (btnWebsitePreview) {
+        btnWebsitePreview.addEventListener('click', showWebsitePreviewModal);
+    }
+    if (hoverCard) {
+        hoverCard.addEventListener('click', showWebsitePreviewModal);
+    }
+    if (hoverWrapper) {
+        hoverWrapper.addEventListener('click', showWebsitePreviewModal);
     }
 
     // 6. THE OPENING LID (`#box-lid`) -> WHITE CARD EXPANDS & REPLACES INFO VIEW WITH PREVIEWS!
@@ -586,7 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         renderQR("qr-maps", "https://maps.google.com/?q=Furqan+Sweets+175+Hillside+London+NW10+8LL");
         renderQR("qr-reviews", "https://www.google.com/search?q=Furqan+Sweets+London+Reviews");
-        renderQR("qr-card", "https://cytens-night.github.io/furqansweets/card.html");
+        renderQR("qr-card", "https://www.furqansweets.co.uk/card.html");
         qrRendered = true;
     }
 
