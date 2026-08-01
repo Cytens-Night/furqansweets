@@ -288,38 +288,45 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 5.5 DESKTOP HOVER vs. MOBILE DOUBLE-TAP FOR VISIT WEBSITE BUTTON (ALL LINKS OPEN IN NEW TAB!)
+    // 5.5 DESKTOP HOVER vs. CLICK PREVIEW POPUP FOR VISIT WEBSITE BUTTON (NO INTERACTIVE WINDOW MODAL!)
     const hoverWrapper = document.querySelector('.website-hover-wrapper');
     const hoverCard = document.querySelector('.website-hover-card');
     const btnWebsitePreview = document.getElementById('btn-website-preview');
-    let isMobilePreviewShown = false;
+    let isPreviewShown = false;
 
-    // Determine if device uses touch
-    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-    const websitePreviewModal = document.getElementById('website-preview-modal');
-    const showWebsitePreviewModal = (e) => {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        if (websitePreviewModal) {
-            websitePreviewModal.style.display = 'flex';
-            initIcons();
-        } else {
-            window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
-        }
+    const openWebsiteUrl = () => {
+        window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
     };
 
     if (btnWebsitePreview) {
-        btnWebsitePreview.addEventListener('click', showWebsitePreviewModal);
+        btnWebsitePreview.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!isPreviewShown && hoverCard) {
+                // First click: show the hover preview popup only
+                hoverCard.classList.add('show-preview');
+                isPreviewShown = true;
+            } else {
+                // Second click: open the website in a new tab
+                openWebsiteUrl();
+            }
+        });
     }
+
     if (hoverCard) {
-        hoverCard.addEventListener('click', showWebsitePreviewModal);
+        hoverCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openWebsiteUrl();
+        });
     }
-    if (hoverWrapper) {
-        hoverWrapper.addEventListener('click', showWebsitePreviewModal);
-    }
+
+    document.addEventListener('click', (e) => {
+        if (hoverWrapper && !hoverWrapper.contains(e.target)) {
+            if (hoverCard) hoverCard.classList.remove('show-preview');
+            isPreviewShown = false;
+        }
+    });
 
     // 6. THE OPENING LID (`#box-lid`) -> WHITE CARD EXPANDS & REPLACES INFO VIEW WITH PREVIEWS!
     const boxLid = document.getElementById('box-lid');
@@ -581,7 +588,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         renderQR("qr-maps", "https://maps.google.com/?q=Furqan+Sweets+175+Hillside+London+NW10+8LL");
         renderQR("qr-reviews", "https://www.google.com/search?q=Furqan+Sweets+London+Reviews");
-        renderQR("qr-card", "https://www.furqansweets.co.uk/card.html");
+        const currentCardUrl = (window.location.origin && window.location.origin.startsWith('http'))
+            ? window.location.href.split('#')[0]
+            : "https://www.furqansweets.co.uk/card.html";
+        renderQR("qr-card", currentCardUrl);
         qrRendered = true;
     }
 
