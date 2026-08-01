@@ -1,9 +1,9 @@
 {
-  "id": "/index.html",
+  "id": "/",
   "name": "Furqan Sweets",
   "short_name": "Furqansweets",
-  "start_url": "./index.html?source=pwa",
-  "scope": "./",
+  "start_url": "index.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#fffdfa",
   "theme_color": "#fffdfa",
