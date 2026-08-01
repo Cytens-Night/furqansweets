@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 mainContent.style.opacity = '1';
             }
         }, 1000); // 1 second matching the CSS transition duration
-    }, 3500); // Wait 3.5 seconds before starting the fade out
+    }, 1800); // Wait 1.8 seconds before starting the fade out
 
     // ==========================================
     // BULK MODAL LOGIC
