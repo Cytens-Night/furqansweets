@@ -3,61 +3,58 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainContent = document.getElementById('main-content');
     const loadingAudio = document.getElementById('loading-audio');
 
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                         window.navigator.standalone === true || 
-                         window.location.search.includes('source=pwa') || 
-                         document.referrer.includes('android-app://');
-    const isReload = sessionStorage.getItem('furqan_splash_shown') === 'true';
-
-    if (isStandalone || isReload) {
-        if (loaderContainer) loaderContainer.style.display = 'none';
-        if (mainContent) {
-            mainContent.style.display = 'block';
-            mainContent.style.opacity = '1';
-        }
-    } else {
-        sessionStorage.setItem('furqan_splash_shown', 'true');
-
-        // Attempt to play the audio as soon as possible
-        if (loadingAudio) {
-            loadingAudio.play().catch(e => console.warn("Browser prevented autoplay. User interaction might be required.", e));
-        }
-
-        // Display the loading animation for 3.5 seconds
-        setTimeout(() => {
-            // Fade out the loader
-            if (loaderContainer) loaderContainer.style.opacity = '0';
-            
-            // Fade out the audio smoothly over 1 second to match the CSS opacity transition
-            if (loadingAudio && !loadingAudio.paused) {
-                let volume = 1.0;
-                const fadeAudioInterval = setInterval(() => {
-                    volume -= 0.05;
-                    if (volume <= 0.01) {
-                        loadingAudio.volume = 0;
-                        loadingAudio.pause();
-                        clearInterval(fadeAudioInterval);
-                    } else {
-                        loadingAudio.volume = volume;
-                    }
-                }, 50); // 20 intervals of 50ms = 1 second fade out
-            }
-
-            // Wait for the fade out to complete, then hide the loader and show main content
-            setTimeout(() => {
-                if (loaderContainer) loaderContainer.style.display = 'none';
-                if (mainContent) {
-                    mainContent.style.display = 'block';
-                    
-                    // Trigger a small reflow to ensure the transition applies smoothly
-                    void mainContent.offsetWidth;
-                    
-                    // Fade in the main content
-                    mainContent.style.opacity = '1';
-                }
-            }, 1000); // 1 second matching the CSS transition duration
-        }, 3500); // Wait 3.5 seconds before starting the fade out
+    // Attempt to play the audio as soon as possible so it says Furqan Sweets out loud
+    if (loadingAudio) {
+        loadingAudio.currentTime = 0;
+        loadingAudio.volume = 1.0;
+        loadingAudio.play().catch(e => {
+            console.warn("Browser prevented autoplay. Will play on first interaction.", e);
+            const playOnTouch = () => {
+                loadingAudio.currentTime = 0;
+                loadingAudio.volume = 1.0;
+                loadingAudio.play().catch(() => {});
+                window.removeEventListener('touchstart', playOnTouch);
+                window.removeEventListener('click', playOnTouch);
+            };
+            window.addEventListener('touchstart', playOnTouch, { once: true });
+            window.addEventListener('click', playOnTouch, { once: true });
+        });
     }
+
+    // Display the loading animation for 3.5 seconds
+    setTimeout(() => {
+        // Fade out the loader
+        if (loaderContainer) loaderContainer.style.opacity = '0';
+        
+        // Fade out the audio smoothly over 1 second to match the CSS opacity transition
+        if (loadingAudio && !loadingAudio.paused) {
+            let volume = 1.0;
+            const fadeAudioInterval = setInterval(() => {
+                volume -= 0.05;
+                if (volume <= 0.01) {
+                    loadingAudio.volume = 0;
+                    loadingAudio.pause();
+                    clearInterval(fadeAudioInterval);
+                } else {
+                    loadingAudio.volume = volume;
+                }
+            }, 50); // 20 intervals of 50ms = 1 second fade out
+        }
+
+        // Wait for the fade out to complete, then hide the loader and show main content
+        setTimeout(() => {
+            if (loaderContainer) loaderContainer.style.display = 'none';
+            if (mainContent) {
+                mainContent.style.display = 'block';
+                
+                // Trigger a small reflow to ensure the transition applies smoothly
+                void mainContent.offsetWidth;
+                
+                // Fade in the main content
+                mainContent.style.opacity = '1';
+            }
+        }, 1000); // 1 second matching the CSS transition duration
+    }, 3500); // Wait 3.5 seconds before starting the fade out
 
     // ==========================================
     // BULK MODAL LOGIC
