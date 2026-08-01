@@ -254,79 +254,127 @@
         </section>
 
         <!-- INTERACTIVE STORE MAP & DIGITAL BUSINESS CARD QR SECTION -->
-        <section class="visit-us-section" style="margin: 60px 0; padding: 40px 20px; background: linear-gradient(135deg, rgba(30, 24, 20, 0.8), rgba(18, 15, 13, 0.95)); border-radius: 24px; border: 1px solid rgba(255, 94, 0, 0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h2 class="section-title" style="margin-bottom: 5px;">Visit Our London Bakery & Store <span class="translation" style="font-size: 0.6em; display: block;">Booqo Wershadayada & Dukaanka London</span></h2>
-                <p style="color: #aaa; font-size: 1.1rem;">Scan or tap our digital business card QR or find us directly on the map below</p>
+        <section class="visit-us-section" id="visit-us" style="margin: 60px auto; max-width: 1260px; padding: 50px 30px; background: linear-gradient(135deg, rgba(35, 25, 19, 0.92) 0%, rgba(18, 14, 11, 0.98) 50%, rgba(28, 19, 14, 0.94) 100%); border-radius: 32px; border: 1px solid rgba(255, 94, 0, 0.3); box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 50px rgba(255, 94, 0, 0.1), inset 0 1px 1px rgba(255,255,255,0.08); position: relative; overflow: hidden;">
+            <!-- Subtle Decorative Amber Accent Glows -->
+            <div style="position: absolute; top: -100px; left: -100px; width: 300px; height: 300px; background: rgba(255, 94, 0, 0.15); border-radius: 50%; filter: blur(90px); pointer-events: none;"></div>
+            <div style="position: absolute; bottom: -100px; right: -100px; width: 300px; height: 300px; background: rgba(200, 90, 23, 0.15); border-radius: 50%; filter: blur(90px); pointer-events: none;"></div>
+
+            <!-- SECTION HEADER -->
+            <div style="text-align: center; margin-bottom: 45px; position: relative; z-index: 2;">
+                <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 94, 0, 0.12); border: 1px solid rgba(255, 94, 0, 0.35); color: #FFB088; padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px;">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    London Flagship Bakehouse
+                </div>
+                <h2 class="section-title" style="margin-bottom: 8px; color: #fff; font-size: 2.3rem; letter-spacing: -0.5px;">Visit Our Bakery &amp; Store <span class="translation" style="font-size: 0.55em; display: block; color: #FFB088; font-weight: 500; margin-top: 6px;">Booqo Wershadayada &amp; Dukaanka London</span></h2>
+                <p style="color: #ccc; font-size: 1.08rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">Scan or tap our interactive QR codes to save our digital card &amp; leave a review, or get instant navigation to our London NW10 store.</p>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; align-items: stretch; max-width: 1200px; margin: 0 auto;">
-                <!-- LEFT: STORE LOCATION & INTERACTIVE MAP WITH SEPARATED MAP QR CODE -->
-                <div class="map-container-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 94, 0, 0.15); border-radius: 20px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 35px; align-items: stretch; position: relative; z-index: 2;">
+                <!-- LEFT CARD: STORE LOCATION, EMBEDDED MAP & SEPARATE MAP QR CODE -->
+                <div class="map-container-card" style="background: linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.018) 100%); border: 1px solid rgba(255, 94, 0, 0.22); border-radius: 26px; padding: 30px; box-shadow: 0 20px 45px rgba(0,0,0,0.45); display: flex; flex-direction: column; justify-content: space-between;">
                     <div>
-                        <h3 style="color: #FF5E00; font-size: 1.4rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <h3 style="color: #FF5E00; font-size: 1.45rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                            <span style="background: rgba(255, 94, 0, 0.15); width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #FF5E00;">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </span>
                             Furqan Sweets Flagship Store
                         </h3>
-                        <p style="color: #ddd; font-size: 1rem; line-height: 1.6; margin-bottom: 15px;">
-                            <strong>Address:</strong> Furqan Sweet, 175 Hillside, London NW10 8LL<br>
-                            <strong>Phone:</strong> <a href="tel:02088383030" style="color: #FFB088; text-decoration: none;">020 8838 3030</a><br>
-                            <strong>Opening Hours:</strong> 9:00 AM – 10:00 PM (Everyday)
-                        </p>
+                        <div style="color: #ddd; font-size: 0.98rem; line-height: 1.7; margin-bottom: 18px; display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <strong style="color: #FFB088; min-width: 80px;">Address:</strong> 
+                                <span>Furqan Sweet, 175 Hillside, London NW10 8LL</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <strong style="color: #FFB088; min-width: 80px;">Phone:</strong> 
+                                <a href="tel:02088383030" style="color: #fff; text-decoration: none; font-weight: 600;">020 8838 3030</a>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <strong style="color: #FFB088; min-width: 80px;">Hours:</strong> 
+                                <span>9:00 AM – 10:00 PM <span style="opacity:0.8;">(Everyday)</span></span>
+                            </div>
+                        </div>
                     </div>
+
                     <!-- GOOGLE MAP EMBED WITH HIDDEN TOP-LEFT GOOGLE BANNER -->
-                    <div style="position: relative; width: 100%; height: 260px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin-bottom: 15px;">
+                    <div style="position: relative; width: 100%; height: 260px; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: 0 12px 30px rgba(0,0,0,0.5); margin-bottom: 18px;">
                         <iframe 
                             src="https://www.google.com/maps?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL&output=embed" 
                             style="position: absolute; top: -55px; left: 0; width: 100%; height: calc(100% + 55px); border:0; filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
-                    <!-- THE MAPS QR CODE (REPLACES 'CLICK TO SEE IN GOOGLE MAPS') -->
-                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 94, 0, 0.08); border: 1px solid rgba(255, 94, 0, 0.25); border-radius: 14px; padding: 12px 16px; text-decoration: none; color: #FF5E00; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(255, 94, 0, 0.6)';" onmouseout="this.style.borderColor='rgba(255, 94, 0, 0.25)';">
-                        <div style="display: flex; align-items: center; gap: 14px;">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DFurqan%2BSweet%2B175%2BHillside%2BLondon%2BNW10%2B8LL&color=FF5E00&bgcolor=00000000" alt="Google Maps QR" style="width: 52px; height: 52px; border-radius: 8px; background: #fff; padding: 3px;">
+
+                    <!-- SEPARATE MAP QR CODE (BEAUTIFUL INTERACTIVE DIRECTION BADGE) -->
+                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(255, 94, 0, 0.12), rgba(255, 94, 0, 0.05)); border: 1px solid rgba(255, 94, 0, 0.35); border-radius: 18px; padding: 14px 18px; text-decoration: none; color: #fff; transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(255, 94, 0, 0.08);" onmouseover="this.style.borderColor='rgba(255, 94, 0, 0.8)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px rgba(255,94,0,0.2)';" onmouseout="this.style.borderColor='rgba(255, 94, 0, 0.35)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(255,94,0,0.08)';">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="background: #fff; padding: 4px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DFurqan%2BSweet%2B175%2BHillside%2BLondon%2BNW10%2B8LL&color=FF5E00&bgcolor=FFFFFF" alt="Google Maps QR" style="width: 54px; height: 54px; display: block; border-radius: 6px;">
+                            </div>
                             <div style="text-align: left;">
-                                <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Store Location Map</div>
-                                <div style="font-size: 0.78rem; color: #FFB088;">Tap or scan for Google Maps directions</div>
+                                <div style="font-size: 0.98rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px;">
+                                    Store Navigation QR
+                                </div>
+                                <div style="font-size: 0.78rem; color: #FFB088; margin-top: 2px;">Tap or scan for Google Maps directions</div>
                             </div>
                         </div>
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        <div style="background: #FF5E00; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 7px 12px; border-radius: 50px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(255, 94, 0, 0.4);">
+                            GET DIRECTIONS
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </div>
                     </a>
                 </div>
 
-                <!-- RIGHT: SEPARATE DIGITAL BUSINESS CARD & REVIEWS QR CAROUSEL (SCROLLABLE LEFT & RIGHT) -->
-                <div class="qr-card-container" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 94, 0, 0.15); border-radius: 20px; padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; transition: all 0.3s ease;">
-                    <div style="position: absolute; top: -50px; right: -50px; width: 120px; height: 120px; background: rgba(255, 94, 0, 0.1); border-radius: 50%; filter: blur(30px);"></div>
+                <!-- RIGHT CARD: TAP OR SCAN VIP CARD & REVIEWS CAROUSEL -->
+                <div class="qr-card-container" style="background: linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.018) 100%); border: 1px solid rgba(255, 94, 0, 0.22); border-radius: 26px; padding: 32px 25px; box-shadow: 0 20px 45px rgba(0,0,0,0.45); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; transition: all 0.3s ease;">
+                    <div style="position: absolute; top: -50px; right: -50px; width: 140px; height: 140px; background: rgba(255, 94, 0, 0.12); border-radius: 50%; filter: blur(35px); pointer-events: none;"></div>
                     
-                    <span style="background: rgba(255, 94, 0, 0.15); color: #FF5E00; padding: 5px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px;">TAP OR SCAN</span>
+                    <!-- TAP OR SCAN BADGE -->
+                    <div style="background: rgba(255, 94, 0, 0.15); border: 1px solid rgba(255, 94, 0, 0.45); color: #FF5E00; padding: 6px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(255,94,0,0.15);">
+                        <span style="display: inline-block; width: 8px; height: 8px; background: #FF5E00; border-radius: 50%; box-shadow: 0 0 8px #FF5E00;"></span>
+                        TAP OR SCAN
+                    </div>
+
+                    <h3 style="color: #fff; font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;">Interactive Digital Cards</h3>
+                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 22px;">Use mobile camera to scan QR or tap card to open</p>
 
                     <!-- CAROUSEL TRACK -->
                     <div style="display: flex; align-items: center; justify-content: center; width: 100%; position: relative;">
-                        <button id="web-qr-prev" aria-label="Previous QR" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #FF5E00; width: 38px; height: 38px; border-radius: 50%; font-size: 1.4rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-right: 15px;">&lsaquo;</button>
+                        <!-- PREV ARROW -->
+                        <button id="web-qr-prev" aria-label="Previous QR" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: #FF5E00; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-right: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='rgba(255,94,0,0.2)'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.18)';">&lsaquo;</button>
 
-                        <div id="web-qr-slide-0" style="display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.3s ease;">
-                            <a href="card.html" target="_blank" style="background: #fff; padding: 20px; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 25px rgba(255, 94, 0, 0.3); display: block; text-decoration: none;">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.furqansweets.co.uk%2Fcard.html&color=120F0D&bgcolor=FFFFFF" alt="VIP Card QR" style="width: 180px; height: 180px; display: block; border-radius: 8px;">
+                        <!-- SLIDE 0: VIP DIGITAL BUSINESS CARD -->
+                        <div id="web-qr-slide-0" style="display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
+                            <a href="card.html" target="_blank" style="background: #fff; padding: 18px; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 30px rgba(255, 94, 0, 0.25); display: block; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.04)';" onmouseout="this.style.transform='scale(1)';">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.furqansweets.co.uk%2Fcard.html&color=120F0D&bgcolor=FFFFFF" alt="VIP Card QR" style="width: 175px; height: 175px; display: block; border-radius: 10px;">
                             </a>
-                            <div style="font-size: 1.05rem; font-weight: 700; color: #fff; margin-top: 14px;">VIP Digital Business Card</div>
-                            <div style="font-size: 0.82rem; color: #aaa; margin-top: 2px;">Tap or scan to save contacts &amp; app</div>
+                            <div style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-top: 16px;">VIP Digital Business Card</div>
+                            <div style="font-size: 0.8rem; color: #FFB088; margin-top: 3px;">Save store phone, address &amp; offline app</div>
+                            <a href="card.html" target="_blank" style="margin-top: 12px; background: rgba(255,94,0,0.15); border: 1px solid rgba(255,94,0,0.4); color: #FF5E00; font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 50px; text-decoration: none; display: inline-block;">👆 TAP CARD TO LAUNCH APP</a>
                         </div>
 
-                        <div id="web-qr-slide-1" style="display: none; flex-direction: column; align-items: center; animation: fadeIn 0.3s ease;">
-                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" style="background: #fff; padding: 20px; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 25px rgba(255, 94, 0, 0.3); display: block; text-decoration: none;">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3DFurqan%2BSweets%2BLondon%2BReviews&color=120F0D&bgcolor=FFFFFF" alt="Google Reviews QR" style="width: 180px; height: 180px; display: block; border-radius: 8px;">
+                        <!-- SLIDE 1: GOOGLE REVIEWS & RATINGS -->
+                        <div id="web-qr-slide-1" style="display: none; flex-direction: column; align-items: center; animation: fadeIn 0.35s ease; width: 100%; max-width: 260px;">
+                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" style="background: #fff; padding: 18px; border-radius: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 30px rgba(255, 94, 0, 0.25); display: block; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.04)';" onmouseout="this.style.transform='scale(1)';">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3DFurqan%2BSweets%2BLondon%2BReviews&color=120F0D&bgcolor=FFFFFF" alt="Google Reviews QR" style="width: 175px; height: 175px; display: block; border-radius: 10px;">
                             </a>
-                            <div style="font-size: 1.05rem; font-weight: 700; color: #fff; margin-top: 14px;">Google Reviews &amp; Ratings</div>
-                            <div style="font-size: 0.82rem; color: #aaa; margin-top: 2px;">Tap or scan to leave a 5-star review</div>
+                            <div style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-top: 16px;">Google Reviews &amp; Ratings</div>
+                            <div style="font-size: 0.8rem; color: #FFB088; margin-top: 3px;">Scan or tap to leave a 5-star review</div>
+                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" style="margin-top: 12px; background: rgba(255,94,0,0.15); border: 1px solid rgba(255,94,0,0.4); color: #FF5E00; font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 50px; text-decoration: none; display: inline-block;">⭐ TAP TO OPEN GOOGLE REVIEWS</a>
                         </div>
 
-                        <button id="web-qr-next" aria-label="Next QR" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #FF5E00; width: 38px; height: 38px; border-radius: 50%; font-size: 1.4rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 15px;">&rsaquo;</button>
+                        <!-- NEXT ARROW -->
+                        <button id="web-qr-next" aria-label="Next QR" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); color: #FF5E00; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 18px; transition: all 0.25s ease;" onmouseover="this.style.background='rgba(255,94,0,0.2)'; this.style.borderColor='#FF5E00';" onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.borderColor='rgba(255,255,255,0.18)';">&rsaquo;</button>
                     </div>
 
-                    <!-- CAROUSEL DOTS -->
-                    <div style="display: flex; gap: 8px; margin-top: 18px;">
-                        <button id="web-dot-0" style="background: #FF5E00; border: none; width: 28px; height: 6px; border-radius: 4px; cursor: pointer;" aria-label="VIP Card Slide"></button>
-                        <button id="web-dot-1" style="background: rgba(255,255,255,0.25); border: none; width: 14px; height: 6px; border-radius: 4px; cursor: pointer;" aria-label="Reviews Slide"></button>
+                    <!-- LABELED CAROUSEL PILL INDICATORS -->
+                    <div style="display: flex; align-items: center; gap: 14px; margin-top: 25px;">
+                        <button id="web-dot-0" style="background: rgba(255, 94, 0, 0.2); border: 1px solid #FF5E00; color: #fff; font-size: 0.78rem; font-weight: 700; padding: 6px 16px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease;">
+                            <span id="dot-indicator-0" style="display: inline-block; width: 8px; height: 8px; background: #FF5E00; border-radius: 50%;"></span>
+                            VIP Card
+                        </button>
+                        <button id="web-dot-1" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #aaa; font-size: 0.78rem; font-weight: 600; padding: 6px 16px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease;">
+                            <span id="dot-indicator-1" style="display: inline-block; width: 8px; height: 8px; background: rgba(255,255,255,0.3); border-radius: 50%;"></span>
+                            Reviews
+                        </button>
                     </div>
 
                     <script>
@@ -336,15 +384,21 @@
                             const s1 = document.getElementById('web-qr-slide-1');
                             const d0 = document.getElementById('web-dot-0');
                             const d1 = document.getElementById('web-dot-1');
+                            const i0 = document.getElementById('dot-indicator-0');
+                            const i1 = document.getElementById('dot-indicator-1');
                             function renderWebQr() {
                                 if (s === 0) {
                                     if(s0) s0.style.display = 'flex'; if(s1) s1.style.display = 'none';
-                                    if(d0) { d0.style.background = '#FF5E00'; d0.style.width = '28px'; }
-                                    if(d1) { d1.style.background = 'rgba(255,255,255,0.25)'; d1.style.width = '14px'; }
+                                    if(d0) { d0.style.background = 'rgba(255, 94, 0, 0.2)'; d0.style.borderColor = '#FF5E00'; d0.style.color = '#fff'; }
+                                    if(i0) i0.style.background = '#FF5E00';
+                                    if(d1) { d1.style.background = 'rgba(255, 255, 255, 0.05)'; d1.style.borderColor = 'rgba(255, 255, 255, 0.15)'; d1.style.color = '#aaa'; }
+                                    if(i1) i1.style.background = 'rgba(255,255,255,0.3)';
                                 } else {
                                     if(s0) s0.style.display = 'none'; if(s1) s1.style.display = 'flex';
-                                    if(d1) { d1.style.background = '#FF5E00'; d1.style.width = '28px'; }
-                                    if(d0) { d0.style.background = 'rgba(255,255,255,0.25)'; d0.style.width = '14px'; }
+                                    if(d1) { d1.style.background = 'rgba(255, 94, 0, 0.2)'; d1.style.borderColor = '#FF5E00'; d1.style.color = '#fff'; }
+                                    if(i1) i1.style.background = '#FF5E00';
+                                    if(d0) { d0.style.background = 'rgba(255, 255, 255, 0.05)'; d0.style.borderColor = 'rgba(255, 255, 255, 0.15)'; d0.style.color = '#aaa'; }
+                                    if(i0) i0.style.background = 'rgba(255,255,255,0.3)';
                                 }
                             }
                             document.getElementById('web-qr-prev')?.addEventListener('click', () => { s = 1 - s; renderWebQr(); });
