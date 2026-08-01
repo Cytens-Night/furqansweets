@@ -21,7 +21,7 @@ try {
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host "   Furqan Sweets Local Web Server & CRM Backend Running! " -ForegroundColor Green
 Write-Host "   Local URL: $prefix                           " -ForegroundColor Yellow
-Write-Host "   Admin CRM: ${prefix}admin.html                " -ForegroundColor Yellow
+Write-Host "   Admin CRM: ${prefix}access (/access.html)       " -ForegroundColor Yellow
 Write-Host "   Press Ctrl+C to stop the server.                     " -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 
@@ -73,6 +73,8 @@ while ($listener.IsListening) {
         $urlPath = [System.Uri]::UnescapeDataString($request.Url.AbsolutePath)
         if ($urlPath -eq "/" -or $urlPath -eq "") {
             $urlPath = "/index.html"
+        } elseif ($urlPath -eq "/access" -or $urlPath -eq "/access/" -or $urlPath -eq "/admin" -or $urlPath -eq "/admin/") {
+            $urlPath = "/access.html"
         }
 
         # API: GET /api/data
