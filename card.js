@@ -328,9 +328,27 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
     };
 
+    const setPreviewActive = (active) => {
+        const stageEl = document.getElementById('card-stage');
+        const boxLidEl = document.getElementById('box-lid');
+        const boxFrontEl = document.querySelector('.box-front');
+        if (active) {
+            if (hoverCard) hoverCard.classList.add('show-preview');
+            if (stageEl) stageEl.classList.add('preview-active');
+            if (boxLidEl) boxLidEl.classList.add('preview-active');
+            if (boxFrontEl) boxFrontEl.classList.add('preview-active');
+            isPreviewShown = true;
+        } else {
+            if (hoverCard) hoverCard.classList.remove('show-preview');
+            if (stageEl) stageEl.classList.remove('preview-active');
+            if (boxLidEl) boxLidEl.classList.remove('preview-active');
+            if (boxFrontEl) boxFrontEl.classList.remove('preview-active');
+            isPreviewShown = false;
+        }
+    };
+
     const closePreviewPopup = () => {
-        if (hoverCard) hoverCard.classList.remove('show-preview');
-        isPreviewShown = false;
+        setPreviewActive(false);
     };
 
     if (btnWebsitePreview) {
@@ -338,9 +356,8 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             e.stopPropagation();
             if (!isPreviewShown && hoverCard) {
-                // First click: show the hover preview popup
-                hoverCard.classList.add('show-preview');
-                isPreviewShown = true;
+                // First click: show the hover preview popup & hide box lid
+                setPreviewActive(true);
             } else {
                 // Second click on the link button: disappear/hide the preview popup!
                 closePreviewPopup();
