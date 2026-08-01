@@ -1,9 +1,14 @@
-const CACHE_NAME = 'furqan-card-pwa-v2';
+const CACHE_NAME = 'furqan-card-pwa-v3';
 const ASSETS_TO_CACHE = [
   './card.html',
   './card.css',
   './card.js',
   './manifest.json',
+  './web-app-manifest-192x192.png',
+  './web-app-manifest-512x512.png',
+  './apple-touch-icon.png',
+  './favicon-96x96.png',
+  './favicon.ico',
   './assets/furqansweets_logo.svg',
   './assets/halwa_main.png',
   './assets/halwa_sesame.png',
