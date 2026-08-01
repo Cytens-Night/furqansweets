@@ -248,12 +248,45 @@ document.addEventListener("DOMContentLoaded", () => {
                document.referrer.includes('android-app://');
     };
 
+    const updateSmartPwaModal = () => {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const iosBox = document.getElementById('pwa-ios-box');
+        const androidBox = document.getElementById('pwa-android-box');
+        const btnText = btnTriggerPwaInstall ? btnTriggerPwaInstall.querySelector('span') : null;
+
+        if (isIOS) {
+            if (iosBox) iosBox.style.display = 'block';
+            if (androidBox) androidBox.style.display = 'none';
+            if (btnText) btnText.textContent = "Got It (Tap Share Below ↓)";
+        } else {
+            if (iosBox) iosBox.style.display = 'none';
+            if (androidBox) androidBox.style.display = 'block';
+            if (btnText) {
+                btnText.textContent = deferredPwaPrompt ? "Install App Now (1-Click)" : "Install via Browser Menu (⋮)";
+            }
+        }
+    };
+
     if (btnInstallPwa && pwaModal) {
-        btnInstallPwa.addEventListener('click', () => {
+        btnInstallPwa.addEventListener('click', async (e) => {
+            e.preventDefault();
             if (isStandaloneApp()) {
                 showToast("✓ App is already installed and running on your device!");
                 return;
             }
+            // Smart 1-Click Instant Installation if browser native prompt is ready!
+            if (deferredPwaPrompt) {
+                deferredPwaPrompt.prompt();
+                const { outcome } = await deferredPwaPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
+                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+                }
+                deferredPwaPrompt = null;
+                return;
+            }
+            // Otherwise show smart personalized modal
+            updateSmartPwaModal();
             pwaModal.style.display = 'flex';
             initIcons();
         });
@@ -273,13 +306,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (outcome === 'accepted') {
                     showToast("✓ Installing Furqan Sweets App to your Home Screen...");
                     if (pwaModal) pwaModal.style.display = 'none';
+                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
                 }
                 deferredPwaPrompt = null;
             } else {
-                // Never download HTML files or show "Download again?" popup. Provide native device instructions instead.
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
                 if (isIOS) {
-                    showToast("To install on iPhone: Tap Share button (square with arrow) below & select 'Add to Home Screen'");
+                    showToast("To install on iPhone: Tap Share button (square with arrow ↑) below & select 'Add to Home Screen'");
                 } else {
                     showToast("To install: Tap browser menu (⋮) at top right & select 'Install App' or 'Add to Home screen'");
                 }
