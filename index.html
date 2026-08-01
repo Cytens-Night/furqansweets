@@ -257,7 +257,7 @@
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; align-items: stretch; max-width: 1200px; margin: 0 auto;">
-                <!-- LEFT: STORE LOCATION & INTERACTIVE MAP -->
+                <!-- LEFT: STORE LOCATION & INTERACTIVE MAP WITH SEPARATED MAP QR CODE -->
                 <div class="map-container-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 94, 0, 0.15); border-radius: 20px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between;">
                     <div>
                         <h3 style="color: #FF5E00; font-size: 1.4rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
@@ -270,26 +270,95 @@
                             <strong>Opening Hours:</strong> 9:00 AM – 10:00 PM (Everyday)
                         </p>
                     </div>
-                    <!-- GOOGLE MAP EMBED -->
-                    <div style="position: relative; width: 100%; height: 260px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+                    <!-- GOOGLE MAP EMBED WITH HIDDEN TOP-LEFT GOOGLE BANNER -->
+                    <div style="position: relative; width: 100%; height: 260px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); margin-bottom: 15px;">
                         <iframe 
                             src="https://www.google.com/maps?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL&output=embed" 
-                            width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                            style="position: absolute; top: -55px; left: 0; width: 100%; height: calc(100% + 55px); border:0; filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
-                        <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" style="position: absolute; bottom: 15px; right: 15px; background: #FF5E00; color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-decoration: none; box-shadow: 0 4px 12px rgba(255, 94, 0, 0.4);">Open in Google Maps</a>
                     </div>
+                    <!-- THE MAPS QR CODE (REPLACES 'CLICK TO SEE IN GOOGLE MAPS') -->
+                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 94, 0, 0.08); border: 1px solid rgba(255, 94, 0, 0.25); border-radius: 14px; padding: 12px 16px; text-decoration: none; color: #FF5E00; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(255, 94, 0, 0.6)';" onmouseout="this.style.borderColor='rgba(255, 94, 0, 0.25)';">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DFurqan%2BSweet%2B175%2BHillside%2BLondon%2BNW10%2B8LL&color=FF5E00&bgcolor=00000000" alt="Google Maps QR" style="width: 52px; height: 52px; border-radius: 8px; background: #fff; padding: 3px;">
+                            <div style="text-align: left;">
+                                <div style="font-size: 0.95rem; font-weight: 700; color: #fff;">Store Location Map</div>
+                                <div style="font-size: 0.78rem; color: #FFB088;">Tap or scan for Google Maps directions</div>
+                            </div>
+                        </div>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
                 </div>
 
-                <!-- RIGHT: DIGITAL BUSINESS CARD QR CODE (CLICKABLE CARD ITSELF) -->
-                <a href="card.html" target="_blank" class="qr-card-container" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 94, 0, 0.15); border-radius: 20px; padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; text-decoration: none; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='rgba(255, 94, 0, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255, 94, 0, 0.15)';">
+                <!-- RIGHT: SEPARATE DIGITAL BUSINESS CARD & REVIEWS QR CAROUSEL (SCROLLABLE LEFT & RIGHT) -->
+                <div class="qr-card-container" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 94, 0, 0.15); border-radius: 20px; padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; transition: all 0.3s ease;">
                     <div style="position: absolute; top: -50px; right: -50px; width: 120px; height: 120px; background: rgba(255, 94, 0, 0.1); border-radius: 50%; filter: blur(30px);"></div>
-                    <span style="background: rgba(255, 94, 0, 0.15); color: #FF5E00; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px;">3D Digital Business Card</span>
                     
-                    <div style="background: #fff; padding: 20px; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 25px rgba(255, 94, 0, 0.3); transition: transform 0.3s ease;">
-                        <!-- Clickable QR Code pointing to card.html -->
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.furqansweets.co.uk%2Fcard.html&color=120F0D&bgcolor=FFFFFF" alt="Furqan Sweets Digital Card QR" style="width: 180px; height: 180px; display: block; border-radius: 8px;">
+                    <span style="background: rgba(255, 94, 0, 0.15); color: #FF5E00; padding: 5px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px;">TAP OR SCAN</span>
+
+                    <!-- CAROUSEL TRACK -->
+                    <div style="display: flex; align-items: center; justify-content: center; width: 100%; position: relative;">
+                        <button id="web-qr-prev" aria-label="Previous QR" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #FF5E00; width: 38px; height: 38px; border-radius: 50%; font-size: 1.4rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-right: 15px;">&lsaquo;</button>
+
+                        <div id="web-qr-slide-0" style="display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.3s ease;">
+                            <a href="card.html" target="_blank" style="background: #fff; padding: 20px; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 25px rgba(255, 94, 0, 0.3); display: block; text-decoration: none;">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.furqansweets.co.uk%2Fcard.html&color=120F0D&bgcolor=FFFFFF" alt="VIP Card QR" style="width: 180px; height: 180px; display: block; border-radius: 8px;">
+                            </a>
+                            <div style="font-size: 1.05rem; font-weight: 700; color: #fff; margin-top: 14px;">VIP Digital Business Card</div>
+                            <div style="font-size: 0.82rem; color: #aaa; margin-top: 2px;">Tap or scan to save contacts &amp; app</div>
+                        </div>
+
+                        <div id="web-qr-slide-1" style="display: none; flex-direction: column; align-items: center; animation: fadeIn 0.3s ease;">
+                            <a href="https://www.google.com/search?q=Furqan+Sweets+London+Reviews" target="_blank" style="background: #fff; padding: 20px; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 25px rgba(255, 94, 0, 0.3); display: block; text-decoration: none;">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3DFurqan%2BSweets%2BLondon%2BReviews&color=120F0D&bgcolor=FFFFFF" alt="Google Reviews QR" style="width: 180px; height: 180px; display: block; border-radius: 8px;">
+                            </a>
+                            <div style="font-size: 1.05rem; font-weight: 700; color: #fff; margin-top: 14px;">Google Reviews &amp; Ratings</div>
+                            <div style="font-size: 0.82rem; color: #aaa; margin-top: 2px;">Tap or scan to leave a 5-star review</div>
+                        </div>
+
+                        <button id="web-qr-next" aria-label="Next QR" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #FF5E00; width: 38px; height: 38px; border-radius: 50%; font-size: 1.4rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 15px;">&rsaquo;</button>
                     </div>
-                </a>
+
+                    <!-- CAROUSEL DOTS -->
+                    <div style="display: flex; gap: 8px; margin-top: 18px;">
+                        <button id="web-dot-0" style="background: #FF5E00; border: none; width: 28px; height: 6px; border-radius: 4px; cursor: pointer;" aria-label="VIP Card Slide"></button>
+                        <button id="web-dot-1" style="background: rgba(255,255,255,0.25); border: none; width: 14px; height: 6px; border-radius: 4px; cursor: pointer;" aria-label="Reviews Slide"></button>
+                    </div>
+
+                    <script>
+                        (function() {
+                            let s = 0;
+                            const s0 = document.getElementById('web-qr-slide-0');
+                            const s1 = document.getElementById('web-qr-slide-1');
+                            const d0 = document.getElementById('web-dot-0');
+                            const d1 = document.getElementById('web-dot-1');
+                            function renderWebQr() {
+                                if (s === 0) {
+                                    if(s0) s0.style.display = 'flex'; if(s1) s1.style.display = 'none';
+                                    if(d0) { d0.style.background = '#FF5E00'; d0.style.width = '28px'; }
+                                    if(d1) { d1.style.background = 'rgba(255,255,255,0.25)'; d1.style.width = '14px'; }
+                                } else {
+                                    if(s0) s0.style.display = 'none'; if(s1) s1.style.display = 'flex';
+                                    if(d1) { d1.style.background = '#FF5E00'; d1.style.width = '28px'; }
+                                    if(d0) { d0.style.background = 'rgba(255,255,255,0.25)'; d0.style.width = '14px'; }
+                                }
+                            }
+                            document.getElementById('web-qr-prev')?.addEventListener('click', () => { s = 1 - s; renderWebQr(); });
+                            document.getElementById('web-qr-next')?.addEventListener('click', () => { s = 1 - s; renderWebQr(); });
+                            d0?.addEventListener('click', () => { s = 0; renderWebQr(); });
+                            d1?.addEventListener('click', () => { s = 1; renderWebQr(); });
+                            let touchStartX = 0;
+                            const qrBox = s0?.parentElement;
+                            if (qrBox) {
+                                qrBox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+                                qrBox.addEventListener('touchend', e => {
+                                    const diff = touchStartX - e.changedTouches[0].screenX;
+                                    if (Math.abs(diff) > 40) { s = 1 - s; renderWebQr(); }
+                                }, { passive: true });
+                            }
+                        })();
+                    </script>
+                </div>
             </div>
         </section>
 
