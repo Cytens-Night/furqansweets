@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furqan-card-pwa-v3';
+const CACHE_NAME = 'furqan-card-pwa-v4-white-favicon';
 const ASSETS_TO_CACHE = [
   './card.html',
   './card.css',
