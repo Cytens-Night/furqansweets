@@ -11,7 +11,7 @@ A premium, state-of-the-art web storefront and full CRM Admin Dashboard built fo
 - **Live Catalog & Prices**: Fetches product listings, opening hours, and store contact numbers dynamically from the backend data store.
 - **Responsive Premium UI**: Glassmorphism hero banners, interactive Halwa variant selector cards, and smooth micro-animations.
 
-### 2. 🛡️ State-of-the-Art CRM Admin Dashboard (`admin.html`)
+### 2. 🛡️ State-of-the-Art CRM Admin Dashboard (`access.html` / `/access`)
 - **Security PIN Authentication**: Protects store management behind a 4-10 digit security PIN (Default: `2026`).
 - **3-Attempt Security Lockout Protection**:
   - Entering the wrong PIN **3 times consecutively** triggers an automatic **1-hour (3600 second) account lockout**.
@@ -46,7 +46,7 @@ A premium, state-of-the-art web storefront and full CRM Admin Dashboard built fo
 3. Open your browser and visit:
    - 🏠 **Main Storefront Homepage**: [http://localhost:8000/](http://localhost:8000/)
    - 🍪 **Bakery & Snacks Shop**: [http://localhost:8000/shop.html](http://localhost:8000/shop.html)
-   - ⚙️ **CRM Admin Dashboard**: [http://localhost:8000/admin.html](http://localhost:8000/admin.html)
+   - ⚙️ **CRM Admin Dashboard**: [http://localhost:8000/access](http://localhost:8000/access) (or `access.html`)
 
 ---
 
