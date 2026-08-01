@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 5.5 DESKTOP HOVER vs. CLICK PREVIEW POPUP FOR VISIT WEBSITE BUTTON (NO INTERACTIVE WINDOW MODAL!)
+    // 5.5 DESKTOP & MOBILE PREVIEW POPUP FOR VISIT WEBSITE BUTTON (TOGGLES ON/OFF AND DISAPPEARS WHEN CLICKING LINK AGAIN OR OUTSIDE)
     const hoverWrapper = document.querySelector('.website-hover-wrapper');
     const hoverCard = document.querySelector('.website-hover-card');
     const btnWebsitePreview = document.getElementById('btn-website-preview');
@@ -331,17 +331,22 @@ document.addEventListener("DOMContentLoaded", () => {
         window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
     };
 
+    const closePreviewPopup = () => {
+        if (hoverCard) hoverCard.classList.remove('show-preview');
+        isPreviewShown = false;
+    };
+
     if (btnWebsitePreview) {
         btnWebsitePreview.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             if (!isPreviewShown && hoverCard) {
-                // First click: show the hover preview popup only
+                // First click: show the hover preview popup
                 hoverCard.classList.add('show-preview');
                 isPreviewShown = true;
             } else {
-                // Second click: open the website in a new tab
-                openWebsiteUrl();
+                // Second click on the link button: disappear/hide the preview popup!
+                closePreviewPopup();
             }
         });
     }
@@ -354,12 +359,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.addEventListener('click', (e) => {
-        if (hoverWrapper && !hoverWrapper.contains(e.target)) {
-            if (hoverCard) hoverCard.classList.remove('show-preview');
-            isPreviewShown = false;
+    const handleOutsideClickOrTouch = (e) => {
+        if (hoverWrapper && !hoverWrapper.contains(e.target) && isPreviewShown) {
+            closePreviewPopup();
         }
-    });
+    };
+
+    document.addEventListener('click', handleOutsideClickOrTouch);
+    document.addEventListener('touchstart', handleOutsideClickOrTouch, { passive: true });
 
     // 6. THE OPENING LID (`#box-lid`) -> WHITE CARD EXPANDS & REPLACES INFO VIEW WITH PREVIEWS!
     const boxLid = document.getElementById('box-lid');
