@@ -1,4 +1,4 @@
-﻿{
+{
     "siteSettings":  {
                          "storeName":  "Furqan Sweets",
                          "logo":  "assets/furqansweets_logo.svg",
@@ -11,6 +11,15 @@
                          "heroTitleSomali":  "Ma u xiistay Macmacaan Soomaaliyeed?",
                          "heroSubtitle":  "Freshly made, perfectly sweet, deeply rich.",
                          "heroSubtitleSomali":  "Cusub, macaan oo si fiican loo sameeyay.",
+                         "bulkWeight":  "15kg Base Bucket",
+                         "bulkPrice":  "£120",
+                         "bulkDesc":  "Serves approx 120 - 150 people. Easily add more kg to fit your guest list.",
+                         "bulkTitle":  "Perfect for Every Occasion",
+                         "bulkTitleSomali":  "Ku Habboon Munaasabad Kasta",
+                         "bulkBaseKgNum":  "15",
+                         "bulkBasePriceNum":  "120",
+                         "bulkExtraKgPrice":  "9",
+                         "halwaBasePrice":  "£10 / kg",
                          "adminPin":  "2026",
                          "ownerEmail":  "owner@furqansweets.co.uk",
                          "masterRecoveryKey":  "FURQAN-2026-RECOVERY",
