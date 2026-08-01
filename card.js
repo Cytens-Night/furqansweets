@@ -302,13 +302,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (pwaModal) pwaModal.style.display = 'none';
             } else {
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                const iosBox = document.getElementById('pwa-ios-guide-box');
+                const androidBox = document.getElementById('pwa-android-guide-box');
                 if (isIOS) {
-                    showToast("Tap Share ↑ in Safari's bottom menu and select Add to Home Screen (+)");
+                    if (iosBox) iosBox.style.display = 'block';
+                    if (androidBox) androidBox.style.display = 'none';
                 } else {
-                    showToast("Tap your browser menu ⋮ at the top right and select Install App");
+                    if (iosBox) iosBox.style.display = 'none';
+                    if (androidBox) androidBox.style.display = 'block';
                 }
-                if (pwaModal) pwaModal.style.display = 'none';
+                initIcons();
             }
+        });
+    }
+
+    const btnGotItIos = document.getElementById('btn-got-it-ios');
+    const btnGotItAndroid = document.getElementById('btn-got-it-android');
+    if (btnGotItIos) {
+        btnGotItIos.addEventListener('click', () => {
+            if (pwaModal) pwaModal.style.display = 'none';
+            showToast("✓ Ready! Tap Share ↑ in Safari menu anytime.");
+        });
+    }
+    if (btnGotItAndroid) {
+        btnGotItAndroid.addEventListener('click', () => {
+            if (pwaModal) pwaModal.style.display = 'none';
+            showToast("✓ Ready! Tap browser menu ⋮ to install anytime.");
         });
     }
 
