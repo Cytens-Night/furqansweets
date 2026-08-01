@@ -110,15 +110,37 @@ body {
 .black-box-flipper:has(.website-hover-wrapper:hover),
 .black-box-flipper:has(.website-hover-wrapper:focus-within),
 .black-box-flipper:has(.website-hover-card.show-preview) {
-    z-index: 999999 !important;
+    z-index: 9999999 !important;
 }
 
-/* WHEN WEBSITE PREVIEW POPUP IS ACTIVE: SEND THE LID BEHIND SO THE PREVIEW LAYER IS ALWAYS ON TOP! */
+/* ABSOLUTE GUARANTEE THAT THE LID VANISHES & NEVER OVERLAPS WHEN PREVIEW CARD IS SHOWING */
+#card-stage.preview-active .black-box-lid,
+.black-box-lid.preview-active,
 #card-stage:has(.website-hover-wrapper:hover) .black-box-lid,
 #card-stage:has(.website-hover-wrapper:focus-within) .black-box-lid,
-#card-stage:has(.website-hover-card.show-preview) .black-box-lid {
-    z-index: 10 !important;
+#card-stage:has(.website-hover-card.show-preview) .black-box-lid,
+#card-stage:has(.website-hover-card:hover) .black-box-lid {
+    opacity: 0 !important;
+    visibility: hidden !important;
     pointer-events: none !important;
+    z-index: -99999 !important;
+    transform: translateY(-50px) translateZ(-1000px) !important;
+}
+
+#card-stage:has(.website-hover-wrapper:hover) .box-face,
+#card-stage:has(.website-hover-wrapper:focus-within) .box-face,
+#card-stage:has(.website-hover-card.show-preview) .box-face {
+    z-index: 9999999 !important;
+    overflow: visible !important;
+    transform-style: preserve-3d !important;
+}
+
+#card-stage:has(.website-hover-wrapper:hover) .front-info-view,
+#card-stage:has(.website-hover-wrapper:focus-within) .front-info-view,
+#card-stage:has(.website-hover-card.show-preview) .front-info-view {
+    z-index: 9999999 !important;
+    overflow: visible !important;
+    transform-style: preserve-3d !important;
 }
 
 /* WHEN PREVIEWS ARE UNBOXED: BOX EXPANDS AND EASES INTO SHOWCASE VIEW! */
@@ -159,6 +181,13 @@ body {
     z-index: 1;
     background: #FFFFFF;
     overflow: hidden;
+}
+
+/* Ensure website preview hover card is never clipped by card overflow on mobile devices */
+.box-face:has(.website-hover-card.show-preview),
+.box-face:has(.website-hover-wrapper:hover),
+.box-face:has(.website-hover-wrapper:focus-within) {
+    overflow: visible !important;
 }
 
 /* ================== FRONT FACE CONTENT VIEWS (INFO vs SHOWCASE) ================== */
@@ -380,27 +409,28 @@ body {
 .website-hover-wrapper {
     position: relative;
     width: 100%;
-    z-index: 100000 !important;
+    z-index: 99999999 !important;
     transform-style: preserve-3d;
-    transform: translateZ(200px);
+    transform: translateZ(300px);
 }
 
 .website-hover-card {
     position: absolute;
-    bottom: calc(100% + 12px);
-    left: -10px;
-    right: -10px;
-    width: calc(100% + 20px);
+    top: calc(100% + 10px) !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
     background: #15120F;
     border: 2px solid var(--accent-brown-orange);
     border-radius: 20px;
     box-shadow: 0 35px 90px rgba(0, 0, 0, 0.98), 0 0 50px rgba(200, 90, 23, 0.55);
     overflow: hidden;
     opacity: 0;
-    transform: translateY(18px) scale(0.95) translateZ(500px);
+    transform: translateY(-15px) scale(0.95) translateZ(1200px);
     pointer-events: none;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1000000 !important;
+    z-index: 999999999 !important;
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -410,9 +440,9 @@ body {
 .website-hover-wrapper:focus-within .website-hover-card,
 .website-hover-card.show-preview {
     opacity: 1;
-    transform: translateY(0) scale(1) translateZ(500px) !important;
+    transform: translateY(0) scale(1) translateZ(1200px) !important;
     pointer-events: auto;
-    z-index: 1000000 !important;
+    z-index: 999999999 !important;
 }
 
 .hover-card-img-box {
@@ -1121,6 +1151,40 @@ body {
     .prod-detail-img {
         height: 170px;
     }
+    /* OPTIMIZED WEBSITE HOVER PREVIEW FOR PHONES (OPENS BELOW VISIT WEBSITE BUTTON TO NEVER CUT OFF AT TOP OR COVER LOGO) */
+    .website-hover-card {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: calc(100% + 10px) !important;
+        bottom: auto !important;
+        border-radius: 16px !important;
+        box-shadow: 0 25px 75px rgba(0, 0, 0, 0.98), 0 0 45px rgba(200, 90, 23, 0.7) !important;
+        transform: translateY(-12px) scale(0.95) translateZ(800px) !important;
+    }
+    .website-hover-wrapper:hover .website-hover-card,
+    .website-hover-wrapper:focus-within .website-hover-card,
+    .website-hover-card.show-preview {
+        transform: translateY(0) scale(1) translateZ(800px) !important;
+    }
+    .hover-card-img-box {
+        height: 105px !important;
+    }
+    .hover-card-content {
+        padding: 12px 14px !important;
+    }
+    .hover-brand-title {
+        font-size: 1.05rem !important;
+        margin-bottom: 3px !important;
+    }
+    .hover-brand-desc {
+        font-size: 0.77rem !important;
+        margin-bottom: 8px !important;
+        line-height: 1.35 !important;
+    }
+    .hover-brand-url {
+        font-size: 0.73rem !important;
+    }
 }
 
 /* 4. EXTRA COMPACT MOBILE PHONES (iPhone SE, Galaxy Z Flip cover, small screens -> max-width: 374px) */
@@ -1214,6 +1278,28 @@ body {
     }
     .prod-detail-img {
         height: 150px;
+    }
+    /* EXTRA COMPACT WEBSITE HOVER PREVIEW FOR SMALL PHONES (OPENS BELOW BUTTON) */
+    .website-hover-card {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: calc(100% + 8px) !important;
+        bottom: auto !important;
+        border-radius: 14px !important;
+    }
+    .hover-card-img-box {
+        height: 85px !important;
+    }
+    .hover-card-content {
+        padding: 10px 12px !important;
+    }
+    .hover-brand-title {
+        font-size: 0.95rem !important;
+    }
+    .hover-brand-desc {
+        font-size: 0.72rem !important;
+        margin-bottom: 6px !important;
     }
 }
 
