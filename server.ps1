@@ -73,7 +73,7 @@ while ($listener.IsListening) {
         $urlPath = [System.Uri]::UnescapeDataString($request.Url.AbsolutePath)
         if ($urlPath -eq "/" -or $urlPath -eq "") {
             $urlPath = "/index.html"
-        } elseif ($urlPath -eq "/access" -or $urlPath -eq "/access/" -or $urlPath -eq "/admin" -or $urlPath -eq "/admin/") {
+        } elseif ($urlPath -eq "/access" -or $urlPath -eq "/access/") {
             $urlPath = "/access.html"
         }
 
