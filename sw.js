@@ -1,4 +1,4 @@
-const CACHE_NAME = 'furqan-card-pwa-v12-integrated-shop-fix';
+const CACHE_NAME = 'furqan-card-pwa-v13-crm-access-fix';
 const ASSETS_TO_CACHE = [
   './card.html',
   './card.css',
