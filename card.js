@@ -251,29 +251,44 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 1) Try Native 1-Click Browser Install Prompt (Android / Chrome / Desktop)
-        const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
-        if (promptObj) {
-            promptObj.prompt();
-            const { outcome } = await promptObj.userChoice;
-            if (outcome === 'accepted') {
-                showToast("✓ Installing Furqan Sweets App to your Home Screen...");
-                if (btnInstallPwa) btnInstallPwa.style.display = 'none';
-                if (pwaModal) pwaModal.style.display = 'none';
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        // ON SAMSUNG / ANDROID / WINDOWS / ANY NON-IPHONE DEVICE:
+        // NEVER show instructions or 3 dots! INSTALL / DOWNLOAD STRAIGHT AWAY!
+        if (!isIOS) {
+            const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
+            if (promptObj) {
+                promptObj.prompt();
+                const { outcome } = await promptObj.userChoice;
+                if (outcome === 'accepted') {
+                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
+                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+                    if (pwaModal) pwaModal.style.display = 'none';
+                }
+                deferredPwaPrompt = null;
+                if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
+                return;
             }
-            deferredPwaPrompt = null;
-            if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
+
+            // If promptObj wasn't ready on Samsung/Android, download the standalone HTML app file straight away!
+            showToast("✓ Downloading Furqan Sweets Standalone VIP App...");
+            const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "Furqan_Sweets_VIP_Card.html";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
+            if (pwaModal) pwaModal.style.display = 'none';
             return;
         }
 
-        // 2) If native prompt is not ready (iPhone iOS Safari, or custom browser), open our clean Sleek App Card!
-        // NEVER call navigator.share()!
+        // ON IPHONE / IOS (where Apple Safari requires manual Add to Home Screen):
         if (pwaModal) {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             const iosHint = document.getElementById('pwa-ios-hint');
-            if (iosHint) {
-                iosHint.style.display = isIOS ? 'block' : 'none';
-            }
+            if (iosHint) iosHint.style.display = 'block';
             pwaModal.style.display = 'flex';
             initIcons();
         }
@@ -289,45 +304,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnTriggerPwaInstall) {
         btnTriggerPwaInstall.addEventListener('click', async (e) => {
             e.preventDefault();
-            const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
-            if (promptObj) {
-                promptObj.prompt();
-                const { outcome } = await promptObj.userChoice;
-                if (outcome === 'accepted') {
-                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
-                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
-                }
-                deferredPwaPrompt = null;
-                if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
-                if (pwaModal) pwaModal.style.display = 'none';
-            } else {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                const iosBox = document.getElementById('pwa-ios-guide-box');
-                const androidBox = document.getElementById('pwa-android-guide-box');
-                if (isIOS) {
-                    if (iosBox) iosBox.style.display = 'block';
-                    if (androidBox) androidBox.style.display = 'none';
-                } else {
-                    if (iosBox) iosBox.style.display = 'none';
-                    if (androidBox) androidBox.style.display = 'block';
-                }
-                initIcons();
-            }
+            await handlePwaInstallRequest();
         });
     }
 
     const btnGotItIos = document.getElementById('btn-got-it-ios');
-    const btnGotItAndroid = document.getElementById('btn-got-it-android');
     if (btnGotItIos) {
         btnGotItIos.addEventListener('click', () => {
             if (pwaModal) pwaModal.style.display = 'none';
             showToast("✓ Ready! Tap Share ↑ in Safari menu anytime.");
-        });
-    }
-    if (btnGotItAndroid) {
-        btnGotItAndroid.addEventListener('click', () => {
-            if (pwaModal) pwaModal.style.display = 'none';
-            showToast("✓ Ready! Tap browser menu ⋮ to install anytime.");
         });
     }
 
