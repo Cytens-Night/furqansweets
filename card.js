@@ -251,47 +251,37 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-        // ON SAMSUNG / ANDROID / WINDOWS / ANY NON-IPHONE DEVICE:
-        // NEVER show instructions or 3 dots! INSTALL / DOWNLOAD STRAIGHT AWAY!
-        if (!isIOS) {
-            const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
-            if (promptObj) {
-                promptObj.prompt();
-                const { outcome } = await promptObj.userChoice;
-                if (outcome === 'accepted') {
-                    showToast("✓ Installing Furqan Sweets App to your Home Screen...");
-                    if (btnInstallPwa) btnInstallPwa.style.display = 'none';
-                    if (pwaModal) pwaModal.style.display = 'none';
-                }
-                deferredPwaPrompt = null;
-                if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
-                return;
+        // 1) Try Native 1-Click Browser PWA Install Prompt (Android / Chrome / Samsung Internet / Desktop)
+        const promptObj = deferredPwaPrompt || window.deferredPwaPrompt;
+        if (promptObj) {
+            promptObj.prompt();
+            const { outcome } = await promptObj.userChoice;
+            if (outcome === 'accepted') {
+                showToast("✓ Installing Furqan Sweets App to your Home Screen...");
+                if (btnInstallPwa) btnInstallPwa.style.display = 'none';
+                if (pwaModal) pwaModal.style.display = 'none';
             }
-
-            // If promptObj wasn't ready on Samsung/Android, download the standalone HTML app file straight away!
-            showToast("✓ Downloading Furqan Sweets Standalone VIP App...");
-            const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "Furqan_Sweets_VIP_Card.html";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            setTimeout(() => URL.revokeObjectURL(url), 2000);
-            if (pwaModal) pwaModal.style.display = 'none';
+            deferredPwaPrompt = null;
+            if (window.deferredPwaPrompt) window.deferredPwaPrompt = null;
             return;
         }
 
-        // ON IPHONE / IOS (where Apple Safari requires manual Add to Home Screen):
-        if (pwaModal) {
-            const iosHint = document.getElementById('pwa-ios-hint');
-            if (iosHint) iosHint.style.display = 'block';
-            pwaModal.style.display = 'flex';
-            initIcons();
+        // 2) If on iPhone / iOS Safari (Apple blocks programmatic install prompts):
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS) {
+            if (pwaModal) {
+                const iosHint = document.getElementById('pwa-ios-hint');
+                if (iosHint) iosHint.style.display = 'block';
+                pwaModal.style.display = 'flex';
+                initIcons();
+            }
+            return;
         }
+
+        // 3) On Samsung/Android if prompt wasn't captured (e.g. already installed or browser menu required):
+        // NEVER download an HTML file! Explain native PWA installation cleanly:
+        showToast("To install App: Tap browser menu (⋮ or ☰) -> 'Install App' or 'Add to Home screen'");
+        if (pwaModal) pwaModal.style.display = 'none';
     };
 
     if (btnInstallPwa) {
