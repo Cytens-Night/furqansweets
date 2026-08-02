@@ -130,6 +130,179 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
+    // DOJO SECURE CHECKOUT & RECEIPT LOGIC
+    // ==========================================
+    const dojoModal = document.getElementById('dojo-modal');
+    const btnOpenDojo = document.getElementById('btn-open-dojo');
+    const closeDojoBtn = document.querySelector('.close-dojo-modal');
+    const btnCloseReceipt = document.getElementById('btn-close-dojo-receipt');
+    const btnDojoPay = document.getElementById('btn-dojo-pay');
+    const btnPrintReceipt = document.getElementById('btn-print-receipt');
+    const btnWhatsAppReceipt = document.getElementById('btn-whatsapp-receipt');
+    const dojoMethodBtns = document.querySelectorAll('.dojo-method-btn');
+    const dojoCardFields = document.getElementById('dojo-card-fields');
+    const dojoErrorMsg = document.getElementById('dojo-error-msg');
+
+    let currentDojoOrder = {
+        weight: 15,
+        price: 140,
+        ref: '',
+        dateStr: '',
+        name: '',
+        phone: '',
+        merchantId: 'sp218466ugbloc1'
+    };
+
+    if (btnOpenDojo && dojoModal) {
+        btnOpenDojo.addEventListener('click', () => {
+            // Read current weight and price from modal display
+            let w = currentWeight || 15;
+            let extraWeight = w - bulkBaseKg;
+            let p = bulkBasePrice + (Math.max(0, extraWeight) * bulkExtraKgPrice);
+            
+            currentDojoOrder.weight = w;
+            currentDojoOrder.price = p;
+
+            const summaryW = document.getElementById('dojo-summary-weight');
+            const summaryP = document.getElementById('dojo-summary-price');
+            const btnP = document.getElementById('dojo-pay-btn-price');
+            if (summaryW) summaryW.textContent = w;
+            if (summaryP) summaryP.textContent = p;
+            if (btnP) btnP.textContent = p;
+
+            // Try to load merchant ID from localStorage if customized in CRM
+            try {
+                const crmStr = localStorage.getItem('furqan_crm_data');
+                if (crmStr) {
+                    const parsed = JSON.parse(crmStr);
+                    if (parsed && parsed.siteSettings && parsed.siteSettings.dojoAccount) {
+                        currentDojoOrder.merchantId = parsed.siteSettings.dojoAccount;
+                    }
+                }
+            } catch(e) {}
+            const merchEl = document.getElementById('dojo-merchant-id');
+            if (merchEl) merchEl.textContent = currentDojoOrder.merchantId;
+
+            // Reset modal steps
+            document.getElementById('dojo-step-form').style.display = 'block';
+            document.getElementById('dojo-step-processing').style.display = 'none';
+            document.getElementById('dojo-step-receipt').style.display = 'none';
+            if (dojoErrorMsg) dojoErrorMsg.style.display = 'none';
+
+            // Hide bulk modal and open Dojo modal
+            if (bulkModal) bulkModal.style.display = 'none';
+            dojoModal.style.display = 'flex';
+        });
+
+        const closeDojo = () => {
+            dojoModal.style.display = 'none';
+        };
+
+        if (closeDojoBtn) closeDojoBtn.addEventListener('click', closeDojo);
+        if (btnCloseReceipt) btnCloseReceipt.addEventListener('click', closeDojo);
+        window.addEventListener('click', (e) => {
+            if (e.target === dojoModal) closeDojo();
+        });
+
+        // Method selector tabs
+        dojoMethodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dojoMethodBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const method = btn.getAttribute('data-method');
+                if (dojoCardFields) {
+                    dojoCardFields.style.display = (method === 'card') ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Pay button click
+        if (btnDojoPay) {
+            btnDojoPay.addEventListener('click', () => {
+                const nameEl = document.getElementById('dojo-cust-name');
+                const phoneEl = document.getElementById('dojo-cust-phone');
+                const nameVal = nameEl ? nameEl.value.trim() : '';
+                const phoneVal = phoneEl ? phoneEl.value.trim() : '';
+
+                if (!nameVal || !phoneVal) {
+                    if (dojoErrorMsg) dojoErrorMsg.style.display = 'block';
+                    return;
+                }
+                if (dojoErrorMsg) dojoErrorMsg.style.display = 'none';
+
+                currentDojoOrder.name = nameVal;
+                currentDojoOrder.phone = phoneVal;
+
+                // Step 2: Show Processing animation
+                document.getElementById('dojo-step-form').style.display = 'none';
+                document.getElementById('dojo-step-processing').style.display = 'block';
+
+                setTimeout(() => {
+                    // Generate Official Receipt
+                    const now = new Date();
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = now.getFullYear();
+                    const hrs = String(now.getHours()).padStart(2, '0');
+                    const mins = String(now.getMinutes()).padStart(2, '0');
+                    currentDojoOrder.dateStr = `${day}/${month}/${year}, ${hrs}:${mins}`;
+                    
+                    const rand4 = Math.floor(1000 + Math.random() * 9000);
+                    currentDojoOrder.ref = `DOJO-FS-${year}${month}${day}-${rand4}`;
+
+                    // Fill receipt HTML
+                    const idEl = document.getElementById('receipt-id');
+                    const dateEl = document.getElementById('receipt-date');
+                    const cnameEl = document.getElementById('receipt-cust-name');
+                    const cphoneEl = document.getElementById('receipt-cust-phone');
+                    const itemWEl = document.getElementById('receipt-item-weight');
+                    const itemTEl = document.getElementById('receipt-item-total');
+                    const paidEl = document.getElementById('receipt-total-paid');
+
+                    if (idEl) idEl.textContent = currentDojoOrder.ref;
+                    if (dateEl) dateEl.textContent = currentDojoOrder.dateStr;
+                    if (cnameEl) cnameEl.textContent = currentDojoOrder.name;
+                    if (cphoneEl) cphoneEl.textContent = currentDojoOrder.phone;
+                    if (itemWEl) itemWEl.textContent = currentDojoOrder.weight;
+                    if (itemTEl) itemTEl.textContent = currentDojoOrder.price + '.00';
+                    if (paidEl) paidEl.textContent = currentDojoOrder.price + '.00';
+
+                    // Step 3: Show receipt
+                    document.getElementById('dojo-step-processing').style.display = 'none';
+                    document.getElementById('dojo-step-receipt').style.display = 'block';
+                }, 2000);
+            });
+        }
+
+        // Print receipt
+        if (btnPrintReceipt) {
+            btnPrintReceipt.addEventListener('click', () => {
+                window.print();
+            });
+        }
+
+        // Send via WhatsApp
+        if (btnWhatsAppReceipt) {
+            btnWhatsAppReceipt.addEventListener('click', () => {
+                const msg = `Hello Furqan Sweets! I have just paid online for a Bulk Order via Dojo Secure.\n\n*Receipt Ref:* ${currentDojoOrder.ref}\n*Order:* Authentic Somali Halwa Bulk Bucket (${currentDojoOrder.weight}kg)\n*Total Paid:* £${currentDojoOrder.price}.00 GBP (Merchant: ${currentDojoOrder.merchantId})\n*Customer:* ${currentDojoOrder.name}\n*Phone:* ${currentDojoOrder.phone}\n\nPlease let me know when my order will be ready!`;
+                const enc = encodeURIComponent(msg);
+                let phone = '+447956911759';
+                try {
+                    const crmStr = localStorage.getItem('furqan_crm_data');
+                    if (crmStr) {
+                        const parsed = JSON.parse(crmStr);
+                        if (parsed && parsed.siteSettings && parsed.siteSettings.bulkPhone) {
+                            phone = parsed.siteSettings.bulkPhone.replace(/\s+/g, '');
+                            if (phone.startsWith('0')) phone = '+44' + phone.substring(1);
+                        }
+                    }
+                } catch(e) {}
+                window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${enc}`, '_blank');
+            });
+        }
+    }
+
+    // ==========================================
     // POLICY MODAL LOGIC
     // ==========================================
     const policyLinks = document.querySelectorAll('.policy-link');
