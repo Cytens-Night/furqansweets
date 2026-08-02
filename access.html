@@ -966,6 +966,7 @@
                                 <input type="file" id="upload-logo" accept="image/*" style="display: none;">
                             </label>
                         </div>
+                        <img id="preview-logo" class="item-preview-img" src="assets/furqansweets_logo.svg" style="margin-top: 10px; max-height: 70px; width: auto; object-fit: contain; background: #FFFBF7;">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Opening Hours Text</label>
@@ -1021,6 +1022,7 @@
                                 <input type="file" id="upload-heroMainImage" accept="image/*" style="display: none;">
                             </label>
                         </div>
+                        <img id="preview-heroMainImage" class="item-preview-img" src="assets/halwa_main.png" style="margin-top: 10px; max-height: 140px; width: auto; object-fit: contain;">
                     </div>
                 </div>
             </div>
@@ -1059,6 +1061,7 @@
                                 <input type="file" id="upload-storyImage" accept="image/*" style="display: none;">
                             </label>
                         </div>
+                        <img id="preview-storyImage" class="item-preview-img" src="assets/halwa_texture.png" style="margin-top: 10px; max-height: 140px; width: auto; object-fit: contain;">
                     </div>
                 </div>
             </div>
@@ -1124,6 +1127,7 @@
                                 <input type="file" id="upload-bulkModalImage" accept="image/*" style="display: none;">
                             </label>
                         </div>
+                        <img id="preview-bulkModalImage" class="item-preview-img" src="assets/square_bucket_halwa.png" style="margin-top: 10px; max-height: 140px; width: auto; object-fit: contain;">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Add Weight Button 1 (+kg)</label>
@@ -1489,6 +1493,15 @@
             setVal('setting-storyTextSomali', s.storyTextSomali || 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.');
             setVal('setting-storyImage', s.storyImage || 'assets/halwa_texture.png');
 
+            const pLogo = document.getElementById('preview-logo');
+            if (pLogo) pLogo.src = s.logo || 'assets/furqansweets_logo.svg';
+            const pHero = document.getElementById('preview-heroMainImage');
+            if (pHero) pHero.src = s.heroMainImage || 'assets/halwa_main.png';
+            const pStory = document.getElementById('preview-storyImage');
+            if (pStory) pStory.src = s.storyImage || 'assets/halwa_texture.png';
+            const pBulk = document.getElementById('preview-bulkModalImage');
+            if (pBulk) pBulk.src = s.bulkModalImage || 'assets/square_bucket_halwa.png';
+
 
             // 2. Render Halwa Products Grid
             renderHalwaGrid();
@@ -1714,21 +1727,29 @@
                     storeData.siteSettings.logo = imagePath;
                     const inputEl = document.getElementById('setting-logo');
                     if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-logo');
+                    if (previewEl) previewEl.src = imagePath;
                 } else if (type === 'bulkModalImage') {
                     if (!storeData.siteSettings) storeData.siteSettings = {};
                     storeData.siteSettings.bulkModalImage = imagePath;
                     const inputEl = document.getElementById('setting-bulkModalImage');
                     if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-bulkModalImage');
+                    if (previewEl) previewEl.src = imagePath;
                 } else if (type === 'heroMainImage') {
                     if (!storeData.siteSettings) storeData.siteSettings = {};
                     storeData.siteSettings.heroMainImage = imagePath;
                     const inputEl = document.getElementById('setting-heroMainImage');
                     if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-heroMainImage');
+                    if (previewEl) previewEl.src = imagePath;
                 } else if (type === 'storyImage') {
                     if (!storeData.siteSettings) storeData.siteSettings = {};
                     storeData.siteSettings.storyImage = imagePath;
                     const inputEl = document.getElementById('setting-storyImage');
                     if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-storyImage');
+                    if (previewEl) previewEl.src = imagePath;
                 }
                 showToast("✓ Image updated! Click 'Save All Settings' below to publish.");
             };
@@ -1756,6 +1777,15 @@
                 window.uploadImage(this, 'storyImage', 0);
             });
         }
+
+        [['setting-logo', 'preview-logo'], ['setting-heroMainImage', 'preview-heroMainImage'], ['setting-storyImage', 'preview-storyImage'], ['setting-bulkModalImage', 'preview-bulkModalImage']].forEach(([inputId, previewId]) => {
+            const inp = document.getElementById(inputId);
+            const prev = document.getElementById(previewId);
+            if (inp && prev) {
+                inp.addEventListener('input', () => { prev.src = inp.value; });
+            }
+        });
+
 
         // ================= SECURITY LOCKOUT (MAX 3 FAILED ATTEMPTS -> 1 HOUR) =================
         let lockoutTimerInterval = null;
