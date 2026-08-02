@@ -503,8 +503,12 @@
                         <input type="email" id="dojo-cust-email" name="email" autocomplete="email" placeholder="e.g. ahmed@example.com" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
                     </div>
                     <div>
-                        <label for="dojo-cust-notes" style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Date Required / Special Notes (Optional)</label>
-                        <input type="text" id="dojo-cust-notes" name="notes" placeholder="e.g. Saturday wedding reception" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
+                        <label for="dojo-pickup-date" style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Pickup / Required Date *</label>
+                        <input type="date" id="dojo-pickup-date" name="pickupdate" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box; font-family: inherit; color: #4A2311;" required>
+                    </div>
+                    <div>
+                        <label for="dojo-cust-notes" style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Special Notes / Request (Optional)</label>
+                        <input type="text" id="dojo-cust-notes" name="notes" placeholder="e.g. Saturday wedding reception, please pack well" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
                     </div>
                 </div>
 
@@ -547,7 +551,7 @@
                 </div>
 
                 <div id="dojo-error-msg" style="display: none; color: #c92a00; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; text-align: center;">
-                    Please enter your Full Name and Phone Number to continue.
+                    Please enter your Full Name, Phone Number, and Pickup Date to continue.
                 </div>
 
                 <!-- SUBMIT PAY BUTTON -->
@@ -602,6 +606,10 @@
                         <div style="display: flex; justify-content: space-between;">
                             <span>Phone Number:</span>
                             <strong id="receipt-cust-phone">07912345678</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Pickup Date:</span>
+                            <strong id="receipt-pickup-date">15/08/2026</strong>
                         </div>
                     </div>
 
