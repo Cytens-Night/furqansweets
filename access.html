@@ -1493,8 +1493,10 @@
             setVal('setting-storyTextSomali', s.storyTextSomali || 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.');
             setVal('setting-storyImage', s.storyImage || 'assets/halwa_texture.png');
 
+            const logoSrc = s.logo || 'assets/furqansweets_logo.svg';
             const pLogo = document.getElementById('preview-logo');
-            if (pLogo) pLogo.src = s.logo || 'assets/furqansweets_logo.svg';
+            if (pLogo) pLogo.src = logoSrc;
+            document.querySelectorAll('.sidebar-logo, .pin-logo').forEach(img => { img.src = logoSrc; });
             const pHero = document.getElementById('preview-heroMainImage');
             if (pHero) pHero.src = s.heroMainImage || 'assets/halwa_main.png';
             const pStory = document.getElementById('preview-storyImage');
