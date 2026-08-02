@@ -1425,14 +1425,19 @@
                     } catch (e) {}
                 }
 
-                // 3. Check local browser edits
+                // 3. Update local browser cache with authoritative server data, or fall back to local edits if offline
+                if (srvData) {
+                    try {
+                        localStorage.setItem('furqan_crm_data', JSON.stringify(srvData));
+                    } catch (e) {}
+                }
                 let savedLocal = null;
                 try {
                     const localStr = localStorage.getItem('furqan_crm_data');
                     if (localStr) savedLocal = JSON.parse(localStr);
                 } catch (e) {}
 
-                storeData = savedLocal ? { ...srvData, ...savedLocal } : (srvData || {});
+                storeData = srvData || savedLocal || {};
                 renderAll();
                 checkLockoutState();
             } catch (err) {
@@ -1753,7 +1758,17 @@
                     const previewEl = document.getElementById('preview-storyImage');
                     if (previewEl) previewEl.src = imagePath;
                 }
-                showToast("✓ Image updated! Click 'Save All Settings' below to publish.");
+                // Instantly save to local storage and live Supabase Cloud Database so old images are permanently deleted!
+                try {
+                    localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
+                } catch(e) {}
+                saveToSupabase(storeData).then((success) => {
+                    if (success) {
+                        showToast("✅ Image uploaded & saved permanently to database! Old image replaced.");
+                    } else {
+                        showToast("✓ Image updated in browser! Click 'Save All Settings' below to publish.");
+                    }
+                });
             };
             reader.readAsDataURL(file);
         };
