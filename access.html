@@ -1061,6 +1061,29 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Dojo Payment System Integration (Bulk Orders)</h2>
+                        <span class="form-hint">Dojo Online and Paymentsense Connect Cloud POS Terminal credentials</span>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Dojo Account / Merchant ID</label>
+                        <input type="text" id="setting-dojoAccount" class="form-input" value="sp218466ugbloc1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Dojo Connect Hostname</label>
+                        <input type="text" id="setting-dojoHostname" class="form-input" value="sp218466ugbloc1.connect.paymentsense.cloud">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Dojo API Key / Security Key</label>
+                        <input type="password" id="setting-dojoApiKey" class="form-input" value="e9cb6324-a862-48c8-8a47-da902dddad4b">
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- TAB 2: HALWA PRODUCTS -->
@@ -1315,6 +1338,9 @@
             document.getElementById('setting-adminPin').value = s.adminPin || '2026';
             document.getElementById('setting-ownerEmail').value = s.ownerEmail || 'owner@furqansweets.co.uk';
             document.getElementById('setting-masterRecoveryKey').value = s.masterRecoveryKey || 'FURQAN-2026-RECOVERY';
+            if (document.getElementById('setting-dojoAccount')) document.getElementById('setting-dojoAccount').value = s.dojoAccount || 'sp218466ugbloc1';
+            if (document.getElementById('setting-dojoHostname')) document.getElementById('setting-dojoHostname').value = s.dojoHostname || 'sp218466ugbloc1.connect.paymentsense.cloud';
+            if (document.getElementById('setting-dojoApiKey')) document.getElementById('setting-dojoApiKey').value = s.dojoApiKey || 'e9cb6324-a862-48c8-8a47-da902dddad4b';
 
             // 2. Render Halwa Products Grid
             renderHalwaGrid();
@@ -1812,7 +1838,10 @@
                 halwaBasePrice: document.getElementById('setting-halwaBasePrice').value || '£10 / kg',
                 adminPin: document.getElementById('setting-adminPin').value || '2026',
                 ownerEmail: document.getElementById('setting-ownerEmail').value || defaultOwnerEmail,
-                masterRecoveryKey: document.getElementById('setting-masterRecoveryKey').value || defaultRecoveryKey
+                masterRecoveryKey: document.getElementById('setting-masterRecoveryKey').value || defaultRecoveryKey,
+                dojoAccount: document.getElementById('setting-dojoAccount') ? document.getElementById('setting-dojoAccount').value : 'sp218466ugbloc1',
+                dojoHostname: document.getElementById('setting-dojoHostname') ? document.getElementById('setting-dojoHostname').value : 'sp218466ugbloc1.connect.paymentsense.cloud',
+                dojoApiKey: document.getElementById('setting-dojoApiKey') ? document.getElementById('setting-dojoApiKey').value : 'e9cb6324-a862-48c8-8a47-da902dddad4b'
             };
 
             // Ensure all halwaVariants and snacks images/names/prices from DOM inputs are synced to storeData
