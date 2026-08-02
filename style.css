@@ -1439,10 +1439,81 @@ a:hover .translation::after, button:hover .translation::after {
 }
 
 /* ================= DOJO PAYMENT & PRINTABLE RECEIPT STYLES ================= */
+/* Hide scrollbars in modal completely while keeping smooth scrolling */
+#dojo-modal .modal-content::-webkit-scrollbar,
+#dojo-modal::-webkit-scrollbar,
+.dojo-checkout-sheet::-webkit-scrollbar,
+.modal-overlay::-webkit-scrollbar,
+.modal-content::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+#dojo-modal .modal-content,
+#dojo-modal,
+.dojo-checkout-sheet,
+.modal-overlay,
+.modal-content {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+.dojo-method-btn {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.dojo-method-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(74, 35, 17, 0.1);
+}
+
 .dojo-method-btn.active {
     border-color: #FF5E00 !important;
-    background: rgba(255, 94, 0, 0.15) !important;
-    box-shadow: 0 4px 12px rgba(255, 94, 0, 0.2);
+    background: linear-gradient(135deg, #FF5E00 0%, #E04D00 100%) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 16px rgba(255, 94, 0, 0.35) !important;
+}
+
+#btn-dojo-pay:hover, #btn-dojo-pay:active {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 30px rgba(22, 128, 56, 0.6) !important;
+    background: linear-gradient(135deg, #1B9B43 0%, #11752F 100%) !important;
+}
+
+/* Mobile Apple/Android Checkout Bottom Sheet Design */
+@media (max-width: 640px) {
+    #dojo-modal {
+        align-items: flex-end !important;
+        padding: 0 !important;
+    }
+    #dojo-modal .modal-content,
+    .dojo-checkout-sheet {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 28px 28px 0 0 !important;
+        max-height: 92vh !important;
+        padding: 24px 18px 32px !important;
+        margin: 0 !important;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25) !important;
+    }
+    /* Enforce 16px min font size on mobile to prevent iOS Safari auto-zoom */
+    #dojo-modal input,
+    #dojo-modal select,
+    #dojo-modal textarea {
+        font-size: 16px !important;
+        padding: 13px 15px !important;
+        border-radius: 12px !important;
+    }
+    #dojo-modal .dojo-method-btn {
+        padding: 11px 6px !important;
+        font-size: 0.78rem !important;
+        border-radius: 12px !important;
+    }
+    #btn-dojo-pay {
+        padding: 18px 16px !important;
+        font-size: 1.15rem !important;
+    }
 }
 
 @media print {
