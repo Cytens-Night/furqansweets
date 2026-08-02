@@ -1517,6 +1517,7 @@
             const reader = new FileReader();
             reader.onload = async () => {
                 const base64 = reader.result;
+                let imagePath = base64;
                 try {
                     const res = await fetch('/api/upload', {
                         method: 'POST',
@@ -1526,28 +1527,39 @@
                             base64: base64
                         })
                     });
-                    const data = await res.json();
-                    if (data.success) {
-                        showToast("Image uploaded successfully!");
-                        if (type === 'halwa') {
-                            storeData.halwaVariants[idx].image = data.path;
-                            document.getElementById(`halwa-img-input-${idx}`).value = data.path;
-                            document.getElementById(`halwa-img-preview-${idx}`).src = data.path;
-                        } else if (type === 'snack') {
-                            storeData.snacks[idx].image = data.path;
-                            document.getElementById(`snack-img-input-${idx}`).value = data.path;
-                            document.getElementById(`snack-img-preview-${idx}`).src = data.path;
-                        } else if (type === 'logo') {
-                            storeData.siteSettings.logo = data.path;
-                            document.getElementById('setting-logo').value = data.path;
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && data.success && data.path) {
+                            imagePath = data.path;
                         }
-                    } else {
-                        showToast("Upload failed: " + (data.error || 'Unknown'), true);
                     }
                 } catch (err) {
-                    console.error("Upload error:", err);
-                    showToast("Error communicating with upload server", true);
+                    console.log("Using browser data URL for image upload (static host mode)");
                 }
+
+                if (type === 'halwa') {
+                    if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
+                        storeData.halwaVariants[idx].image = imagePath;
+                    }
+                    const inputEl = document.getElementById(`halwa-img-input-${idx}`);
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById(`halwa-img-preview-${idx}`);
+                    if (previewEl) previewEl.src = imagePath;
+                } else if (type === 'snack') {
+                    if (storeData.snacks && storeData.snacks[idx]) {
+                        storeData.snacks[idx].image = imagePath;
+                    }
+                    const inputEl = document.getElementById(`snack-img-input-${idx}`);
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById(`snack-img-preview-${idx}`);
+                    if (previewEl) previewEl.src = imagePath;
+                } else if (type === 'logo') {
+                    if (!storeData.siteSettings) storeData.siteSettings = {};
+                    storeData.siteSettings.logo = imagePath;
+                    const inputEl = document.getElementById('setting-logo');
+                    if (inputEl) inputEl.value = imagePath;
+                }
+                showToast("✓ Image updated! Click 'Save All Settings' below to publish.");
             };
             reader.readAsDataURL(file);
         };
@@ -1802,6 +1814,22 @@
                 ownerEmail: document.getElementById('setting-ownerEmail').value || defaultOwnerEmail,
                 masterRecoveryKey: document.getElementById('setting-masterRecoveryKey').value || defaultRecoveryKey
             };
+
+            // Ensure all halwaVariants and snacks images/names/prices from DOM inputs are synced to storeData
+            document.querySelectorAll('.halwa-field').forEach(input => {
+                const idx = parseInt(input.getAttribute('data-index'), 10);
+                const field = input.getAttribute('data-field');
+                if (!isNaN(idx) && storeData.halwaVariants && storeData.halwaVariants[idx]) {
+                    storeData.halwaVariants[idx][field] = input.value;
+                }
+            });
+            document.querySelectorAll('.snack-field').forEach(input => {
+                const idx = parseInt(input.getAttribute('data-index'), 10);
+                const field = input.getAttribute('data-field');
+                if (!isNaN(idx) && storeData.snacks && storeData.snacks[idx]) {
+                    storeData.snacks[idx][field] = input.value;
+                }
+            });
 
             // 1. Save to local browser storage immediately for instant live updates
             try {
