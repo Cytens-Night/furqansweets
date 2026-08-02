@@ -524,20 +524,20 @@
                     </div>
                 </div>
 
-                <!-- DEMO CARD INPUT FIELDS -->
+                <!-- REAL BANK CARD INPUT FIELDS (WITH BROWSER AUTOFILL SUPPORT) -->
                 <div id="dojo-card-fields" style="background: #ffffff; border: 1px solid rgba(74, 35, 17, 0.15); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
                     <div style="margin-bottom: 10px;">
-                        <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Card Number</label>
-                        <input type="text" placeholder="4532 •••• •••• 8842" value="4532 •••• •••• 8842" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.9rem; box-sizing: border-box;">
+                        <label for="dojo-card-number" style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Card Number</label>
+                        <input type="tel" id="dojo-card-number" name="cardnumber" autocomplete="cc-number" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="4532 •••• •••• ••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; letter-spacing: 1px;">
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div>
-                            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Expiry Date</label>
-                            <input type="text" placeholder="MM / YY" value="08 / 28" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.9rem; box-sizing: border-box;">
+                            <label for="dojo-card-expiry" style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Expiry Date</label>
+                            <input type="tel" id="dojo-card-expiry" name="cc-exp" autocomplete="cc-exp" inputmode="numeric" placeholder="MM / YY" maxlength="7" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
                         </div>
                         <div>
-                            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">CVC / Security</label>
-                            <input type="text" placeholder="123" value="882" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.9rem; box-sizing: border-box;">
+                            <label for="dojo-card-cvc" style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">CVC / Security</label>
+                            <input type="tel" id="dojo-card-cvc" name="cvc" autocomplete="cc-csc" inputmode="numeric" pattern="[0-9]{3,4}" placeholder="123" maxlength="4" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
                         </div>
                     </div>
                 </div>
