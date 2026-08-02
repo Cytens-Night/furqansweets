@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnOpenDojo) {
         btnOpenDojo.addEventListener('click', (e) => {
             e.preventDefault();
-            alert("🔒 Online Card Checkout is Currently Offline (Coming Soon).\n\nPlease call us directly at 020 8838 3030 or 07956 911 759 to place your order!");
+            alert("Online Card Checkout is Currently Offline (Coming Soon).\n\nPlease call us directly at 020 8838 3030 or 07956 911 759 to place your order!");
             return false;
         });
     }
