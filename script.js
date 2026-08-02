@@ -599,6 +599,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (s.bulkModalImage) {
                     const bModImg = document.querySelector('#bulk-modal .modal-halwa-img');
                     if (bModImg) bModImg.src = s.bulkModalImage;
+                    const bCardImg = document.querySelector('.bulk-card-img');
+                    if (bCardImg) bCardImg.src = s.bulkModalImage;
+                }
+                if (s.heroMainImage) {
+                    const heroImg = document.querySelector('.main-halwa-img');
+                    if (heroImg) heroImg.src = s.heroMainImage;
                 }
                 const addBtnsMod = document.querySelectorAll('#bulk-modal .add-btn');
                 if (addBtnsMod[0] && s.bulkAddBtn1) {
