@@ -1059,6 +1059,44 @@
                         <label class="form-label">Bulk Section Title (Somali Translation)</label>
                         <input type="text" id="setting-bulkTitleSomali" class="form-input" value="Ku Habboon Munaasabad Kasta">
                     </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Title</label>
+                        <input type="text" id="setting-bulkModalTitle" class="form-input" value="Customise Your Bulk Order">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Description</label>
+                        <input type="text" id="setting-bulkModalDesc" class="form-input" value="15kg base bucket can serve about 120 to 150 people.">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Bulk Modal Photo (Bucket Image)</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="setting-bulkModalImage" class="form-input" value="assets/square_bucket_halwa.png">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" id="upload-bulkModalImage" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Add Weight Button 1 (+kg)</label>
+                        <input type="number" id="setting-bulkAddBtn1" class="form-input" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Add Weight Button 2 (+kg)</label>
+                        <input type="number" id="setting-bulkAddBtn2" class="form-input" value="5">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Add Weight Button 3 (+kg)</label>
+                        <input type="number" id="setting-bulkAddBtn3" class="form-input" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Pay Online Button Label</label>
+                        <input type="text" id="setting-bulkPayBtnText" class="form-input" value="Pay Online &amp; Get Instant Receipt (Dojo)">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Call Button Label</label>
+                        <input type="text" id="setting-bulkCallBtnText" class="form-input" value="Or Call to Order (020 8838 3030)">
+                    </div>
                 </div>
             </div>
 
@@ -1341,6 +1379,14 @@
             if (document.getElementById('setting-dojoAccount')) document.getElementById('setting-dojoAccount').value = s.dojoAccount || 'sp218466ugbloc1';
             if (document.getElementById('setting-dojoHostname')) document.getElementById('setting-dojoHostname').value = s.dojoHostname || 'sp218466ugbloc1.connect.paymentsense.cloud';
             if (document.getElementById('setting-dojoApiKey')) document.getElementById('setting-dojoApiKey').value = s.dojoApiKey || 'e9cb6324-a862-48c8-8a47-da902dddad4b';
+            if (document.getElementById('setting-bulkModalTitle')) document.getElementById('setting-bulkModalTitle').value = s.bulkModalTitle || 'Customise Your Bulk Order';
+            if (document.getElementById('setting-bulkModalDesc')) document.getElementById('setting-bulkModalDesc').value = s.bulkModalDesc || '15kg base bucket can serve about 120 to 150 people.';
+            if (document.getElementById('setting-bulkModalImage')) document.getElementById('setting-bulkModalImage').value = s.bulkModalImage || 'assets/square_bucket_halwa.png';
+            if (document.getElementById('setting-bulkAddBtn1')) document.getElementById('setting-bulkAddBtn1').value = s.bulkAddBtn1 || '1';
+            if (document.getElementById('setting-bulkAddBtn2')) document.getElementById('setting-bulkAddBtn2').value = s.bulkAddBtn2 || '5';
+            if (document.getElementById('setting-bulkAddBtn3')) document.getElementById('setting-bulkAddBtn3').value = s.bulkAddBtn3 || '10';
+            if (document.getElementById('setting-bulkPayBtnText')) document.getElementById('setting-bulkPayBtnText').value = s.bulkPayBtnText || 'Pay Online & Get Instant Receipt (Dojo)';
+            if (document.getElementById('setting-bulkCallBtnText')) document.getElementById('setting-bulkCallBtnText').value = s.bulkCallBtnText || 'Or Call to Order (020 8838 3030)';
 
             // 2. Render Halwa Products Grid
             renderHalwaGrid();
@@ -1584,6 +1630,11 @@
                     storeData.siteSettings.logo = imagePath;
                     const inputEl = document.getElementById('setting-logo');
                     if (inputEl) inputEl.value = imagePath;
+                } else if (type === 'bulkModalImage') {
+                    if (!storeData.siteSettings) storeData.siteSettings = {};
+                    storeData.siteSettings.bulkModalImage = imagePath;
+                    const inputEl = document.getElementById('setting-bulkModalImage');
+                    if (inputEl) inputEl.value = imagePath;
                 }
                 showToast("✓ Image updated! Click 'Save All Settings' below to publish.");
             };
@@ -1592,6 +1643,10 @@
 
         document.getElementById('upload-logo').addEventListener('change', function() {
             window.uploadImage(this, 'logo', 0);
+        });
+
+        document.getElementById('upload-bulkModalImage').addEventListener('change', function() {
+            window.uploadImage(this, 'bulkModalImage', 0);
         });
 
         // ================= SECURITY LOCKOUT (MAX 3 FAILED ATTEMPTS -> 1 HOUR) =================
@@ -1841,7 +1896,15 @@
                 masterRecoveryKey: document.getElementById('setting-masterRecoveryKey').value || defaultRecoveryKey,
                 dojoAccount: document.getElementById('setting-dojoAccount') ? document.getElementById('setting-dojoAccount').value : 'sp218466ugbloc1',
                 dojoHostname: document.getElementById('setting-dojoHostname') ? document.getElementById('setting-dojoHostname').value : 'sp218466ugbloc1.connect.paymentsense.cloud',
-                dojoApiKey: document.getElementById('setting-dojoApiKey') ? document.getElementById('setting-dojoApiKey').value : 'e9cb6324-a862-48c8-8a47-da902dddad4b'
+                dojoApiKey: document.getElementById('setting-dojoApiKey') ? document.getElementById('setting-dojoApiKey').value : 'e9cb6324-a862-48c8-8a47-da902dddad4b',
+                bulkModalTitle: document.getElementById('setting-bulkModalTitle') ? document.getElementById('setting-bulkModalTitle').value : 'Customise Your Bulk Order',
+                bulkModalDesc: document.getElementById('setting-bulkModalDesc') ? document.getElementById('setting-bulkModalDesc').value : '15kg base bucket can serve about 120 to 150 people.',
+                bulkModalImage: document.getElementById('setting-bulkModalImage') ? document.getElementById('setting-bulkModalImage').value : 'assets/square_bucket_halwa.png',
+                bulkAddBtn1: document.getElementById('setting-bulkAddBtn1') ? document.getElementById('setting-bulkAddBtn1').value : '1',
+                bulkAddBtn2: document.getElementById('setting-bulkAddBtn2') ? document.getElementById('setting-bulkAddBtn2').value : '5',
+                bulkAddBtn3: document.getElementById('setting-bulkAddBtn3') ? document.getElementById('setting-bulkAddBtn3').value : '10',
+                bulkPayBtnText: document.getElementById('setting-bulkPayBtnText') ? document.getElementById('setting-bulkPayBtnText').value : 'Pay Online & Get Instant Receipt (Dojo)',
+                bulkCallBtnText: document.getElementById('setting-bulkCallBtnText') ? document.getElementById('setting-bulkCallBtnText').value : 'Or Call to Order (020 8838 3030)'
             };
 
             // Ensure all halwaVariants and snacks images/names/prices from DOM inputs are synced to storeData
