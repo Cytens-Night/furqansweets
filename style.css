@@ -871,11 +871,18 @@ a:hover .translation::after, button:hover .translation::after {
    FOOTER SECTION
    ========================================= */
 .main-footer {
-    background-color: #fff5ec; /* Light cream to let the dark logo shine */
+    background-color: #fff5ec !important; /* Light cream to let the dark logo shine */
     color: #4a2311;
-    padding: 60px 20px 20px 20px;
-    margin-top: 60px;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 60px 0 0 0 !important;
+    padding: 60px 20px 25px 20px !important;
+    box-sizing: border-box !important;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+    display: block !important;
+    position: relative;
+    left: 0;
+    right: 0;
 }
 
 .footer-content {
@@ -932,6 +939,11 @@ a:hover .translation::after, button:hover .translation::after {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
     opacity: 0.7;
+}
+
+.footer-bottom p {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* =========================================
