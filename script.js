@@ -437,12 +437,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (localStr) savedLocal = JSON.parse(localStr);
             } catch (e) {}
 
+            const SUPABASE_URL = "https://twzkccwkatbczcflyxet.supabase.co";
+            const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU";
             try {
-                const res = await fetch('/api/data');
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/store_config?id=eq.furqan-main&select=*`, {
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": `Bearer ${SUPABASE_KEY}`
+                    }
+                });
                 if (res.ok) {
-                    const contentType = res.headers.get("content-type");
-                    if (contentType && contentType.indexOf("application/json") !== -1) {
-                        srvData = await res.json();
+                    const rows = await res.json();
+                    if (rows && rows.length > 0) {
+                        const row = rows[0];
+                        srvData = {
+                            siteSettings: row.site_settings_json || {},
+                            halwaVariants: row.halwa_variants_json || [],
+                            snacks: row.snacks_json || []
+                        };
                     }
                 }
             } catch (e) {}
