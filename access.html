@@ -1308,35 +1308,73 @@
             });
         });
 
+        const SUPABASE_URL = "https://twzkccwkatbczcflyxet.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU";
+
+        async function saveToSupabase(data) {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/store_config?id=eq.furqan-main`, {
+                    method: 'PATCH',
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": `Bearer ${SUPABASE_KEY}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify({
+                        store_name: (data.siteSettings && data.siteSettings.storeName) || "Furqan Sweets",
+                        site_settings_json: data.siteSettings || {},
+                        halwa_variants_json: data.halwaVariants || [],
+                        snacks_json: data.snacks || [],
+                        updated_at: new Date().toISOString()
+                    })
+                });
+                return res.ok;
+            } catch (e) {
+                console.error("Supabase error:", e);
+                return false;
+            }
+        }
+
         // ================= LOAD & RENDER DATA =================
         async function loadData() {
             try {
                 let srvData = null;
-                // 1. Check local browser edits
-                let savedLocal = null;
+                // 1. Fetch live cloud database from Supabase
                 try {
-                    const localStr = localStorage.getItem('furqan_crm_data');
-                    if (localStr) savedLocal = JSON.parse(localStr);
-                } catch (e) {}
-
-                // 2. Try fetching from /api/data (local backend)
-                try {
-                    const res = await fetch('/api/data');
+                    const res = await fetch(`${SUPABASE_URL}/rest/v1/store_config?id=eq.furqan-main&select=*`, {
+                        headers: {
+                            "apikey": SUPABASE_KEY,
+                            "Authorization": `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
                     if (res.ok) {
-                        const contentType = res.headers.get("content-type");
-                        if (contentType && contentType.indexOf("application/json") !== -1) {
-                            srvData = await res.json();
+                        const rows = await res.json();
+                        if (rows && rows.length > 0) {
+                            const row = rows[0];
+                            srvData = {
+                                siteSettings: row.site_settings_json || {},
+                                halwaVariants: row.halwa_variants_json || [],
+                                snacks: row.snacks_json || []
+                            };
                         }
                     }
-                } catch (e) {}
+                } catch (e) { console.log("Supabase fetch fallback:", e); }
 
-                // 3. Fallback to static data.json (Netlify CDN hosting)
+                // 2. Fallback to static data.json if offline
                 if (!srvData) {
                     try {
                         const res = await fetch('data.json');
                         if (res.ok) srvData = await res.json();
                     } catch (e) {}
                 }
+
+                // 3. Check local browser edits
+                let savedLocal = null;
+                try {
+                    const localStr = localStorage.getItem('furqan_crm_data');
+                    if (localStr) savedLocal = JSON.parse(localStr);
+                } catch (e) {}
 
                 storeData = savedLocal ? { ...srvData, ...savedLocal } : (srvData || {});
                 renderAll();
@@ -1590,24 +1628,6 @@
             reader.onload = async () => {
                 const base64 = reader.result;
                 let imagePath = base64;
-                try {
-                    const res = await fetch('/api/upload', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            filename: file.name,
-                            base64: base64
-                        })
-                    });
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data && data.success && data.path) {
-                            imagePath = data.path;
-                        }
-                    }
-                } catch (err) {
-                    console.log("Using browser data URL for image upload (static host mode)");
-                }
 
                 if (type === 'halwa') {
                     if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
@@ -1840,16 +1860,8 @@
                 localStorage.removeItem('crm_lockout_until');
                 sessionStorage.setItem('crm_unlocked', 'true');
 
-                // Save to server
-                try {
-                    await fetch('/api/data', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(storeData)
-                    });
-                } catch (err) {
-                    console.error("Error saving new PIN:", err);
-                }
+                // Save to cloud server
+                await saveToSupabase(storeData);
 
                 showToast("PIN reset successfully! Dashboard unlocked.");
                 recoveryModal.style.opacity = '0';
@@ -1928,24 +1940,13 @@
                 localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
             } catch (e) {}
 
-            // 2. Try saving to backend /api/data (if running locally)
-            try {
-                const res = await fetch('/api/data', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(storeData)
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        showToast("All changes saved! Storefront updated live.");
-                        return;
-                    }
-                }
-            } catch (err) {}
-
-            // 3. On Netlify CDN host, show success toast confirming changes are live
-            showToast("✅ All changes saved & synced to live browser storage!");
+            // 2. Save directly to Supabase Cloud Database so all customers & devices see changes immediately!
+            const cloudSaved = await saveToSupabase(storeData);
+            if (cloudSaved) {
+                showToast("✅ All changes saved to live website & synced globally!");
+            } else {
+                showToast("✅ Saved locally to browser storage!");
+            }
         });
 
         // Initial Page Load
