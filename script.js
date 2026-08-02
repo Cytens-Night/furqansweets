@@ -216,6 +216,40 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
+        // Card input auto-formatting & browser recognition
+        const cardNumInput = document.getElementById('dojo-card-number');
+        const cardExpInput = document.getElementById('dojo-card-expiry');
+        const cardCvcInput = document.getElementById('dojo-card-cvc');
+
+        if (cardNumInput) {
+            cardNumInput.addEventListener('input', (e) => {
+                let val = e.target.value.replace(/\D/g, '');
+                let formatted = '';
+                for (let i = 0; i < val.length; i++) {
+                    if (i > 0 && i % 4 === 0) formatted += ' ';
+                    formatted += val[i];
+                }
+                e.target.value = formatted.slice(0, 19);
+            });
+        }
+
+        if (cardExpInput) {
+            cardExpInput.addEventListener('input', (e) => {
+                let val = e.target.value.replace(/\D/g, '');
+                if (val.length >= 2) {
+                    e.target.value = val.slice(0, 2) + ' / ' + val.slice(2, 4);
+                } else {
+                    e.target.value = val;
+                }
+            });
+        }
+
+        if (cardCvcInput) {
+            cardCvcInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+            });
+        }
+
         // Pay button click
         if (btnDojoPay) {
             btnDojoPay.addEventListener('click', () => {
@@ -225,8 +259,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 const phoneVal = phoneEl ? phoneEl.value.trim() : '';
 
                 if (!nameVal || !phoneVal) {
-                    if (dojoErrorMsg) dojoErrorMsg.style.display = 'block';
+                    if (dojoErrorMsg) {
+                        dojoErrorMsg.textContent = "Please enter your Full Name and Phone Number to continue.";
+                        dojoErrorMsg.style.display = 'block';
+                    }
                     return;
+                }
+
+                const activeMethod = document.querySelector('.dojo-method-btn.active');
+                const methodType = activeMethod ? activeMethod.getAttribute('data-method') : 'card';
+
+                if (methodType === 'card') {
+                    const cNum = document.getElementById('dojo-card-number');
+                    const cExp = document.getElementById('dojo-card-expiry');
+                    const cCvc = document.getElementById('dojo-card-cvc');
+                    if (cNum && cExp && cCvc) {
+                        const numVal = cNum.value.replace(/\D/g, '');
+                        if (numVal.length < 13 || !cExp.value.trim() || cCvc.value.trim().length < 3) {
+                            if (dojoErrorMsg) {
+                                dojoErrorMsg.textContent = "Please enter valid bank card details (Card Number, Expiry, and CVC).";
+                                dojoErrorMsg.style.display = 'block';
+                            }
+                            return;
+                        }
+                    }
                 }
                 if (dojoErrorMsg) dojoErrorMsg.style.display = 'none';
 
