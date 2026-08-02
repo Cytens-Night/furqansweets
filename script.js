@@ -154,57 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
         merchantId: 'sp218466ugbloc1'
     };
 
-    if (btnOpenDojo && dojoModal) {
-        btnOpenDojo.addEventListener('click', () => {
-            // Read current weight and price from modal display
-            let w = currentWeight || 15;
-            let extraWeight = w - bulkBaseKg;
-            let p = bulkBasePrice + (Math.max(0, extraWeight) * bulkExtraKgPrice);
-            
-            currentDojoOrder.weight = w;
-            currentDojoOrder.price = p;
-
-            const summaryW = document.getElementById('dojo-summary-weight');
-            const summaryP = document.getElementById('dojo-summary-price');
-            const btnP = document.getElementById('dojo-pay-btn-price');
-            if (summaryW) summaryW.textContent = w;
-            if (summaryP) summaryP.textContent = p;
-            if (btnP) btnP.textContent = p;
-
-            // Enforce 48-hour advance notice on the date picker
-            const dojoPickupDateInput = document.getElementById('dojo-pickup-date');
-            if (dojoPickupDateInput) {
-                const now = new Date();
-                const minDateObj = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2);
-                const yyyy = minDateObj.getFullYear();
-                const mm = String(minDateObj.getMonth() + 1).padStart(2, '0');
-                const dd = String(minDateObj.getDate()).padStart(2, '0');
-                dojoPickupDateInput.setAttribute('min', `${yyyy}-${mm}-${dd}`);
-            }
-
-            // Try to load merchant ID from localStorage if customized in CRM
-            try {
-                const crmStr = localStorage.getItem('furqan_crm_data');
-                if (crmStr) {
-                    const parsed = JSON.parse(crmStr);
-                    if (parsed && parsed.siteSettings && parsed.siteSettings.dojoAccount) {
-                        currentDojoOrder.merchantId = parsed.siteSettings.dojoAccount;
-                    }
-                }
-            } catch(e) {}
-            const merchEl = document.getElementById('dojo-merchant-id');
-            if (merchEl) merchEl.textContent = currentDojoOrder.merchantId;
-
-            // Reset modal steps
-            document.getElementById('dojo-step-form').style.display = 'block';
-            document.getElementById('dojo-step-processing').style.display = 'none';
-            document.getElementById('dojo-step-receipt').style.display = 'none';
-            if (dojoErrorMsg) dojoErrorMsg.style.display = 'none';
-
-            // Hide bulk modal and open Dojo modal
-            if (bulkModal) bulkModal.style.display = 'none';
-            dojoModal.style.display = 'flex';
+    if (btnOpenDojo) {
+        btnOpenDojo.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert("🔒 Online Card Checkout is Currently Offline (Coming Soon).\n\nPlease call us directly at 020 8838 3030 or 07956 911 759 to place your order!");
+            return false;
         });
+    }
 
         const closeDojo = () => {
             dojoModal.style.display = 'none';
