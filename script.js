@@ -250,6 +250,14 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        const dojoForm = document.getElementById('dojo-step-form');
+        if (dojoForm) {
+            dojoForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (btnDojoPay) btnDojoPay.click();
+            });
+        }
+
         // Pay button click
         if (btnDojoPay) {
             btnDojoPay.addEventListener('click', () => {
