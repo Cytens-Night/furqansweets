@@ -1025,6 +1025,44 @@
                 </div>
             </div>
 
+            <!-- BRAND STORY & HERITAGE SECTION -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Our Heritage &amp; Brand Story Section</h2>
+                        <span class="form-hint">Customize the story image, title, and paragraphs on the homepage</span>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Brand Story Title (English)</label>
+                        <input type="text" id="setting-storyTitle" class="form-input" value="Our Heritage">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Brand Story Title (Somali Translation)</label>
+                        <input type="text" id="setting-storyTitleSomali" class="form-input" value="Dhaxalkeenna qaaliga ah">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Brand Story Text (English Paragraph)</label>
+                        <input type="text" id="setting-storyText" class="form-input" value="For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Brand Story Text (Somali Paragraph Translation)</label>
+                        <input type="text" id="setting-storyTextSomali" class="form-input" value="Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Brand Story Section Image (Homepage Our Heritage Image)</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="setting-storyImage" class="form-input" value="assets/halwa_texture.png">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" id="upload-storyImage" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-section">
                 <div class="section-header">
                     <div>
@@ -1101,11 +1139,15 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Pay Online Button Label</label>
-                        <input type="text" id="setting-bulkPayBtnText" class="form-input" value="Pay Online &amp; Get Instant Receipt (Dojo)">
+                        <input type="text" id="setting-bulkPayBtnText" class="form-input" value="Online Payments • Coming Soon">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Call Button Label</label>
+                        <input type="text" id="setting-bulkCallBtnText" class="form-input" value="Call to Order Now (020 8838 3030)">
                     </div>
                     <div class="form-group" style="grid-column: span 2;">
-                        <label class="form-label">Call Button Label</label>
-                        <input type="text" id="setting-bulkCallBtnText" class="form-input" value="Or Call to Order (020 8838 3030)">
+                        <label class="form-label">Bulk 48 Hours Notice Banner Text</label>
+                        <input type="text" id="setting-bulkNoticeText" class="form-input" value="48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.">
                     </div>
                 </div>
             </div>
@@ -1438,8 +1480,15 @@
             setVal('setting-bulkAddBtn1', s.bulkAddBtn1 || '1');
             setVal('setting-bulkAddBtn2', s.bulkAddBtn2 || '5');
             setVal('setting-bulkAddBtn3', s.bulkAddBtn3 || '10');
-            setVal('setting-bulkPayBtnText', s.bulkPayBtnText || 'Pay Online & Get Instant Receipt (Dojo)');
-            setVal('setting-bulkCallBtnText', s.bulkCallBtnText || 'Or Call to Order (020 8838 3030)');
+            setVal('setting-bulkPayBtnText', s.bulkPayBtnText || 'Online Payments • Coming Soon');
+            setVal('setting-bulkCallBtnText', s.bulkCallBtnText || 'Call to Order Now (020 8838 3030)');
+            setVal('setting-bulkNoticeText', s.bulkNoticeText || '48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.');
+            setVal('setting-storyTitle', s.storyTitle || 'Our Heritage');
+            setVal('setting-storyTitleSomali', s.storyTitleSomali || 'Dhaxalkeenna qaaliga ah');
+            setVal('setting-storyText', s.storyText || 'For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.');
+            setVal('setting-storyTextSomali', s.storyTextSomali || 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.');
+            setVal('setting-storyImage', s.storyImage || 'assets/halwa_texture.png');
+
 
             // 2. Render Halwa Products Grid
             renderHalwaGrid();
@@ -1675,6 +1724,11 @@
                     storeData.siteSettings.heroMainImage = imagePath;
                     const inputEl = document.getElementById('setting-heroMainImage');
                     if (inputEl) inputEl.value = imagePath;
+                } else if (type === 'storyImage') {
+                    if (!storeData.siteSettings) storeData.siteSettings = {};
+                    storeData.siteSettings.storyImage = imagePath;
+                    const inputEl = document.getElementById('setting-storyImage');
+                    if (inputEl) inputEl.value = imagePath;
                 }
                 showToast("✓ Image updated! Click 'Save All Settings' below to publish.");
             };
@@ -1693,6 +1747,13 @@
         if (uploadHeroMain) {
             uploadHeroMain.addEventListener('change', function() {
                 window.uploadImage(this, 'heroMainImage', 0);
+            });
+        }
+
+        const uploadStoryImg = document.getElementById('upload-storyImage');
+        if (uploadStoryImg) {
+            uploadStoryImg.addEventListener('change', function() {
+                window.uploadImage(this, 'storyImage', 0);
             });
         }
 
@@ -1947,8 +2008,14 @@
                 bulkAddBtn1: getVal('setting-bulkAddBtn1', '1'),
                 bulkAddBtn2: getVal('setting-bulkAddBtn2', '5'),
                 bulkAddBtn3: getVal('setting-bulkAddBtn3', '10'),
-                bulkPayBtnText: getVal('setting-bulkPayBtnText', 'Pay Online & Get Instant Receipt (Dojo)'),
-                bulkCallBtnText: getVal('setting-bulkCallBtnText', 'Or Call to Order (020 8838 3030)')
+                bulkPayBtnText: getVal('setting-bulkPayBtnText', 'Online Payments • Coming Soon'),
+                bulkCallBtnText: getVal('setting-bulkCallBtnText', 'Call to Order Now (020 8838 3030)'),
+                bulkNoticeText: getVal('setting-bulkNoticeText', '48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.'),
+                storyTitle: getVal('setting-storyTitle', 'Our Heritage'),
+                storyTitleSomali: getVal('setting-storyTitleSomali', 'Dhaxalkeenna qaaliga ah'),
+                storyText: getVal('setting-storyText', 'For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.'),
+                storyTextSomali: getVal('setting-storyTextSomali', 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.'),
+                storyImage: getVal('setting-storyImage', 'assets/halwa_texture.png')
             };
 
             // Ensure all halwaVariants and snacks images/names/prices from DOM inputs are synced to storeData
