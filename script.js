@@ -150,6 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dateStr: '',
         name: '',
         phone: '',
+        pickupDate: '',
         merchantId: 'sp218466ugbloc1'
     };
 
@@ -263,15 +264,25 @@ document.addEventListener("DOMContentLoaded", () => {
             btnDojoPay.addEventListener('click', () => {
                 const nameEl = document.getElementById('dojo-cust-name');
                 const phoneEl = document.getElementById('dojo-cust-phone');
+                const dateEl = document.getElementById('dojo-pickup-date');
                 const nameVal = nameEl ? nameEl.value.trim() : '';
                 const phoneVal = phoneEl ? phoneEl.value.trim() : '';
+                const dateVal = dateEl ? dateEl.value.trim() : '';
 
-                if (!nameVal || !phoneVal) {
+                if (!nameVal || !phoneVal || !dateVal) {
                     if (dojoErrorMsg) {
-                        dojoErrorMsg.textContent = "Please enter your Full Name and Phone Number to continue.";
+                        dojoErrorMsg.textContent = "Please enter your Full Name, Phone Number, and Pickup Date to continue.";
                         dojoErrorMsg.style.display = 'block';
                     }
                     return;
+                }
+
+                let formattedDate = dateVal;
+                if (dateVal && dateVal.includes('-')) {
+                    const parts = dateVal.split('-');
+                    if (parts.length === 3) {
+                        formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                    }
                 }
 
                 const activeMethod = document.querySelector('.dojo-method-btn.active');
@@ -296,6 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 currentDojoOrder.name = nameVal;
                 currentDojoOrder.phone = phoneVal;
+                currentDojoOrder.pickupDate = formattedDate;
 
                 // Step 2: Show Processing animation
                 document.getElementById('dojo-step-form').style.display = 'none';
@@ -319,6 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const dateEl = document.getElementById('receipt-date');
                     const cnameEl = document.getElementById('receipt-cust-name');
                     const cphoneEl = document.getElementById('receipt-cust-phone');
+                    const cpickupEl = document.getElementById('receipt-pickup-date');
                     const itemWEl = document.getElementById('receipt-item-weight');
                     const itemTEl = document.getElementById('receipt-item-total');
                     const paidEl = document.getElementById('receipt-total-paid');
@@ -327,6 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (dateEl) dateEl.textContent = currentDojoOrder.dateStr;
                     if (cnameEl) cnameEl.textContent = currentDojoOrder.name;
                     if (cphoneEl) cphoneEl.textContent = currentDojoOrder.phone;
+                    if (cpickupEl) cpickupEl.textContent = currentDojoOrder.pickupDate;
                     if (itemWEl) itemWEl.textContent = currentDojoOrder.weight;
                     if (itemTEl) itemTEl.textContent = currentDojoOrder.price + '.00';
                     if (paidEl) paidEl.textContent = currentDojoOrder.price + '.00';
@@ -348,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Send via WhatsApp
         if (btnWhatsAppReceipt) {
             btnWhatsAppReceipt.addEventListener('click', () => {
-                const msg = `Hello Furqan Sweets! I have just paid online for a Bulk Order via Dojo Secure.\n\n*Receipt Ref:* ${currentDojoOrder.ref}\n*Order:* Authentic Somali Halwa Bulk Bucket (${currentDojoOrder.weight}kg)\n*Total Paid:* £${currentDojoOrder.price}.00 GBP (Merchant: ${currentDojoOrder.merchantId})\n*Customer:* ${currentDojoOrder.name}\n*Phone:* ${currentDojoOrder.phone}\n\nPlease let me know when my order will be ready!`;
+                const msg = `Hello Furqan Sweets! I have just paid online for a Bulk Order via Dojo Secure.\n\n*Receipt Ref:* ${currentDojoOrder.ref}\n*Order:* Authentic Somali Halwa Bulk Bucket (${currentDojoOrder.weight}kg)\n*Total Paid:* £${currentDojoOrder.price}.00 GBP (Merchant: ${currentDojoOrder.merchantId})\n*Customer:* ${currentDojoOrder.name}\n*Phone:* ${currentDojoOrder.phone}\n*Pickup Date:* ${currentDojoOrder.pickupDate}\n\nPlease confirm my order!`;
                 const enc = encodeURIComponent(msg);
                 let phone = '+447956911759';
                 try {
