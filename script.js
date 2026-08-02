@@ -498,6 +498,41 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (bulkTitleEl && s.bulkTitle) {
                     bulkTitleEl.innerHTML = `${s.bulkTitle} <span class="translation" style="font-size: 0.6em; margin-top: 5px;">${s.bulkTitleSomali || ''}</span>`;
                 }
+                if (s.bulkModalTitle) {
+                    const bModTitle = document.querySelector('#bulk-modal .modal-header h2');
+                    if (bModTitle) bModTitle.textContent = s.bulkModalTitle;
+                }
+                if (s.bulkModalDesc) {
+                    const bModDesc = document.querySelector('#bulk-modal .modal-desc');
+                    if (bModDesc) bModDesc.textContent = s.bulkModalDesc;
+                }
+                if (s.bulkModalImage) {
+                    const bModImg = document.querySelector('#bulk-modal .modal-halwa-img');
+                    if (bModImg) bModImg.src = s.bulkModalImage;
+                }
+                const addBtnsMod = document.querySelectorAll('#bulk-modal .add-btn');
+                if (addBtnsMod[0] && s.bulkAddBtn1) {
+                    addBtnsMod[0].setAttribute('data-weight', s.bulkAddBtn1);
+                    addBtnsMod[0].textContent = '+' + s.bulkAddBtn1 + ' kg';
+                }
+                if (addBtnsMod[1] && s.bulkAddBtn2) {
+                    addBtnsMod[1].setAttribute('data-weight', s.bulkAddBtn2);
+                    addBtnsMod[1].textContent = '+' + s.bulkAddBtn2 + ' kg';
+                }
+                if (addBtnsMod[2] && s.bulkAddBtn3) {
+                    addBtnsMod[2].setAttribute('data-weight', s.bulkAddBtn3);
+                    addBtnsMod[2].textContent = '+' + s.bulkAddBtn3 + ' kg';
+                }
+                if (s.bulkPayBtnText) {
+                    const bPayBtn = document.getElementById('btn-open-dojo');
+                    if (bPayBtn) {
+                        bPayBtn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="flex-shrink: 0;"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg> <span>' + s.bulkPayBtnText + '</span>';
+                    }
+                }
+                if (s.bulkCallBtnText) {
+                    const bCallBtn = document.querySelector('#bulk-modal .call-modal-trigger');
+                    if (bCallBtn) bCallBtn.textContent = s.bulkCallBtnText;
+                }
                 if (s.bulkBaseKgNum) {
                     bulkBaseKg = parseFloat(s.bulkBaseKgNum) || 15;
                     currentWeight = bulkBaseKg;
