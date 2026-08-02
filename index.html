@@ -474,8 +474,8 @@
                 <p style="margin: 4px 0 0; font-size: 0.8rem; color: #6d4834;">Merchant: <strong id="dojo-merchant-id">sp218466ugbloc1</strong> (Paymentsense Cloud)</p>
             </div>
 
-            <!-- STEP 1: CUSTOMER & PAYMENT DETAILS FORM -->
-            <div id="dojo-step-form">
+            <!-- STEP 1: CUSTOMER & PAYMENT DETAILS FORM (WRAPPED IN FORM TAG FOR FULL AUTOFILL SUPPORT) -->
+            <form id="dojo-step-form" autocomplete="on" onsubmit="return false;">
                 <!-- ORDER SUMMARY BOX -->
                 <div style="background: rgba(255, 94, 0, 0.08); border: 1px solid rgba(255, 94, 0, 0.25); border-radius: 14px; padding: 14px 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;">
                     <div>
@@ -491,20 +491,20 @@
                 <!-- CUSTOMER INPUTS -->
                 <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
                     <div>
-                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Your Full Name *</label>
-                        <input type="text" id="dojo-cust-name" placeholder="e.g. Ahmed Mahamed" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;" required>
+                        <label for="dojo-cust-name" style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Your Full Name *</label>
+                        <input type="text" id="dojo-cust-name" name="name" autocomplete="name cc-name" placeholder="e.g. Ahmed Mahamed" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;" required>
                     </div>
                     <div>
-                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Phone Number (for Order & WhatsApp Receipt) *</label>
-                        <input type="tel" id="dojo-cust-phone" placeholder="e.g. 07912 345 678" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;" required>
+                        <label for="dojo-cust-phone" style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Phone Number (for Order & WhatsApp Receipt) *</label>
+                        <input type="tel" id="dojo-cust-phone" name="tel" autocomplete="tel" placeholder="e.g. 07912 345 678" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;" required>
                     </div>
                     <div>
-                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Email Address (Optional)</label>
-                        <input type="email" id="dojo-cust-email" placeholder="e.g. ahmed@example.com" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
+                        <label for="dojo-cust-email" style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Email Address (Optional)</label>
+                        <input type="email" id="dojo-cust-email" name="email" autocomplete="email" placeholder="e.g. ahmed@example.com" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Date Required / Special Notes (Optional)</label>
-                        <input type="text" id="dojo-cust-notes" placeholder="e.g. Saturday wedding reception" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
+                        <label for="dojo-cust-notes" style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Date Required / Special Notes (Optional)</label>
+                        <input type="text" id="dojo-cust-notes" name="notes" placeholder="e.g. Saturday wedding reception" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
                     </div>
                 </div>
 
@@ -524,11 +524,15 @@
                     </div>
                 </div>
 
-                <!-- REAL BANK CARD INPUT FIELDS (WITH BROWSER AUTOFILL SUPPORT) -->
+                <!-- REAL BANK CARD INPUT FIELDS (WITH FULL W3C & APPLE/GOOGLE BROWSER AUTOFILL SUPPORT) -->
                 <div id="dojo-card-fields" style="background: #ffffff; border: 1px solid rgba(74, 35, 17, 0.15); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
                     <div style="margin-bottom: 10px;">
+                        <label for="dojo-card-name" style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Name on Card</label>
+                        <input type="text" id="dojo-card-name" name="ccname" autocomplete="cc-name" placeholder="Cardholder Name" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 10px;">
                         <label for="dojo-card-number" style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Card Number</label>
-                        <input type="tel" id="dojo-card-number" name="cardnumber" autocomplete="cc-number" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="4532 •••• •••• ••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; letter-spacing: 1px;">
+                        <input type="tel" id="dojo-card-number" name="cardnumber" autocomplete="cc-number" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="•••• •••• •••• ••••" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; letter-spacing: 1px;">
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div>
@@ -547,13 +551,13 @@
                 </div>
 
                 <!-- SUBMIT PAY BUTTON -->
-                <button id="btn-dojo-pay" class="btn-primary" style="width: 100%; background: #2E7D32; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.35); font-weight: 800; font-size: 1.05rem; padding: 14px;">
+                <button type="submit" id="btn-dojo-pay" class="btn-primary" style="width: 100%; background: #2E7D32; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.35); font-weight: 800; font-size: 1.05rem; padding: 14px;">
                     Pay £<span id="dojo-pay-btn-price">140</span>.00 Now • Dojo Secure
                 </button>
                 <div style="text-align: center; margin-top: 10px; font-size: 0.72rem; color: #8c5d45;">
                     Powered by <strong>Dojo (Paymentsense Ltd)</strong> • FCA Regulated • SSL Encrypted
                 </div>
-            </div>
+            </form>
 
             <!-- STEP 2: PROCESSING OVERLAY -->
             <div id="dojo-step-processing" style="display: none; text-align: center; padding: 40px 20px;">
