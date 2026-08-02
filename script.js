@@ -171,6 +171,17 @@ document.addEventListener("DOMContentLoaded", () => {
             if (summaryP) summaryP.textContent = p;
             if (btnP) btnP.textContent = p;
 
+            // Enforce 48-hour advance notice on the date picker
+            const dojoPickupDateInput = document.getElementById('dojo-pickup-date');
+            if (dojoPickupDateInput) {
+                const now = new Date();
+                const minDateObj = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2);
+                const yyyy = minDateObj.getFullYear();
+                const mm = String(minDateObj.getMonth() + 1).padStart(2, '0');
+                const dd = String(minDateObj.getDate()).padStart(2, '0');
+                dojoPickupDateInput.setAttribute('min', `${yyyy}-${mm}-${dd}`);
+            }
+
             // Try to load merchant ID from localStorage if customized in CRM
             try {
                 const crmStr = localStorage.getItem('furqan_crm_data');
@@ -285,6 +296,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
 
+                // Validate that selected date is at least 48 hours / 2 days from today
+                const now = new Date();
+                const minDateObj = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 2);
+                const selectedDateObj = new Date(dateVal + 'T00:00:00');
+                if (selectedDateObj < minDateObj) {
+                    if (dojoErrorMsg) {
+                        dojoErrorMsg.innerHTML = "⚠️ <strong>48 Hours Advance Notice Required:</strong> Bulk orders must be placed at least 2 days in advance. For emergency or urgent orders, please call us immediately at <strong>020 8838 3030</strong>.";
+                        dojoErrorMsg.style.display = 'block';
+                    }
+                    return;
+                }
+
                 const activeMethod = document.querySelector('.dojo-method-btn.active');
                 const methodType = activeMethod ? activeMethod.getAttribute('data-method') : 'card';
 
@@ -362,7 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Send via WhatsApp
         if (btnWhatsAppReceipt) {
             btnWhatsAppReceipt.addEventListener('click', () => {
-                const msg = `Hello Furqan Sweets! I have just paid online for a Bulk Order via Dojo Secure.\n\n*Receipt Ref:* ${currentDojoOrder.ref}\n*Order:* Authentic Somali Halwa Bulk Bucket (${currentDojoOrder.weight}kg)\n*Total Paid:* £${currentDojoOrder.price}.00 GBP (Merchant: ${currentDojoOrder.merchantId})\n*Customer:* ${currentDojoOrder.name}\n*Phone:* ${currentDojoOrder.phone}\n*Pickup Date:* ${currentDojoOrder.pickupDate}\n\nPlease confirm my order!`;
+                const msg = `Hello Furqan Sweets! I have just paid online for a Bulk Order via Dojo Secure.\n\n*Receipt Ref:* ${currentDojoOrder.ref}\n*Order:* Authentic Somali Halwa Bulk Bucket (${currentDojoOrder.weight}kg)\n*Total Paid:* £${currentDojoOrder.price}.00 GBP (Merchant: ${currentDojoOrder.merchantId})\n*Customer:* ${currentDojoOrder.name}\n*Phone:* ${currentDojoOrder.phone}\n*Pickup Date:* ${currentDojoOrder.pickupDate} (48h+ Advance Notice)\n\nPlease confirm my order!`;
                 const enc = encodeURIComponent(msg);
                 let phone = '+447956911759';
                 try {
