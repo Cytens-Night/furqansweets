@@ -357,7 +357,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${enc}`, '_blank');
             });
         }
-    }
 
     // ==========================================
     // POLICY MODAL LOGIC
@@ -580,6 +579,30 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (bModImg) bModImg.src = s.bulkModalImage;
                     const bCardImg = document.querySelector('.bulk-card-img');
                     if (bCardImg) bCardImg.src = s.bulkModalImage;
+                }
+                if (s.bulkNoticeText) {
+                    const hpNotice = document.getElementById('homepage-bulk-notice');
+                    if (hpNotice) hpNotice.innerHTML = `<strong>48 Hours Notice Required</strong>: ${s.bulkNoticeText}`;
+                    const modNotice = document.getElementById('modal-bulk-notice');
+                    if (modNotice) modNotice.innerHTML = `<strong>48 Hours Advance Notice Required:</strong> ${s.bulkNoticeText}`;
+                    const dojoNotice = document.getElementById('dojo-bulk-notice');
+                    if (dojoNotice) dojoNotice.textContent = s.bulkNoticeText;
+                }
+                if (s.storyTitle) {
+                    const storyH2 = document.querySelector('.brand-story-content h2');
+                    if (storyH2) {
+                        storyH2.innerHTML = `${s.storyTitle} <span class="translation" style="font-size: 0.6em; margin-top: 5px;">${s.storyTitleSomali || ''}</span>`;
+                    }
+                }
+                if (s.storyText) {
+                    const storyP1 = document.querySelector('.brand-story-content p:first-of-type');
+                    if (storyP1) {
+                        storyP1.innerHTML = `${s.storyText}<span class="translation">${s.storyTextSomali || ''}</span>`;
+                    }
+                }
+                if (s.storyImage) {
+                    const stImg = document.querySelector('.story-img');
+                    if (stImg) stImg.src = s.storyImage;
                 }
                 if (s.heroMainImage) {
                     const heroImg = document.querySelector('.main-halwa-img');
