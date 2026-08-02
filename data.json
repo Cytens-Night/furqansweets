@@ -32,8 +32,14 @@
                          "bulkModalTitle": "Customise Your Bulk Order",
                          "bulkModalImage": "assets/square_bucket_halwa.png",
                          "bulkModalDesc": "15kg base bucket can serve about 120 to 150 people.",
-                         "bulkPayBtnText": "Pay Online & Get Instant Receipt (Dojo)",
-                         "bulkCallBtnText": "Or Call to Order (020 8838 3030)"
+                         "bulkPayBtnText": "Online Payments • Coming Soon",
+                         "bulkCallBtnText": "Call to Order Now (020 8838 3030)",
+                         "bulkNoticeText": "48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.",
+                         "storyTitle": "Our Heritage",
+                         "storyTitleSomali": "Dhaxalkeenna qaaliga ah",
+                         "storyText": "For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.",
+                         "storyTextSomali": "Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.",
+                         "storyImage": "assets/halwa_texture.png"
                      },
     "halwaVariants":  [
                           {
