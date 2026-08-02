@@ -447,7 +447,198 @@
                         <h3>Estimated Total: £<span id="display-price">140</span></h3>
                     </div>
                 </div>
-                <button class="btn-primary call-modal-trigger" data-call-type="bulk" style="width: 100%; margin-top: 10px;">Call to Place Bulk Order</button>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                    <button id="btn-open-dojo" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #FF5E00 0%, #D83A00 100%); box-shadow: 0 4px 15px rgba(255, 94, 0, 0.35); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                        Pay Online & Get Instant Receipt (Dojo)
+                    </button>
+                    <button class="call-modal-trigger" data-call-type="bulk" style="width: 100%; padding: 12px; background: rgba(74, 35, 17, 0.08); border: 2px solid #4A2311; color: #4A2311; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+                        📞 Or Call to Order (020 8838 3030)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DOJO SECURE CHECKOUT & INSTANT RECEIPT MODAL -->
+    <div id="dojo-modal" class="modal-overlay" style="z-index: 100000;">
+        <div class="modal-content" style="max-width: 540px; width: 95%; max-height: 90vh; overflow-y: auto; padding: 25px; border-radius: 24px; background: #FFFBF7;">
+            <span class="close-dojo-modal" style="position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; color: #4A2311;">&times;</span>
+            
+            <!-- DOJO HEADER -->
+            <div style="text-align: center; border-bottom: 2px solid rgba(74, 35, 17, 0.1); padding-bottom: 16px; margin-bottom: 18px;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; background: #E8F5E9; color: #2E7D32; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 50px; margin-bottom: 8px;">
+                    🔒 DOJO SECURE CHECKOUT • GBP
+                </div>
+                <h2 style="margin: 0; font-size: 1.4rem; color: #4A2311;">Complete Your Bulk Order</h2>
+                <p style="margin: 4px 0 0; font-size: 0.8rem; color: #6d4834;">Merchant: <strong id="dojo-merchant-id">sp218466ugbloc1</strong> (Paymentsense Cloud)</p>
+            </div>
+
+            <!-- STEP 1: CUSTOMER & PAYMENT DETAILS FORM -->
+            <div id="dojo-step-form">
+                <!-- ORDER SUMMARY BOX -->
+                <div style="background: rgba(255, 94, 0, 0.08); border: 1px solid rgba(255, 94, 0, 0.25); border-radius: 14px; padding: 14px 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span style="font-size: 0.75rem; color: #8c5d45; font-weight: 600; text-transform: uppercase;">Selected Item</span>
+                        <h4 style="margin: 2px 0 0; font-size: 1.05rem; color: #4A2311;">Somali Halwa Bulk Bucket (<span id="dojo-summary-weight">15</span>kg)</h4>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.75rem; color: #8c5d45; font-weight: 600;">Total to Pay</span>
+                        <div style="font-size: 1.35rem; font-weight: 800; color: #D83A00;">£<span id="dojo-summary-price">140</span>.00</div>
+                    </div>
+                </div>
+
+                <!-- CUSTOMER INPUTS -->
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Your Full Name *</label>
+                        <input type="text" id="dojo-cust-name" placeholder="e.g. Ahmed Mahamed" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;" required>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Phone Number (for Order & WhatsApp Receipt) *</label>
+                        <input type="tel" id="dojo-cust-phone" placeholder="e.g. 07912 345 678" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;" required>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Email Address (Optional)</label>
+                        <input type="email" id="dojo-cust-email" placeholder="e.g. ahmed@example.com" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 4px;">Date Required / Special Notes (Optional)</label>
+                        <input type="text" id="dojo-cust-notes" placeholder="e.g. Saturday wedding reception" style="width: 100%; padding: 11px 14px; border: 1.5px solid rgba(74, 35, 17, 0.25); border-radius: 10px; font-size: 0.95rem; box-sizing: border-box;">
+                    </div>
+                </div>
+
+                <!-- PAYMENT METHOD TABS -->
+                <div style="margin-bottom: 18px;">
+                    <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #4A2311; margin-bottom: 8px;">Select Dojo Payment Method:</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+                        <button type="button" class="dojo-method-btn active" data-method="card" style="padding: 10px 8px; border: 2px solid #FF5E00; background: rgba(255, 94, 0, 0.1); border-radius: 10px; font-weight: 700; font-size: 0.8rem; color: #4A2311; cursor: pointer; text-align: center;">
+                            💳 Credit / Debit Card
+                        </button>
+                        <button type="button" class="dojo-method-btn" data-method="wallet" style="padding: 10px 8px; border: 1.5px solid rgba(74, 35, 17, 0.2); background: #ffffff; border-radius: 10px; font-weight: 700; font-size: 0.8rem; color: #4A2311; cursor: pointer; text-align: center;">
+                            📱 Apple / Google Pay
+                        </button>
+                        <button type="button" class="dojo-method-btn" data-method="terminal" style="padding: 10px 8px; border: 1.5px solid rgba(74, 35, 17, 0.2); background: #ffffff; border-radius: 10px; font-weight: 700; font-size: 0.8rem; color: #4A2311; cursor: pointer; text-align: center;">
+                            🏬 Shop Terminal POS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DEMO CARD INPUT FIELDS -->
+                <div id="dojo-card-fields" style="background: #ffffff; border: 1px solid rgba(74, 35, 17, 0.15); border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+                    <div style="margin-bottom: 10px;">
+                        <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Card Number</label>
+                        <input type="text" placeholder="4532 •••• •••• 8842" value="4532 •••• •••• 8842" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.9rem; box-sizing: border-box;">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">Expiry Date</label>
+                            <input type="text" placeholder="MM / YY" value="08 / 28" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.9rem; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #6d4834; margin-bottom: 4px;">CVC / Security</label>
+                            <input type="text" placeholder="123" value="882" style="width: 100%; padding: 10px 12px; border: 1px solid rgba(74, 35, 17, 0.25); border-radius: 8px; font-size: 0.9rem; box-sizing: border-box;">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dojo-error-msg" style="display: none; color: #c92a00; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; text-align: center;">
+                    Please enter your Full Name and Phone Number to continue.
+                </div>
+
+                <!-- SUBMIT PAY BUTTON -->
+                <button id="btn-dojo-pay" class="btn-primary" style="width: 100%; background: #2E7D32; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.35); font-weight: 800; font-size: 1.05rem; padding: 14px;">
+                    Pay £<span id="dojo-pay-btn-price">140</span>.00 Now • Dojo Secure
+                </button>
+                <div style="text-align: center; margin-top: 10px; font-size: 0.72rem; color: #8c5d45;">
+                    Powered by <strong>Dojo (Paymentsense Ltd)</strong> • FCA Regulated • SSL Encrypted
+                </div>
+            </div>
+
+            <!-- STEP 2: PROCESSING OVERLAY -->
+            <div id="dojo-step-processing" style="display: none; text-align: center; padding: 40px 20px;">
+                <div style="width: 56px; height: 56px; border: 5px solid rgba(255, 94, 0, 0.2); border-top-color: #FF5E00; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+                <h3 style="margin: 0 0 8px; color: #4A2311; font-size: 1.25rem;">Authorising Dojo Payment...</h3>
+                <p id="dojo-processing-text" style="color: #6d4834; font-size: 0.9rem; margin: 0;">Connecting to sp218466ugbloc1.connect.paymentsense.cloud...</p>
+            </div>
+
+            <!-- STEP 3: OFFICIAL PRINTABLE RECEIPT -->
+            <div id="dojo-step-receipt" style="display: none;">
+                <!-- THE PRINTABLE RECEIPT BOX -->
+                <div id="dojo-receipt-box" style="background: #ffffff; border: 2px solid #4A2311; border-radius: 16px; padding: 24px; color: #4A2311; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <div style="text-align: center; border-bottom: 2px dashed rgba(74, 35, 17, 0.25); padding-bottom: 16px; margin-bottom: 16px;">
+                        <h2 style="margin: 0; font-size: 1.5rem; letter-spacing: 1px; color: #4A2311;">FURQAN SWEETS</h2>
+                        <div style="font-size: 0.78rem; color: #6d4834; margin-top: 2px;">Authentic Somali Sweets • 175 Hillside, London NW10 8LL</div>
+                        <div style="font-size: 0.78rem; color: #6d4834;">Tel: 020 8838 3030 • www.furqansweets.com</div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                        <div style="background: #E8F5E9; color: #2E7D32; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">
+                            ✓ PAID VIA DOJO SECURE
+                        </div>
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #6d4834;">
+                            REF: <span id="receipt-id">DOJO-2026-0802-101</span>
+                        </div>
+                    </div>
+
+                    <!-- TRANSACTION METADATA TABLE -->
+                    <div style="font-size: 0.85rem; line-height: 1.6; border-bottom: 1px solid rgba(74, 35, 17, 0.15); padding-bottom: 14px; margin-bottom: 14px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Date & Time:</span>
+                            <strong id="receipt-date">02/08/2026, 20:15</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Merchant Account:</span>
+                            <strong>sp218466ugbloc1 (GBP)</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Customer Name:</span>
+                            <strong id="receipt-cust-name">Ahmed Mahamed</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Phone Number:</span>
+                            <strong id="receipt-cust-phone">07912345678</strong>
+                        </div>
+                    </div>
+
+                    <!-- ITEM BREAKDOWN -->
+                    <div style="border-bottom: 2px dashed rgba(74, 35, 17, 0.25); padding-bottom: 14px; margin-bottom: 14px;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">
+                            <span>Item Description</span>
+                            <span>Amount (GBP)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #5a3623;">
+                            <span>Somali Halwa Bulk Bucket (<span id="receipt-item-weight">15</span>kg)</span>
+                            <span>£<span id="receipt-item-total">140.00</span></span>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL PAID -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                        <span style="font-size: 1.1rem; font-weight: 800;">TOTAL PAID:</span>
+                        <span style="font-size: 1.4rem; font-weight: 900; color: #2E7D32;">£<span id="receipt-total-paid">140.00</span> GBP</span>
+                    </div>
+
+                    <!-- FOOTER MESSAGE -->
+                    <div style="text-align: center; font-size: 0.75rem; color: #6d4834;">
+                        Thank you for your order! Please present this receipt or reference number when collecting your bulk order or when contacting the shop.
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS BELOW RECEIPT (NOT PRINTED) -->
+                <div class="receipt-no-print" style="display: flex; flex-direction: column; gap: 10px; margin-top: 18px;">
+                    <div style="display: flex; gap: 10px;">
+                        <button id="btn-print-receipt" style="flex: 1; padding: 12px; background: #4A2311; color: #ffffff; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            🖨️ Print / Save PDF Receipt
+                        </button>
+                        <button id="btn-whatsapp-receipt" style="flex: 1; padding: 12px; background: #25D366; color: #ffffff; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            💬 Send to Shop (WhatsApp)
+                        </button>
+                    </div>
+                    <button id="btn-close-dojo-receipt" style="width: 100%; padding: 11px; background: rgba(74, 35, 17, 0.1); border: none; color: #4A2311; border-radius: 12px; font-weight: 700; cursor: pointer;">
+                        Done / Close Window
+                    </button>
+                </div>
             </div>
         </div>
     </div>
