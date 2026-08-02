@@ -27,7 +27,12 @@
                          "supabaseKey":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU",
                          "dojoAccount":  "sp218466ugbloc1",
                          "dojoHostname":  "sp218466ugbloc1.connect.paymentsense.cloud",
-                         "dojoApiKey":  "e9cb6324-a862-48c8-8a47-da902dddad4b"
+                         "dojoApiKey":  "e9cb6324-a862-48c8-8a47-da902dddad4b",
+                         "bulkModalTitle": "Customise Your Bulk Order",
+                         "bulkModalImage": "assets/square_bucket_halwa.png",
+                         "bulkModalDesc": "15kg base bucket can serve about 120 to 150 people.",
+                         "bulkPayBtnText": "Pay Online & Get Instant Receipt (Dojo)",
+                         "bulkCallBtnText": "Or Call to Order (020 8838 3030)"
                      },
     "halwaVariants":  [
                           {
