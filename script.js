@@ -522,7 +522,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 } catch (e) {}
             }
 
-            const data = savedLocal ? { ...srvData, ...savedLocal } : (srvData || null);
+            if (srvData) {
+                try {
+                    localStorage.setItem('furqan_crm_data', JSON.stringify(srvData));
+                } catch (e) {}
+            }
+            const data = srvData || savedLocal || null;
             if (!data) return;
 
             // 1. Apply Site Settings
