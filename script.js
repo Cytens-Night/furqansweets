@@ -145,7 +145,61 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        const customFlavourTrigger = document.getElementById('custom-flavour-trigger');
+        const customFlavourOptions = document.getElementById('custom-flavour-options');
+        const customTriggerTitle = document.getElementById('custom-trigger-title');
+        const customTriggerSub = document.getElementById('custom-trigger-sub');
+        const customTriggerArrow = document.getElementById('custom-trigger-arrow');
         const mainFlvSelect = document.getElementById('main-bucket-flavour');
+
+        if (customFlavourTrigger && customFlavourOptions) {
+            customFlavourTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = customFlavourOptions.classList.contains('open');
+                if (isOpen) {
+                    customFlavourOptions.classList.remove('open');
+                    if (customTriggerArrow) customTriggerArrow.style.transform = 'rotate(0deg)';
+                } else {
+                    customFlavourOptions.classList.add('open');
+                    if (customTriggerArrow) customTriggerArrow.style.transform = 'rotate(180deg)';
+                }
+            });
+
+            document.querySelectorAll('.custom-dropdown-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const val = item.getAttribute('data-value');
+                    const title = item.getAttribute('data-title');
+                    const sub = item.getAttribute('data-sub');
+
+                    if (customTriggerTitle && title) customTriggerTitle.textContent = title;
+                    if (customTriggerSub && sub) customTriggerSub.textContent = sub;
+                    if (mainFlvSelect && val) mainFlvSelect.value = val;
+                    mainFlavour = val || 'Traditional Plain Halwa (Xalwo Caadi)';
+
+                    document.querySelectorAll('.custom-dropdown-item').forEach(el => {
+                        el.classList.remove('active');
+                        const chk = el.querySelector('.check-mark');
+                        if (chk) chk.style.display = 'none';
+                    });
+                    item.classList.add('active');
+                    const myChk = item.querySelector('.check-mark');
+                    if (myChk) myChk.style.display = 'inline';
+
+                    customFlavourOptions.classList.remove('open');
+                    if (customTriggerArrow) customTriggerArrow.style.transform = 'rotate(0deg)';
+                    updateModalDisplay();
+                });
+            });
+
+            window.addEventListener('click', (e) => {
+                if (customFlavourOptions.classList.contains('open') && !e.target.closest('.custom-dropdown-container')) {
+                    customFlavourOptions.classList.remove('open');
+                    if (customTriggerArrow) customTriggerArrow.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
         if (mainFlvSelect) {
             mainFlvSelect.addEventListener('change', (e) => {
                 mainFlavour = e.target.value;
@@ -181,6 +235,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (mainFlvSelect) {
                     mainFlvSelect.selectedIndex = 0;
                     mainFlavour = mainFlvSelect.value;
+                }
+                const firstItem = document.querySelector('.custom-dropdown-item[data-value="Traditional Plain Halwa (Xalwo Caadi)"]');
+                if (firstItem && customTriggerTitle && customTriggerSub) {
+                    customTriggerTitle.textContent = 'Traditional Plain Halwa';
+                    customTriggerSub.textContent = 'Xalwo Caadi';
+                    document.querySelectorAll('.custom-dropdown-item').forEach(el => {
+                        el.classList.remove('active');
+                        const chk = el.querySelector('.check-mark');
+                        if (chk) chk.style.display = 'none';
+                    });
+                    firstItem.classList.add('active');
+                    const chk = firstItem.querySelector('.check-mark');
+                    if (chk) chk.style.display = 'inline';
                 }
                 updateModalDisplay();
             });
