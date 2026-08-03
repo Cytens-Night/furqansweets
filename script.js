@@ -129,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const openBulk = (e) => {
             if (e) e.preventDefault();
             bulkModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
             updateModalDisplay();
         };
 
@@ -137,11 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
         
         closeBulkModalBtn.addEventListener('click', () => {
             bulkModal.style.display = 'none';
+            document.body.style.overflow = '';
         });
 
         window.addEventListener('click', (e) => {
             if (e.target === bulkModal) {
                 bulkModal.style.display = 'none';
+                document.body.style.overflow = '';
             }
         });
 
