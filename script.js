@@ -74,22 +74,54 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeBulkModalBtn = document.querySelector('.close-modal');
     const displayWeight = document.getElementById('display-weight');
     const displayPrice = document.getElementById('display-price');
-    const addBtns = document.querySelectorAll('.add-btn');
     const resetBtn = document.querySelector('.reset-btn');
 
     let bulkBaseKg = 15;
     let bulkBasePrice = 120;
     let bulkExtraKgPrice = 9;
     let currentWeight = 15; // base 15kg
+    let extraKilos = { plain: 0, sesame: 0, nuts: 0 };
+    let mainFlavour = 'Traditional Plain Halwa (Xalwo Caadi)';
 
     function updateModalDisplay() {
-        if (displayWeight) displayWeight.textContent = currentWeight;
-        let extraWeight = currentWeight - bulkBaseKg;
-        let totalPrice = bulkBasePrice + (Math.max(0, extraWeight) * bulkExtraKgPrice);
-        if (displayPrice) displayPrice.textContent = totalPrice;
-        const baseInfoEl = document.querySelector('.base-info');
+        const totalExtraKg = (extraKilos.plain || 0) + (extraKilos.sesame || 0) + (extraKilos.nuts || 0);
+        currentWeight = bulkBaseKg + totalExtraKg;
+        const totalPrice = bulkBasePrice + (totalExtraKg * bulkExtraKgPrice);
+
+        const displayWeightEl = document.getElementById('display-weight');
+        if (displayWeightEl) displayWeightEl.textContent = currentWeight;
+
+        const displayPriceEl = document.getElementById('display-price');
+        if (displayPriceEl) displayPriceEl.textContent = totalPrice;
+
+        const baseInfoEl = document.querySelector('.base-info-pill');
         if (baseInfoEl) {
-            baseInfoEl.innerHTML = `Base: <strong>${bulkBaseKg}kg</strong> - £${bulkBasePrice}`;
+            baseInfoEl.textContent = `${bulkBaseKg}kg • £${bulkBasePrice}`;
+        }
+
+        const extraPlainEl = document.getElementById('extra-plain-kg');
+        if (extraPlainEl) extraPlainEl.textContent = extraKilos.plain || 0;
+        const extraSesameEl = document.getElementById('extra-sesame-kg');
+        if (extraSesameEl) extraSesameEl.textContent = extraKilos.sesame || 0;
+        const extraNutsEl = document.getElementById('extra-nuts-kg');
+        if (extraNutsEl) extraNutsEl.textContent = extraKilos.nuts || 0;
+
+        const summaryMainEl = document.getElementById('summary-main-flavour-text');
+        if (summaryMainEl) summaryMainEl.textContent = mainFlavour;
+        const summaryExtraNumEl = document.getElementById('summary-extra-kg-num');
+        if (summaryExtraNumEl) summaryExtraNumEl.textContent = totalExtraKg;
+
+        const summaryExtraTextEl = document.getElementById('summary-extra-flavour-text');
+        if (summaryExtraTextEl) {
+            if (totalExtraKg === 0) {
+                summaryExtraTextEl.textContent = 'None';
+            } else {
+                const parts = [];
+                if (extraKilos.plain) parts.push(`${extraKilos.plain}kg Plain`);
+                if (extraKilos.sesame) parts.push(`${extraKilos.sesame}kg Sesame`);
+                if (extraKilos.nuts) parts.push(`${extraKilos.nuts}kg Nuts`);
+                summaryExtraTextEl.textContent = parts.join(', ');
+            }
         }
     }
 
@@ -97,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const openBulk = (e) => {
             if (e) e.preventDefault();
             bulkModal.style.display = 'flex';
-            currentWeight = bulkBaseKg; // Reset on open
             updateModalDisplay();
         };
 
@@ -108,25 +139,85 @@ document.addEventListener("DOMContentLoaded", () => {
             bulkModal.style.display = 'none';
         });
 
-        // Close on outside click
         window.addEventListener('click', (e) => {
             if (e.target === bulkModal) {
                 bulkModal.style.display = 'none';
             }
         });
 
-        addBtns.forEach(btn => {
+        const mainFlvSelect = document.getElementById('main-bucket-flavour');
+        if (mainFlvSelect) {
+            mainFlvSelect.addEventListener('change', (e) => {
+                mainFlavour = e.target.value;
+                updateModalDisplay();
+            });
+        }
+
+        document.querySelectorAll('.btn-qty-add').forEach(btn => {
             btn.addEventListener('click', () => {
-                const addVal = parseInt(btn.getAttribute('data-weight'));
-                currentWeight += addVal;
+                const flv = btn.getAttribute('data-flavour');
+                const addVal = parseInt(btn.getAttribute('data-add'), 10) || 1;
+                if (flv) {
+                    extraKilos[flv] = (extraKilos[flv] || 0) + addVal;
+                    updateModalDisplay();
+                }
+            });
+        });
+
+        document.querySelectorAll('.btn-qty-minus').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const flv = btn.getAttribute('data-flavour');
+                if (flv) {
+                    extraKilos[flv] = Math.max(0, (extraKilos[flv] || 0) - 1);
+                    updateModalDisplay();
+                }
+            });
+        });
+
+        document.querySelectorAll('.reset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                extraKilos = { plain: 0, sesame: 0, nuts: 0 };
+                const mainFlvSelect = document.getElementById('main-bucket-flavour');
+                if (mainFlvSelect) {
+                    mainFlvSelect.selectedIndex = 0;
+                    mainFlavour = mainFlvSelect.value;
+                }
                 updateModalDisplay();
             });
         });
 
-        resetBtn.addEventListener('click', () => {
-            currentWeight = bulkBaseKg;
-            updateModalDisplay();
-        });
+        const btnBulkWhatsApp = document.getElementById('btn-bulk-whatsapp');
+        if (btnBulkWhatsApp) {
+            btnBulkWhatsApp.addEventListener('click', () => {
+                const totalExtraKg = (extraKilos.plain || 0) + (extraKilos.sesame || 0) + (extraKilos.nuts || 0);
+                const extraParts = [];
+                if (extraKilos.plain) extraParts.push(`${extraKilos.plain}kg Traditional Plain`);
+                if (extraKilos.sesame) extraParts.push(`${extraKilos.sesame}kg Sesame`);
+                if (extraKilos.nuts) extraParts.push(`${extraKilos.nuts}kg Mixed Nuts`);
+                const extraStr = extraParts.length > 0 ? extraParts.join(', ') : 'None';
+
+                const msg = `Hello Furqan Sweets! I would like to order a Bulk Halwa Bucket (48h Advance Notice):\n\n` +
+                            `*1. Main Base Bucket (15kg):* ${mainFlavour}\n` +
+                            `*2. Extra Kilos (${totalExtraKg}kg total):* ${extraStr}\n` +
+                            `*3. Total Weight:* ${bulkBaseKg + totalExtraKg}kg\n` +
+                            `*4. Estimated Total:* £${bulkBasePrice + (totalExtraKg * bulkExtraKgPrice)}\n\n` +
+                            `Please confirm my order and pickup date!`;
+
+                let phone = '447956911759';
+                try {
+                    const crmStr = localStorage.getItem('furqan_crm_data');
+                    if (crmStr) {
+                        const parsed = JSON.parse(crmStr);
+                        if (parsed && parsed.siteSettings && parsed.siteSettings.bulkPhone) {
+                            phone = parsed.siteSettings.bulkPhone.replace(/\s+/g, '');
+                            if (phone.startsWith('0')) phone = '44' + phone.substring(1);
+                            if (phone.startsWith('+')) phone = phone.substring(1);
+                        }
+                    }
+                } catch(e) {}
+                window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`, '_blank');
+            });
+        }
     }
 
     // ==========================================
