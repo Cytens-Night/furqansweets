@@ -450,14 +450,67 @@
                             <span style="font-weight: 800; font-size: 1.02rem; color: #4A2311;">1. Main Base Bucket (Fixed: 1 Bucket)</span>
                             <span class="base-info-pill" style="background: #FF5E00; color: #fff; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 50px;">15kg • £120</span>
                         </div>
-                        <label for="main-bucket-flavour" style="display: block; font-size: 0.85rem; font-weight: 700; color: #6d4834; margin-bottom: 6px;">Select Main Bucket Flavour:</label>
-                        <select id="main-bucket-flavour" style="width: 100%; padding: 10px 14px; border: 1.5px solid #d9b8a3; border-radius: 10px; font-size: 0.92rem; font-weight: 700; color: #4A2311; background: #fff; cursor: pointer;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #6d4834; margin-bottom: 8px;">Select Main Bucket Flavour:</label>
+                        
+                        <!-- HIDDEN NATIVE SELECT FOR COMPATIBILITY -->
+                        <select id="main-bucket-flavour" style="display: none;">
                             <option value="Traditional Plain Halwa (Xalwo Caadi)">Traditional Plain Halwa (Xalwo Caadi)</option>
                             <option value="Sesame Halwa (Xalwo Sisinta)">Sesame Halwa (Xalwo Sisinta)</option>
                             <option value="Mixed Nuts Halwa (Xalwo Loos)">Mixed Nuts Halwa (Xalwo Loos)</option>
                             <option value="Assorted Mixed Halwa (Isku-dhafan)">Assorted Mixed Halwa (Isku-dhafan)</option>
                         </select>
-                        <p style="margin: 8px 0 0; font-size: 0.75rem; color: #8c5d45; font-style: italic;">* The main base is always 1 bucket (15kg). Need extra kilos? Customize flavours below!</p>
+
+                        <!-- CUSTOM STYLED INTERACTIVE DROPDOWN -->
+                        <div class="custom-dropdown-container" style="position: relative; width: 100%;">
+                            <div id="custom-flavour-trigger" class="custom-dropdown-trigger" style="background: #FFFFFF; border: 2px solid #E6D5C3; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 4px 12px rgba(74, 35, 17, 0.06);">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div id="custom-trigger-icon" style="width: 38px; height: 38px; border-radius: 10px; background: #FFF3E0; color: #FF5E00; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div id="custom-trigger-title" style="font-weight: 800; font-size: 0.98rem; color: #4A2311; line-height: 1.2;">Traditional Plain Halwa</div>
+                                        <div id="custom-trigger-sub" style="font-size: 0.78rem; color: #8c5d45; font-weight: 600;">Xalwo Caadi</div>
+                                    </div>
+                                </div>
+                                <svg id="custom-trigger-arrow" viewBox="0 0 24 24" width="20" height="20" stroke="#FF5E00" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+
+                            <!-- DROPDOWN OPTIONS LIST -->
+                            <div id="custom-flavour-options" class="custom-dropdown-menu" style="position: absolute; top: calc(100% + 8px); left: 0; width: 100%; background: #FFFFFF; border: 2px solid #FF5E00; border-radius: 16px; box-shadow: 0 16px 40px rgba(74, 35, 17, 0.18); z-index: 10000; overflow: hidden; opacity: 0; transform: translateY(-10px); pointer-events: none; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
+                                <div class="custom-dropdown-item active" data-value="Traditional Plain Halwa (Xalwo Caadi)" data-title="Traditional Plain Halwa" data-sub="Xalwo Caadi" style="padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid #f2eBE3; transition: all 0.2s;">
+                                    <div>
+                                        <div style="font-weight: 800; font-size: 0.94rem; color: #4A2311;">Traditional Plain Halwa</div>
+                                        <div style="font-size: 0.75rem; color: #8c5d45;">Xalwo Caadi • Classic authentic taste</div>
+                                    </div>
+                                    <span class="check-mark" style="color: #FF5E00; font-weight: 800; font-size: 1.2rem;">✓</span>
+                                </div>
+
+                                <div class="custom-dropdown-item" data-value="Sesame Halwa (Xalwo Sisinta)" data-title="Sesame Halwa" data-sub="Xalwo Sisinta" style="padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid #f2eBE3; transition: all 0.2s;">
+                                    <div>
+                                        <div style="font-weight: 800; font-size: 0.94rem; color: #4A2311;">Sesame Halwa</div>
+                                        <div style="font-size: 0.75rem; color: #8c5d45;">Xalwo Sisinta • Rich toasted sesame aroma</div>
+                                    </div>
+                                    <span class="check-mark" style="color: #FF5E00; font-weight: 800; font-size: 1.2rem; display: none;">✓</span>
+                                </div>
+
+                                <div class="custom-dropdown-item" data-value="Mixed Nuts Halwa (Xalwo Loos)" data-title="Mixed Nuts Halwa" data-sub="Xalwo Loos" style="padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid #f2eBE3; transition: all 0.2s;">
+                                    <div>
+                                        <div style="font-weight: 800; font-size: 0.94rem; color: #4A2311;">Mixed Nuts Halwa</div>
+                                        <div style="font-size: 0.75rem; color: #8c5d45;">Xalwo Loos • Loaded with premium nuts & cardamom</div>
+                                    </div>
+                                    <span class="check-mark" style="color: #FF5E00; font-weight: 800; font-size: 1.2rem; display: none;">✓</span>
+                                </div>
+
+                                <div class="custom-dropdown-item" data-value="Assorted Mixed Halwa (Isku-dhafan)" data-title="Assorted Mixed Halwa" data-sub="Isku-dhafan" style="padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s;">
+                                    <div>
+                                        <div style="font-weight: 800; font-size: 0.94rem; color: #4A2311;">Assorted Mixed Halwa</div>
+                                        <div style="font-size: 0.75rem; color: #8c5d45;">Isku-dhafan • Perfect variety of all signature flavours</div>
+                                    </div>
+                                    <span class="check-mark" style="color: #FF5E00; font-weight: 800; font-size: 1.2rem; display: none;">✓</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin: 10px 0 0; font-size: 0.76rem; color: #8c5d45; font-style: italic;">* The main base is always 1 bucket (15kg). Need extra kilos? Customize flavours below!</p>
                     </div>
 
                     <!-- 2. EXTRA KILOS BY FLAVOUR SECTION -->
