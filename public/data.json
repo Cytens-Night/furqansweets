@@ -1,0 +1,205 @@
+{
+    "siteSettings":  {
+                         "storeName":  "Furqan Sweets",
+                         "logo":  "assets/furqansweets_logo.svg",
+                         "openHours":  "9am - 10pm",
+                         "phoneNumber":  "020 8838 3030",
+                         "phoneTel":  "tel:+4402088383030",
+                         "bulkPhone":  "07956 911 759",
+                         "bulkPhoneTel":  "tel:+447956911759",
+                         "heroTitle":  "Craving Authentic Somali Sweets?",
+                         "heroTitleSomali":  "Ma u xiistay Macmacaan Soomaaliyeed?",
+                         "heroSubtitle":  "Freshly made, perfectly sweet, deeply rich.",
+                         "heroSubtitleSomali":  "Cusub, macaan oo si fiican loo sameeyay.",
+                         "heroMainImage":  "assets/halwa_main.png",
+                         "bulkWeight":  "15kg Base Bucket",
+                         "bulkPrice":  "£120",
+                         "bulkDesc":  "Serves approx 120 - 150 people. Easily add more kg to fit your guest list.",
+                         "bulkTitle":  "Perfect for Every Occasion",
+                         "bulkTitleSomali":  "Ku Habboon Munaasabad Kasta",
+                         "bulkBaseKgNum":  "15",
+                         "bulkBasePriceNum":  "120",
+                         "bulkExtraKgPrice":  "9",
+                         "halwaBasePrice":  "£10 / kg",
+                         "adminPin":  "2026",
+                         "ownerEmail":  "owner@furqansweets.co.uk",
+                         "masterRecoveryKey":  "FURQAN-2026-RECOVERY",
+                         "supabaseUrl":  "https://twzkccwkatbczcflyxet.supabase.co",
+                         "supabaseKey":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU",
+                         "dojoAccount":  "sp218466ugbloc1",
+                         "dojoHostname":  "sp218466ugbloc1.connect.paymentsense.cloud",
+                         "dojoApiKey":  "e9cb6324-a862-48c8-8a47-da902dddad4b",
+                         "bulkModalTitle": "Customise Your Bulk Order",
+                         "bulkModalImage": "assets/square_bucket_halwa.png",
+                         "bulkModalDesc": "15kg base bucket can serve about 120 to 150 people.",
+                         "bulkPayBtnText": "Online Payments • Coming Soon",
+                         "bulkCallBtnText": "Call to Order Now (020 8838 3030)",
+                         "bulkNoticeText": "48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.",
+                         "storyTitle": "Our Heritage",
+                         "storyTitleSomali": "Dhaxalkeenna qaaliga ah",
+                         "storyText": "For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.",
+                         "storyTextSomali": "Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.",
+                         "storyImage": "assets/halwa_texture.png"
+                     },
+    "halwaVariants":  [
+                          {
+                              "id":  "h1",
+                              "name":  "Sesame Seeds",
+                              "somali":  "Xalwo Sisinta",
+                              "price":  "10",
+                              "unit":  "kg",
+                              "image":  "assets/halwa_sesame.png"
+                          },
+                          {
+                              "id":  "h2",
+                              "name":  "With Nuts",
+                              "somali":  "Loos leh",
+                              "price":  "10",
+                              "unit":  "kg",
+                              "image":  "assets/halwa_nuts.png"
+                          },
+                          {
+                              "id":  "h3",
+                              "name":  "Plain Halwa",
+                              "somali":  "Xalwo Cad",
+                              "price":  "10",
+                              "unit":  "kg",
+                              "image":  "assets/halwa_plain.png"
+                          }
+                      ],
+    "snacks":  [
+                   {
+                       "id":  "s1",
+                       "name":  "Qumbo Caano",
+                       "price":  "2.50",
+                       "image":  "assets/qumbo caano.jpeg",
+                       "category":  "Extra Snacks"
+                   },
+                   {
+                       "id":  "s2",
+                       "name":  "Qumbo",
+                       "price":  "2.50",
+                       "image":  "assets/qumbo.jpeg",
+                       "category":  "Extra Snacks"
+                   },
+                   {
+                       "id":  "s3",
+                       "name":  "Loos",
+                       "price":  "2.50",
+                       "image":  "assets/loos.jpeg",
+                       "category":  "Extra Snacks"
+                   },
+                   {
+                       "id":  "s4",
+                       "name":  "Sisin",
+                       "price":  "2.50",
+                       "image":  "assets/sisin.jpeg",
+                       "category":  "Extra Snacks"
+                   },
+                   {
+                       "id":  "s5",
+                       "name":  "Shushumo",
+                       "price":  "2.50",
+                       "image":  "assets/shushumo.jpeg",
+                       "category":  "Extra Snacks"
+                   },
+                   {
+                       "id":  "s6",
+                       "name":  "Buskut",
+                       "price":  "2.50",
+                       "image":  "assets/buskut.jpeg",
+                       "category":  "Extra Snacks"
+                   },
+                   {
+                       "id":  "s7",
+                       "name":  "Biscuit",
+                       "price":  "2.50",
+                       "image":  "assets/biscuit.jpeg",
+                       "category":  "Extra Snacks"
+                   },
+                   {
+                       "id":  "b1",
+                       "name":  "Large Biscuit Packet 1",
+                       "price":  "4.00",
+                       "image":  "assets/use as is.jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b2",
+                       "name":  "Large Biscuit Packet 2",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (2).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b3",
+                       "name":  "Large Biscuit Packet 3",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (3).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b4",
+                       "name":  "Large Biscuit Packet 4",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (4).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b5",
+                       "name":  "Large Biscuit Packet 5",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (5).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b6",
+                       "name":  "Large Biscuit Packet 6",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (6).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b7",
+                       "name":  "Large Biscuit Packet 7",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (7).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b8",
+                       "name":  "Large Biscuit Packet 8",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (8).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b9",
+                       "name":  "Large Biscuit Packet 9",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (9).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b10",
+                       "name":  "Large Biscuit Packet 10",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (10).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b11",
+                       "name":  "Large Biscuit Packet 11",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (11).jpg",
+                       "category":  "Biscuits Bags"
+                   },
+                   {
+                       "id":  "b12",
+                       "name":  "Large Biscuit Packet 12",
+                       "price":  "4.00",
+                       "image":  "assets/use as is (12).jpg",
+                       "category":  "Biscuits Bags"
+                   }
+               ]
+}
