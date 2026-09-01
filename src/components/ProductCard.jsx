@@ -1,9 +1,6 @@
 import React from 'react';
-import { useCart } from '../context/CartContext';
 
 function ProductCard({ product }) {
-  const { addToCart } = useCart();
-
   return (
     <div className="collection-card">
       {product.isNew && <span className="badge-new">New</span>}
@@ -12,9 +9,6 @@ function ProductCard({ product }) {
         <h3 className="product-name">{product.title}</h3>
         {product.translation && <p className="product-translation">{product.translation}</p>}
         <p className="price">£{Number(product.price).toFixed(2)}</p>
-        <button className="btn-add-to-cart" onClick={() => addToCart(product)}>
-          Add to Cart
-        </button>
       </div>
     </div>
   );
