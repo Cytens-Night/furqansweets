@@ -16,9 +16,9 @@ function Footer() {
           <h3>Quick Links <span className="translation">Xiriiriyeyaasha Degdega ah</span></h3>
           <ul>
             <li><Link to="/">Home <span className="translation" style={{ display: 'inline', marginLeft: '5px' }}>(Bogga Hore)</span></Link></li>
-            <li><Link to="/#bulk" id="footer-bulk-link">Bulk Orders <span className="translation" style={{ display: 'inline', marginLeft: '5px' }}>(Dalabyo Waawayn)</span></Link></li>
+            <li><a href="/#bulk" id="footer-bulk-link">Bulk Orders <span className="translation" style={{ display: 'inline', marginLeft: '5px' }}>(Dalabyo Waawayn)</span></a></li>
             <li><Link to="/shop">Shop Snacks <span className="translation" style={{ display: 'inline', marginLeft: '5px' }}>(Dukaanka Fudud)</span></Link></li>
-            <li><a href="#" className="call-modal-trigger">Contact Us <span className="translation" style={{ display: 'inline', marginLeft: '5px' }}>(Nala Soo Xiriir)</span></a></li>
+            <li><a href="tel:02088383030" className="call-modal-trigger">Contact Us <span className="translation" style={{ display: 'inline', marginLeft: '5px' }}>(Nala Soo Xiriir)</span></a></li>
           </ul>
         </div>
         <div className="footer-policies">
