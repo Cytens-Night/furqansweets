@@ -63,34 +63,64 @@ function CheckoutModal() {
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="e.g. Ahmed Mahamed" style={{ width: '100%', padding: '11px 14px', border: '1.5px solid rgba(74, 35, 17, 0.25)', borderRadius: '10px', fontSize: '0.95rem', boxSizing: 'border-box' }} required />
                 </div>
                 <div>
-                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#4A2311', marginBottom: '4px' }}>Phone Number *</label>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#4A2311', marginBottom: '4px' }}>Phone Number (for Order & WhatsApp Receipt) *</label>
                     <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="e.g. 07912 345 678" style={{ width: '100%', padding: '11px 14px', border: '1.5px solid rgba(74, 35, 17, 0.25)', borderRadius: '10px', fontSize: '0.95rem', boxSizing: 'border-box' }} required />
                 </div>
                 <div>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#4A2311', marginBottom: '4px' }}>Email Address (Optional)</label>
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="e.g. ahmed@example.com" style={{ width: '100%', padding: '11px 14px', border: '1.5px solid rgba(74, 35, 17, 0.25)', borderRadius: '10px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
+                </div>
+                <div>
                     <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#4A2311', marginBottom: '4px' }}>Pickup / Required Date * (Min. 48h Notice)</label>
-                    <input type="date" name="date" value={formData.date} onChange={handleChange} style={{ width: '100%', padding: '11px 14px', border: '1.5px solid rgba(74, 35, 17, 0.25)', borderRadius: '10px', fontSize: '0.95rem', boxSizing: 'border-box' }} required />
+                    <input type="date" name="date" value={formData.date} onChange={handleChange} style={{ width: '100%', padding: '11px 14px', border: '1.5px solid rgba(74, 35, 17, 0.25)', borderRadius: '10px', fontSize: '0.95rem', boxSizing: 'border-box', fontFamily: 'inherit', color: '#4A2311' }} required />
+                    <div style={{ marginTop: '5px', fontSize: '0.75rem', color: '#c92a00', fontWeight: 700, lineHeight: 1.35, display: 'flex', alignItems: 'flex-start', gap: '5px' }}>
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '1px' }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <div>Bulk orders require 48 hours advance notice. For emergencies or urgent same-day orders, call <a href="tel:02088383030" style={{ color: '#c92a00', textDecoration: 'underline' }}>020 8838 3030</a>.</div>
+                    </div>
+                </div>
+                <div>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#4A2311', marginBottom: '4px' }}>Special Notes / Request (Optional)</label>
+                    <input type="text" name="notes" value={formData.notes} onChange={handleChange} placeholder="e.g. Saturday wedding reception, please pack well" style={{ width: '100%', padding: '11px 14px', border: '1.5px solid rgba(74, 35, 17, 0.25)', borderRadius: '10px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
                 </div>
             </div>
 
             <div style={{ marginBottom: '18px' }}>
                 <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#4A2311', marginBottom: '8px' }}>Select Dojo Payment Method:</label>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
-                    <button type="button" className="dojo-method-btn active" style={{ padding: '10px 8px', border: '2px solid #FF5E00', background: 'rgba(255, 94, 0, 0.1)', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer' }}>💳 Card</button>
-                    <button type="button" className="dojo-method-btn" style={{ padding: '10px 8px', border: '1.5px solid rgba(74, 35, 17, 0.2)', background: '#ffffff', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer' }}>📱 Wallet</button>
-                    <button type="button" className="dojo-method-btn" style={{ padding: '10px 8px', border: '1.5px solid rgba(74, 35, 17, 0.2)', background: '#ffffff', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer' }}>🏬 Terminal</button>
+                    <button type="button" className="dojo-method-btn active" style={{ padding: '10px 8px', border: '2px solid #FF5E00', background: 'rgba(255, 94, 0, 0.1)', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer', textAlign: 'center' }}>💳 Credit / Debit Card</button>
+                    <button type="button" className="dojo-method-btn" style={{ padding: '10px 8px', border: '1.5px solid rgba(74, 35, 17, 0.2)', background: '#ffffff', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer', textAlign: 'center' }}>📱 Apple / Google Pay</button>
+                    <button type="button" className="dojo-method-btn" style={{ padding: '10px 8px', border: '1.5px solid rgba(74, 35, 17, 0.2)', background: '#ffffff', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer', textAlign: 'center' }}>🏬 Shop Terminal POS</button>
                 </div>
             </div>
 
             <div style={{ background: '#ffffff', border: '1px solid rgba(74, 35, 17, 0.15)', borderRadius: '12px', padding: '14px', marginBottom: '18px' }}>
                 <div style={{ marginBottom: '10px' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>Name on Card</label>
+                    <input type="text" placeholder="Cardholder Name" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
+                </div>
+                <div style={{ marginBottom: '10px' }}>
                     <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>Card Number</label>
-                    <input type="tel" placeholder="•••• •••• •••• ••••" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
+                    <input type="tel" placeholder="•••• •••• •••• ••••" maxLength="19" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box', letterSpacing: '1px' }} />
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    <div>
+                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>Expiry Date</label>
+                        <input type="tel" placeholder="MM / YY" maxLength="7" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
+                    </div>
+                    <div>
+                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>CVC / Security</label>
+                        <input type="tel" placeholder="123" maxLength="4" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" className="btn-primary" style={{ width: '100%', background: 'linear-gradient(135deg, #168038 0%, #0D5E25 100%)', color: '#FFFFFF', border: '2px solid rgba(255, 255, 255, 0.2)', boxShadow: '0 8px 25px rgba(22, 128, 56, 0.45)', fontWeight: 800, fontSize: '1.15rem', padding: '17px 20px', borderRadius: '16px', cursor: 'pointer' }}>
-                PAY £{currentDojoOrder.price}.00 NOW
+            <button type="submit" className="btn-primary" style={{ width: '100%', background: 'linear-gradient(135deg, #168038 0%, #0D5E25 100%)', color: '#FFFFFF', border: '2px solid rgba(255, 255, 255, 0.2)', boxShadow: '0 8px 25px rgba(22, 128, 56, 0.45)', fontWeight: 800, fontSize: '1.15rem', padding: '17px 20px', borderRadius: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', letterSpacing: '0.5px', transition: 'all 0.25s ease' }}>
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>PAY £{currentDojoOrder.price}.00 NOW • DOJO SECURE</span>
             </button>
+            <div style={{ textAlign: 'center', marginTop: '10px', fontSize: '0.72rem', color: '#8c5d45' }}>
+                Powered by <strong>Dojo (Paymentsense Ltd)</strong> • FCA Regulated • SSL Encrypted
+            </div>
           </form>
         )}
 
