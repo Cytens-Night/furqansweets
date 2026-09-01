@@ -63,7 +63,7 @@ function Home() {
                     <div className="cta-box">
                         <h2>Craving Authentic Somali Sweets?<span className="translation" style={{"marginTop":"10px","fontSize":"0.6em"}}>Ma u xiistay Macmacaan Soomaaliyeed?</span></h2>
                         <p>Freshly made, perfectly sweet, deeply rich.<span className="translation">Cusub, macaan oo si fiican loo sameeyay.</span></p>
-                        <a href="#" className="btn-primary call-modal-trigger">Call to Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.8em","marginLeft":"8px"}}>(Wac si aad u dalbato)</span></a>
+                        <a href="tel:02088383030" className="btn-primary call-modal-trigger">Call to Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.8em","marginLeft":"8px"}}>(Wac si aad u dalbato)</span></a>
                     </div>
                 </div>
 
