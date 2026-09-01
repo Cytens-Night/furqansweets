@@ -17,23 +17,6 @@
     --transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: radial-gradient(circle at 50% 50%, #2A1308 0%, #170A04 45%, #0A0402 100%);
-    color: var(--text-dark);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 35px 15px;
-    overflow-x: hidden;
-}
 
 /* ================== MAIN STAGE WRAPPER ================== */
 .card-stage {
