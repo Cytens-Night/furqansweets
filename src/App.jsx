@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Shop from './pages/Shop';
 import Admin from './pages/Admin';
 import Access from './pages/Access';
+import Card from './pages/Card';
 import Policy from './pages/Policy';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/access" element={<Access />} />
+          <Route path="/card" element={<Card />} />
           <Route path="/privacy-policy" element={<Policy type="privacy" />} />
           <Route path="/terms" element={<Policy type="terms" />} />
           <Route path="/refund-policy" element={<Policy type="refund" />} />

@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furqan Sweets — Store CRM & Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Furqan CRM">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- PROFESSIONAL REACT-STYLE LUCIDE SVG ICONS -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0F0D0C;
+            --bg-card: #191513;
+            --bg-hover: #241E1A;
+            --border-color: #2F2722;
+            --accent-orange: #FF5E00;
+            --accent-gold: #FFB03A;
+            --text-main: #F7F5F2;
+            --text-muted: #A39A92;
+            --success: #10B981;
+            --danger: #EF4444;
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-lucide] {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.2px;
+            flex-shrink: 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .nav-item [data-lucide] {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-gold);
+        }
+
+        .btn-view-store [data-lucide],
+        .btn-logout-sidebar [data-lucide],
+        .btn-save-primary [data-lucide],
+        .btn-supabase [data-lucide],
+        .btn-upload [data-lucide],
+        .btn-delete-item [data-lucide] {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* ================= MODAL OVERLAYS (PIN & RECOVERY) ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(30,24,21,0.96) 0%, rgba(15,13,12,0.99) 100%);
+            backdrop-filter: blur(16px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 44px 36px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 440px;
+            text-align: center;
+            animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.92); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pin-logo {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 16px rgba(255,176,58,0.3));
+        }
+
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .modal-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .pin-input-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .pin-input {
+            width: 100%;
+            padding: 16px;
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            font-weight: 700;
+            background: #110E0C;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .pin-input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 4px rgba(255,176,58,0.15);
+        }
+
+        .btn-pin {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #D94A00 100%);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 24px rgba(255,94,0,0.3);
+            margin-bottom: 16px;
+        }
+
+        .btn-pin:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(255,94,0,0.45);
+        }
+
+        .btn-pin:disabled {
+            background: #3A2E28;
+            color: #7A6F67;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .pin-error {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .lockout-box {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            color: #F87171;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .forgot-link {
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+
+        /* ================= TOP HORIZONTAL NAVBAR ================= */
+        .sidebar {
+            width: 100%;
+            height: 74px;
+            background: rgba(25, 21, 19, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+        }
+
+        .sidebar-header {
+            padding: 0;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo {
+            width: 38px;
+            height: 38px;
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .brand-tagline {
+            font-size: 0.7rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            white-space: nowrap;
+        }
+
+        .nav-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-main);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(255,94,0,0.2) 0%, rgba(255,176,58,0.1) 100%);
+            color: var(--accent-gold);
+            border-bottom: 3px solid var(--accent-orange);
+            font-weight: 600;
+            border-left: none;
+        }
+
+        .sidebar-footer {
+            padding: 0;
+            border-top: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .store-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--success);
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .btn-view-store, .btn-logout-sidebar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 14px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-main);
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-view-store:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .btn-logout-sidebar {
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #F87171;
+        }
+
+        .btn-logout-sidebar:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--danger);
+            color: #fff;
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-wrapper {
+            margin-left: 0;
+            margin-top: 85px;
+            flex: 1;
+            padding: 28px 48px 160px 48px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .page-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .page-subheading {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        /* Hovering Floating Save Button (No Giant Banner) */
+        .sticky-save-bar {
+            position: fixed;
+            bottom: 28px;
+            right: 32px;
+            z-index: 9999;
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            display: none;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .save-bar-info {
+            display: none;
+        }
+
+        .btn-save-primary {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #D94A00 100%);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(255,94,0,0.5), 0 0 40px rgba(255,176,58,0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-save-primary:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 14px 35px rgba(255,94,0,0.7), 0 0 50px rgba(255,176,58,0.4);
+            background: linear-gradient(135deg, #FF6F1E 0%, #E65200 100%);
+        }
+
+        /* ================= TABS PANELS ================= */
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Card Containers */
+        .form-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .form-grid-full {
+            grid-column: span 2;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #E2DBD5;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #110E0C;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(255,176,58,0.15);
+        }
+
+        /* Products Card Grid */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .item-card {
+            background: #120F0D;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .item-card:hover {
+            border-color: rgba(255,176,58,0.4);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .item-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-card-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255,176,58,0.15);
+            color: var(--accent-gold);
+        }
+
+        .btn-delete-item {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-delete-item:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .item-preview-img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            background: #1A1614;
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .btn-upload {
+            background: #231D1A;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-upload:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-gold);
+        }
+
+        .btn-add-item {
+            border: 2px dashed var(--border-color);
+            background: rgba(255,176,58,0.03);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 380px;
+            cursor: pointer;
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .btn-add-item:hover {
+            border-color: var(--accent-gold);
+            background: rgba(255,176,58,0.08);
+            transform: translateY(-4px);
+        }
+
+        /* Supabase Sync Button Styles */
+        .btn-supabase {
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+        }
+
+        .btn-supabase-push {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(16,185,129,0.3);
+        }
+
+        .btn-supabase-push:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(16,185,129,0.45);
+        }
+
+        .btn-supabase-pull {
+            background: #2A221E;
+            color: #fff;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-supabase-pull:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        /* Toast Notifications */
+        #toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--success);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            color: #fff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                padding: 0 16px;
+            }
+            .brand-title, .brand-tagline, .store-status span { display: none; }
+            .main-wrapper { margin-left: auto; margin-right: auto; padding: 20px; }
+            .sticky-save-bar { left: 20px; right: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-grid-full { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: 72px;
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 6px 12px;
+                border-bottom: none;
+                border-top: 1px solid var(--border-color);
+                box-shadow: 0 -10px 25px rgba(0,0,0,0.85);
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .sidebar::-webkit-scrollbar {
+                display: none;
+            }
+            .sidebar-header, .sidebar-footer { display: none; }
+            .nav-list {
+                display: flex;
+                flex-direction: row;
+                width: max-content;
+                justify-content: flex-start;
+                padding: 0 6px;
+                margin: 0;
+                gap: 10px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .nav-list::-webkit-scrollbar {
+                display: none;
+            }
+            .nav-item {
+                padding: 10px 16px;
+                justify-content: center;
+                flex: 0 0 auto;
+                border-radius: 12px;
+                flex-direction: row;
+                gap: 8px;
+                font-size: 0.85rem;
+                white-space: nowrap;
+            }
+            .nav-item i { margin: 0; width: 20px; height: 20px; }
+            .main-wrapper {
+                margin-left: 0;
+                margin-top: 20px;
+                padding: 16px 12px 160px 12px;
+                width: 100%;
+            }
+            .sticky-save-bar {
+                left: auto;
+                right: 18px;
+                bottom: 84px;
+                padding: 0;
+            }
+            .items-grid { grid-template-columns: 1fr; gap: 16px; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .top-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .top-bar-right { width: 100%; justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOAST ALERTS CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- PIN SECURITY MODAL -->
+    <div id="pin-modal" class="modal-overlay">
+        <div class="modal-card">
+            <img src="assets/furqansweets_logo.svg" alt="Furqan Sweets Logo" class="pin-logo">
+            <h2 class="modal-title">Owner CRM Access</h2>
+            <p class="modal-subtitle">Please enter your security PIN to access the store management dashboard.</p>
+            
+            <div class="lockout-box" id="lockout-banner"></div>
+            <div class="pin-error" id="pin-error">Incorrect PIN. Please try again.</div>
+
+            <div class="pin-input-group">
+                <input type="password" id="pin-input" class="pin-input" maxlength="10" placeholder="••••" autofocus>
+            </div>
+            
+            <button class="btn-pin" id="btn-pin-submit">Unlock Dashboard</button>
+
+            <div>
+                <a id="link-forgot-pin" class="forgot-link">Forgot PIN / Password? Reset via Email</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECOVERY & PIN RESET MODAL (FALLBACK VERIFICATION SYSTEM) -->
+    <div id="recovery-modal" class="modal-overlay" style="display: none; opacity: 0;">
+        <div class="modal-card">
+            <img src="assets/furqansweets_logo.svg" alt="Furqan Sweets Logo" class="pin-logo" style="width: 52px; height: 52px;">
+            <h2 class="modal-title">Account Recovery & Reset</h2>
+            <p class="modal-subtitle">Verify your registered store email or Master Recovery Key to reset your security PIN and unlock your account.</p>
+            
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label class="form-label">Registered Owner Email</label>
+                <input type="email" id="recovery-email" class="form-input" placeholder="owner@furqansweets.co.uk">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label class="form-label">Master Recovery Key or OTP Code</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="recovery-key" class="form-input" placeholder="FURQAN-2026-RECOVERY">
+                    <button class="btn-upload" id="btn-send-token" style="white-space: nowrap;"><i data-lucide="mail"></i><span>Get Token</span></button>
+                </div>
+                <span class="form-hint" style="margin-top: 4px;">Default Recovery Key: <b>FURQAN-2026-RECOVERY</b></span>
+            </div>
+            <div class="form-group" style="margin-bottom: 24px;">
+                <label class="form-label">New 4-10 Digit Security PIN</label>
+                <input type="password" id="recovery-new-pin" class="form-input" placeholder="Enter new PIN" maxlength="10">
+            </div>
+
+            <button class="btn-pin" id="btn-recovery-reset">Verify & Reset PIN</button>
+            <button class="btn-view-store" id="btn-recovery-cancel" style="margin-top: 10px;">Back to Login</button>
+        </div>
+    </div>
+
+    <!-- ================== CUSTOM LUXURY CRM CONFIRMATION MODAL (REPLACES SYSTEM CONFIRM BOXES) ================== -->
+    <div id="crm-confirm-modal" class="modal-overlay" style="display: none; align-items: center; justify-content: center; z-index: 100000; opacity: 0; transition: opacity 0.25s ease;">
+        <div class="modal-card" style="width: 90%; max-width: 420px; background: #191513; border: 1px solid #2F2722; border-radius: 20px; padding: 28px; box-shadow: 0 25px 60px rgba(0,0,0,0.85); text-align: center;">
+            <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(255, 94, 0, 0.15); color: #FF5E00; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+                <i data-lucide="alert-triangle" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 id="crm-confirm-title" style="font-size: 1.25rem; font-weight: 700; color: #F7F5F2; margin-bottom: 10px;">Confirm Action</h3>
+            <p id="crm-confirm-message" style="font-size: 0.92rem; color: #A39A92; margin-bottom: 24px; line-height: 1.5;">Are you sure you want to proceed?</p>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button id="crm-confirm-cancel" class="btn-view-store" style="flex: 1; padding: 12px 18px; border-radius: 12px; cursor: pointer; font-weight: 600;">Cancel</button>
+                <button id="crm-confirm-ok" class="btn-save-primary" style="flex: 1; padding: 12px 18px; border-radius: 12px; cursor: pointer; font-weight: 600; justify-content: center;">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================== CUSTOM LUXURY CRM ALERT MODAL (REPLACES SYSTEM ALERT BOXES) ================== -->
+    <div id="crm-alert-modal" class="modal-overlay" style="display: none; align-items: center; justify-content: center; z-index: 100000; opacity: 0; transition: opacity 0.25s ease;">
+        <div class="modal-card" style="width: 90%; max-width: 440px; background: #191513; border: 1px solid #2F2722; border-radius: 20px; padding: 28px; box-shadow: 0 25px 60px rgba(0,0,0,0.85); text-align: center;">
+            <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(255, 176, 58, 0.15); color: #FFB03A; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+                <i data-lucide="bell" style="width: 28px; height: 28px;"></i>
+            </div>
+            <h3 id="crm-alert-title" style="font-size: 1.25rem; font-weight: 700; color: #F7F5F2; margin-bottom: 12px;">Notification</h3>
+            <div id="crm-alert-message" style="font-size: 0.9rem; color: #A39A92; margin-bottom: 24px; line-height: 1.6; text-align: left; background: #120F0D; padding: 16px; border-radius: 12px; border: 1px solid #2F2722;">Message details</div>
+            <button id="crm-alert-ok" class="btn-save-primary" style="width: 100%; padding: 12px 18px; border-radius: 12px; cursor: pointer; font-weight: 600; justify-content: center;">OK</button>
+        </div>
+    </div>
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <img src="assets/furqansweets_logo.svg" alt="Furqan Sweets" class="sidebar-logo">
+                <div>
+                    <div class="brand-title">Furqan Sweets</div>
+                    <div class="brand-tagline">CRM Dashboard</div>
+                </div>
+            </div>
+
+            <ul class="nav-list">
+                <li class="nav-item active" data-target="tab-settings">
+                    <i data-lucide="settings"></i>
+                    <span class="nav-text">Store & Site Texts</span>
+                </li>
+                <li class="nav-item" data-target="tab-halwa">
+                    <i data-lucide="package"></i>
+                    <span class="nav-text">Halwa Products</span>
+                </li>
+                <li class="nav-item" data-target="tab-snacks">
+                    <i data-lucide="cookie"></i>
+                    <span class="nav-text">Snacks & Biscuits</span>
+                </li>
+                <li class="nav-item" data-target="tab-security">
+                    <i data-lucide="shield-check"></i>
+                    <span class="nav-text">Security & Recovery</span>
+                </li>
+                <a href="index.html" target="_blank" class="nav-item" style="text-decoration: none;">
+                    <i data-lucide="external-link"></i>
+                    <span class="nav-text">View Storefront</span>
+                </a>
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="store-status">
+                <span style="width: 8px; height: 8px; background: #10B981; border-radius: 50%; display: inline-block;"></span>
+                <span>Online & Active</span>
+            </div>
+            <a href="index.html" target="_blank" class="btn-view-store">
+                <i data-lucide="external-link"></i>
+                <span>View Storefront</span>
+            </a>
+            <button class="btn-logout-sidebar" id="btn-logout-sidebar">
+                <i data-lucide="log-out"></i>
+                <span>Logout CRM</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="main-wrapper">
+        <header class="header-bar">
+            <div>
+                <h1 class="page-heading">Store CRM Management</h1>
+                <p class="page-subheading">Update product names, prices, images, store hours, and site texts in real-time.</p>
+            </div>
+            <div>
+                <button class="btn-logout-sidebar" id="btn-logout-header" style="padding: 10px 18px; width: auto; display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout CRM</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- TAB 1: STORE & SITE TEXTS -->
+        <section id="tab-settings" class="tab-panel active">
+            <div class="form-section">
+                <div class="section-header">
+                    <h2 class="section-title">General Store Identity</h2>
+                    <span class="form-hint">Displayed on header and welcome banner across all pages</span>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Store Brand Name</label>
+                        <input type="text" id="setting-storeName" class="form-input" value="Furqan Sweets">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Store Logo Image (SVG or PNG)</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="setting-logo" class="form-input" value="assets/furqansweets_logo.svg">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" id="upload-logo" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <img id="preview-logo" class="item-preview-img" src="assets/furqansweets_logo.svg" style="margin-top: 10px; max-height: 70px; width: auto; object-fit: contain; background: #FFFBF7;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Opening Hours Text</label>
+                        <input type="text" id="setting-openHours" class="form-input" value="9am - 10pm">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">General Order Phone Number (Display)</label>
+                        <input type="text" id="setting-phoneNumber" class="form-input" value="020 8838 3030">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">General Order Phone Link (e.g. tel:+4402088383030)</label>
+                        <input type="text" id="setting-phoneTel" class="form-input" value="tel:+4402088383030">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Wholesale / Bulk Phone Number (Display)</label>
+                        <input type="text" id="setting-bulkPhone" class="form-input" value="07956 911 759">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Wholesale / Bulk Phone Link</label>
+                        <input type="text" id="setting-bulkPhoneTel" class="form-input" value="tel:+447956911759">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <h2 class="section-title">Hero Section Texts (Homepage)</h2>
+                    <span class="form-hint">English text and Somali translation titles</span>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Hero Main Title (English)</label>
+                        <input type="text" id="setting-heroTitle" class="form-input" value="Craving Authentic Somali Sweets?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hero Main Title (Somali Translation)</label>
+                        <input type="text" id="setting-heroTitleSomali" class="form-input" value="Ma u xiistay Macmacaan Soomaaliyeed?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hero Subtitle Text (English)</label>
+                        <input type="text" id="setting-heroSubtitle" class="form-input" value="Freshly made, perfectly sweet, deeply rich.">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hero Subtitle Text (Somali Translation)</label>
+                        <input type="text" id="setting-heroSubtitleSomali" class="form-input" value="Cusub, macaan oo si fiican loo sameeyay.">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Main Big Halwa Image (Homepage Hero)</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="setting-heroMainImage" class="form-input" value="assets/halwa_main.png">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" id="upload-heroMainImage" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <img id="preview-heroMainImage" class="item-preview-img" src="assets/halwa_main.png" style="margin-top: 10px; max-height: 140px; width: auto; object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BRAND STORY & HERITAGE SECTION -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Our Heritage &amp; Brand Story Section</h2>
+                        <span class="form-hint">Customize the story image, title, and paragraphs on the homepage</span>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Brand Story Title (English)</label>
+                        <input type="text" id="setting-storyTitle" class="form-input" value="Our Heritage">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Brand Story Title (Somali Translation)</label>
+                        <input type="text" id="setting-storyTitleSomali" class="form-input" value="Dhaxalkeenna qaaliga ah">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Brand Story Text (English Paragraph)</label>
+                        <input type="text" id="setting-storyText" class="form-input" value="For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Brand Story Text (Somali Paragraph Translation)</label>
+                        <input type="text" id="setting-storyTextSomali" class="form-input" value="Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Brand Story Section Image (Homepage Our Heritage Image)</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="setting-storyImage" class="form-input" value="assets/halwa_texture.png">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" id="upload-storyImage" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <img id="preview-storyImage" class="item-preview-img" src="assets/halwa_texture.png" style="margin-top: 10px; max-height: 140px; width: auto; object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Bulk Orders &amp; Halwa Variant Pricing</h2>
+                        <span class="form-hint">Manage wholesale bucket pricing, weights, description, and default Halwa pricing</span>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Bulk Base Weight / Label (Display)</label>
+                        <input type="text" id="setting-bulkWeight" class="form-input" value="15kg Base Bucket">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Display Price Text</label>
+                        <input type="text" id="setting-bulkPrice" class="form-input" value="£120">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Base Weight (kg)</label>
+                        <input type="number" id="setting-bulkBaseKgNum" class="form-input" value="15">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Base Price (£)</label>
+                        <input type="number" id="setting-bulkBasePriceNum" class="form-input" value="120">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Extra Price / kg (£)</label>
+                        <input type="number" id="setting-bulkExtraKgPrice" class="form-input" value="9">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Homepage Halwa Default Price / kg</label>
+                        <input type="text" id="setting-halwaBasePrice" class="form-input" value="£10 / kg">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Bulk Package Description</label>
+                        <input type="text" id="setting-bulkDesc" class="form-input" value="Serves approx 120 - 150 people. Easily add more kg to fit your guest list.">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Section Title (English)</label>
+                        <input type="text" id="setting-bulkTitle" class="form-input" value="Perfect for Every Occasion">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Section Title (Somali Translation)</label>
+                        <input type="text" id="setting-bulkTitleSomali" class="form-input" value="Ku Habboon Munaasabad Kasta">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Title</label>
+                        <input type="text" id="setting-bulkModalTitle" class="form-input" value="Customise Your Bulk Order">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bulk Modal Description</label>
+                        <input type="text" id="setting-bulkModalDesc" class="form-input" value="15kg base bucket can serve about 120 to 150 people.">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Bucket Halwa Image (Homepage Hero &amp; Bulk Modal)</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="setting-bulkModalImage" class="form-input" value="assets/square_bucket_halwa.png">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" id="upload-bulkModalImage" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <img id="preview-bulkModalImage" class="item-preview-img" src="assets/square_bucket_halwa.png" style="margin-top: 10px; max-height: 140px; width: auto; object-fit: contain;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Add Weight Button 1 (+kg)</label>
+                        <input type="number" id="setting-bulkAddBtn1" class="form-input" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Add Weight Button 2 (+kg)</label>
+                        <input type="number" id="setting-bulkAddBtn2" class="form-input" value="5">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Add Weight Button 3 (+kg)</label>
+                        <input type="number" id="setting-bulkAddBtn3" class="form-input" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Pay Online Button Label</label>
+                        <input type="text" id="setting-bulkPayBtnText" class="form-input" value="Online Payments • Coming Soon">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Call Button Label</label>
+                        <input type="text" id="setting-bulkCallBtnText" class="form-input" value="Call to Order Now (020 8838 3030)">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Bulk 48 Hours Notice Banner Text</label>
+                        <input type="text" id="setting-bulkNoticeText" class="form-input" value="48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Dojo Payment System Integration (Bulk Orders)</h2>
+                        <span class="form-hint">Dojo Online and Paymentsense Connect Cloud POS Terminal credentials</span>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Dojo Account / Merchant ID</label>
+                        <input type="text" id="setting-dojoAccount" class="form-input" value="sp218466ugbloc1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Dojo Connect Hostname</label>
+                        <input type="text" id="setting-dojoHostname" class="form-input" value="sp218466ugbloc1.connect.paymentsense.cloud">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Dojo API Key / Security Key</label>
+                        <input type="password" id="setting-dojoApiKey" class="form-input" value="e9cb6324-a862-48c8-8a47-da902dddad4b">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: HALWA PRODUCTS -->
+        <section id="tab-halwa" class="tab-panel">
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Halwa Variants & Prices</h2>
+                        <span class="form-hint">Manage Halwa sweets displayed on the main homepage hero section</span>
+                    </div>
+                </div>
+
+                <div id="halwa-grid" class="items-grid">
+                    <!-- Dynamic Halwa Items Inserted Here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: SNACKS & BISCUITS -->
+        <section id="tab-snacks" class="tab-panel">
+            <div class="form-section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Shop Bakery & Snacks</h2>
+                        <span class="form-hint">Manage Extra Snacks and Biscuit Bags displayed on index.html and shop.html</span>
+                    </div>
+                </div>
+
+                <div id="snacks-grid" class="items-grid">
+                    <!-- Dynamic Snack Items Inserted Here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: SECURITY & RECOVERY -->
+        <section id="tab-security" class="tab-panel">
+            <div class="form-section">
+                <div class="section-header">
+                    <h2 class="section-title">Security PIN & Recovery Credentials</h2>
+                    <span class="form-hint">Manage your CRM PIN and fallback recovery keys in case of lockout</span>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Current Admin PIN</label>
+                        <input type="password" id="setting-adminPin" class="form-input" value="2026" maxlength="10">
+                        <span class="form-hint">Default PIN: <b>2026</b></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Registered Owner Email (for PIN Reset)</label>
+                        <input type="email" id="setting-ownerEmail" class="form-input" value="owner@furqansweets.co.uk">
+                        <span class="form-hint">Used for verification when clicking "Forgot PIN?"</span>
+                    </div>
+                    <div class="form-group form-grid-full">
+                        <label class="form-label">Master Security Recovery Key</label>
+                        <input type="text" id="setting-masterRecoveryKey" class="form-input" value="FURQAN-2026-RECOVERY">
+                        <span class="form-hint">Backup master code to unlock and reset your PIN immediately without waiting 1 hour if locked out. Save this code securely!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STICKY ACTION BAR -->
+        <div class="sticky-save-bar">
+            <div class="save-bar-info">
+                <span style="font-weight: 700; color: #fff;">Furqan Sweets CRM</span> • All changes apply immediately across website
+            </div>
+            <button class="btn-save-primary" id="btn-save-all" style="display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="save"></i>
+                <span>Save All Changes</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        let storeData = null;
+        const defaultPin = "2026";
+        const defaultOwnerEmail = "owner@furqansweets.co.uk";
+        const defaultRecoveryKey = "FURQAN-2026-RECOVERY";
+
+        // DOM Elements
+        const toastContainer = document.getElementById('toast-container');
+        const pinModal = document.getElementById('pin-modal');
+        const pinInput = document.getElementById('pin-input');
+        const btnPinSubmit = document.getElementById('btn-pin-submit');
+        const pinError = document.getElementById('pin-error');
+        const lockoutBanner = document.getElementById('lockout-banner');
+
+        // Recovery modal elements
+        const recoveryModal = document.getElementById('recovery-modal');
+        const linkForgotPin = document.getElementById('link-forgot-pin');
+        const recoveryEmail = document.getElementById('recovery-email');
+        const recoveryKey = document.getElementById('recovery-key');
+        const recoveryNewPin = document.getElementById('recovery-new-pin');
+        const btnSendToken = document.getElementById('btn-send-token');
+        const btnRecoveryReset = document.getElementById('btn-recovery-reset');
+        const btnRecoveryCancel = document.getElementById('btn-recovery-cancel');
+
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (isError ? ' error' : '');
+            toast.innerHTML = `<span>${isError ? '❌' : '✅'}</span> <span>${message}</span>`;
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(40px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // ================= LUXURY CUSTOM CRM MODALS (NO SYSTEM POPUPS) =================
+        function showCrmConfirm(title, message) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('crm-confirm-modal');
+                const titleEl = document.getElementById('crm-confirm-title');
+                const msgEl = document.getElementById('crm-confirm-message');
+                const btnOk = document.getElementById('crm-confirm-ok');
+                const btnCancel = document.getElementById('crm-confirm-cancel');
+
+                titleEl.textContent = title || "Confirm Action";
+                msgEl.textContent = message || "Are you sure you want to proceed?";
+
+                modal.style.display = 'flex';
+                setTimeout(() => { modal.style.opacity = '1'; }, 20);
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                function cleanUp(result) {
+                    modal.style.opacity = '0';
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        btnOk.removeEventListener('click', onOk);
+                        btnCancel.removeEventListener('click', onCancel);
+                        resolve(result);
+                    }, 250);
+                }
+                function onOk() { cleanUp(true); }
+                function onCancel() { cleanUp(false); }
+
+                btnOk.addEventListener('click', onOk);
+                btnCancel.addEventListener('click', onCancel);
+            });
+        }
+
+        function showCrmAlert(title, message) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('crm-alert-modal');
+                const titleEl = document.getElementById('crm-alert-title');
+                const msgEl = document.getElementById('crm-alert-message');
+                const btnOk = document.getElementById('crm-alert-ok');
+
+                titleEl.textContent = title || "Notification";
+                msgEl.innerHTML = message.replace(/\n/g, '<br>');
+
+                modal.style.display = 'flex';
+                setTimeout(() => { modal.style.opacity = '1'; }, 20);
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                function cleanUp() {
+                    modal.style.opacity = '0';
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        btnOk.removeEventListener('click', onOk);
+                        resolve();
+                    }, 250);
+                }
+                function onOk() { cleanUp(); }
+
+                btnOk.addEventListener('click', onOk);
+            });
+        }
+
+        // ================= NAVIGATION TABS =================
+        const navItems = document.querySelectorAll('.nav-item');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                tabPanels.forEach(p => p.classList.remove('active'));
+
+                item.classList.add('active');
+                const targetId = item.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            });
+        });
+
+        const SUPABASE_URL = "https://twzkccwkatbczcflyxet.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU";
+
+        async function saveToSupabase(data) {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/store_config?id=eq.furqan-main`, {
+                    method: 'PATCH',
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": `Bearer ${SUPABASE_KEY}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify({
+                        store_name: (data.siteSettings && data.siteSettings.storeName) || "Furqan Sweets",
+                        site_settings_json: data.siteSettings || {},
+                        halwa_variants_json: data.halwaVariants || [],
+                        snacks_json: data.snacks || [],
+                        updated_at: new Date().toISOString()
+                    })
+                });
+                return res.ok;
+            } catch (e) {
+                console.error("Supabase error:", e);
+                return false;
+            }
+        }
+
+        // ================= LOAD & RENDER DATA =================
+        async function loadData() {
+            try {
+                let srvData = null;
+                // 1. Fetch live cloud database from Supabase
+                try {
+                    const res = await fetch(`${SUPABASE_URL}/rest/v1/store_config?id=eq.furqan-main&select=*`, {
+                        headers: {
+                            "apikey": SUPABASE_KEY,
+                            "Authorization": `Bearer ${SUPABASE_KEY}`
+                        }
+                    });
+                    if (res.ok) {
+                        const rows = await res.json();
+                        if (rows && rows.length > 0) {
+                            const row = rows[0];
+                            srvData = {
+                                siteSettings: row.site_settings_json || {},
+                                halwaVariants: row.halwa_variants_json || [],
+                                snacks: row.snacks_json || []
+                            };
+                        }
+                    }
+                } catch (e) { console.log("Supabase fetch fallback:", e); }
+
+                // 2. Fallback to static data.json if offline
+                if (!srvData) {
+                    try {
+                        const res = await fetch('data.json');
+                        if (res.ok) srvData = await res.json();
+                    } catch (e) {}
+                }
+
+                // 3. Update local browser cache with authoritative server data, or fall back to local edits if offline
+                if (srvData) {
+                    try {
+                        localStorage.setItem('furqan_crm_data', JSON.stringify(srvData));
+                    } catch (e) {}
+                }
+                let savedLocal = null;
+                try {
+                    const localStr = localStorage.getItem('furqan_crm_data');
+                    if (localStr) savedLocal = JSON.parse(localStr);
+                } catch (e) {}
+
+                storeData = srvData || savedLocal || {};
+                renderAll();
+                checkLockoutState();
+            } catch (err) {
+                console.error("Error loading data:", err);
+                showToast("Loaded default store data", false);
+                renderAll();
+            }
+        }
+
+        function renderAll() {
+            if (!storeData) return;
+
+            // 1. Render Site Settings
+            const s = storeData.siteSettings || {};
+            const setVal = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.value = val;
+            };
+            setVal('setting-storeName', s.storeName || 'Furqan Sweets');
+            setVal('setting-logo', s.logo || 'assets/furqansweets_logo.svg');
+            setVal('setting-openHours', s.openHours || '9am - 10pm');
+            setVal('setting-phoneNumber', s.phoneNumber || '020 8838 3030');
+            setVal('setting-phoneTel', s.phoneTel || 'tel:+4402088383030');
+            setVal('setting-bulkPhone', s.bulkPhone || '07956 911 759');
+            setVal('setting-bulkPhoneTel', s.bulkPhoneTel || 'tel:+447956911759');
+            setVal('setting-heroTitle', s.heroTitle || 'Craving Authentic Somali Sweets?');
+            setVal('setting-heroTitleSomali', s.heroTitleSomali || 'Ma u xiistay Macmacaan Soomaaliyeed?');
+            setVal('setting-heroSubtitle', s.heroSubtitle || 'Freshly made, perfectly sweet, deeply rich.');
+            setVal('setting-heroSubtitleSomali', s.heroSubtitleSomali || 'Cusub, macaan oo si fiican loo sameeyay.');
+            setVal('setting-bulkWeight', s.bulkWeight || '15kg Base Bucket');
+            setVal('setting-bulkPrice', s.bulkPrice || '£120');
+            setVal('setting-bulkDesc', s.bulkDesc || 'Serves approx 120 - 150 people. Easily add more kg to fit your guest list.');
+            setVal('setting-bulkTitle', s.bulkTitle || 'Perfect for Every Occasion');
+            setVal('setting-bulkTitleSomali', s.bulkTitleSomali || 'Ku Habboon Munaasabad Kasta');
+            setVal('setting-bulkBaseKgNum', s.bulkBaseKgNum || '15');
+            setVal('setting-bulkBasePriceNum', s.bulkBasePriceNum || '120');
+            setVal('setting-bulkExtraKgPrice', s.bulkExtraKgPrice || '9');
+            setVal('setting-halwaBasePrice', s.halwaBasePrice || '£10 / kg');
+            setVal('setting-adminPin', s.adminPin || '2026');
+            setVal('setting-ownerEmail', s.ownerEmail || 'owner@furqansweets.co.uk');
+            setVal('setting-masterRecoveryKey', s.masterRecoveryKey || 'FURQAN-2026-RECOVERY');
+            setVal('setting-dojoAccount', s.dojoAccount || 'sp218466ugbloc1');
+            setVal('setting-dojoHostname', s.dojoHostname || 'sp218466ugbloc1.connect.paymentsense.cloud');
+            setVal('setting-dojoApiKey', s.dojoApiKey || 'e9cb6324-a862-48c8-8a47-da902dddad4b');
+            setVal('setting-bulkModalTitle', s.bulkModalTitle || 'Customise Your Bulk Order');
+            setVal('setting-bulkModalDesc', s.bulkModalDesc || '15kg base bucket can serve about 120 to 150 people.');
+            setVal('setting-bulkModalImage', s.bulkModalImage || 'assets/square_bucket_halwa.png');
+            setVal('setting-heroMainImage', s.heroMainImage || 'assets/halwa_main.png');
+            setVal('setting-bulkAddBtn1', s.bulkAddBtn1 || '1');
+            setVal('setting-bulkAddBtn2', s.bulkAddBtn2 || '5');
+            setVal('setting-bulkAddBtn3', s.bulkAddBtn3 || '10');
+            setVal('setting-bulkPayBtnText', s.bulkPayBtnText || 'Online Payments • Coming Soon');
+            setVal('setting-bulkCallBtnText', s.bulkCallBtnText || 'Call to Order Now (020 8838 3030)');
+            setVal('setting-bulkNoticeText', s.bulkNoticeText || '48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.');
+            setVal('setting-storyTitle', s.storyTitle || 'Our Heritage');
+            setVal('setting-storyTitleSomali', s.storyTitleSomali || 'Dhaxalkeenna qaaliga ah');
+            setVal('setting-storyText', s.storyText || 'For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.');
+            setVal('setting-storyTextSomali', s.storyTextSomali || 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.');
+            setVal('setting-storyImage', s.storyImage || 'assets/halwa_texture.png');
+
+            const logoSrc = s.logo || 'assets/furqansweets_logo.svg';
+            const pLogo = document.getElementById('preview-logo');
+            if (pLogo) pLogo.src = logoSrc;
+            document.querySelectorAll('.sidebar-logo, .pin-logo').forEach(img => { img.src = logoSrc; });
+            const pHero = document.getElementById('preview-heroMainImage');
+            if (pHero) pHero.src = s.heroMainImage || 'assets/halwa_main.png';
+            const pStory = document.getElementById('preview-storyImage');
+            if (pStory) pStory.src = s.storyImage || 'assets/halwa_texture.png';
+            const pBulk = document.getElementById('preview-bulkModalImage');
+            if (pBulk) pBulk.src = s.bulkModalImage || 'assets/square_bucket_halwa.png';
+
+
+            // 2. Render Halwa Products Grid
+            renderHalwaGrid();
+
+            // 3. Render Snacks & Biscuits Grid
+            renderSnacksGrid();
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // ================= HALWA GRID RENDERER =================
+        function renderHalwaGrid() {
+            const container = document.getElementById('halwa-grid');
+            container.innerHTML = '';
+
+            const halwaList = storeData.halwaVariants || [];
+
+            halwaList.forEach((item, idx) => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <div class="item-card-header">
+                        <span class="item-card-badge">Halwa Option</span>
+                        <button class="btn-delete-item" onclick="deleteHalwa(${idx})" style="display: flex; align-items: center; gap: 4px;"><i data-lucide="trash-2"></i><span>Delete</span></button>
+                    </div>
+                    <img src="${item.image || 'assets/halwa_main.png'}" alt="Preview" class="item-preview-img" id="halwa-img-preview-${idx}">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Variant Name (English)</label>
+                        <input type="text" class="form-input halwa-field" data-index="${idx}" data-field="name" value="${item.name || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Somali Translation</label>
+                        <input type="text" class="form-input halwa-field" data-index="${idx}" data-field="somali" value="${item.somali || ''}">
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Price (£)</label>
+                            <input type="text" class="form-input halwa-field" data-index="${idx}" data-field="price" value="${item.price || '10'}">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Unit</label>
+                            <input type="text" class="form-input halwa-field" data-index="${idx}" data-field="unit" value="${item.unit || 'kg'}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Image Path</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" class="form-input halwa-field" id="halwa-img-input-${idx}" data-index="${idx}" data-field="image" value="${item.image || ''}">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" accept="image/*" style="display: none;" onchange="uploadImage(this, 'halwa', ${idx})">
+                            </label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // "+ Add Halwa" card
+            const addBtn = document.createElement('div');
+            addBtn.className = 'btn-add-item';
+            addBtn.innerHTML = `
+                <span style="font-size: 2.5rem;">+</span>
+                <span>Add Halwa Variant</span>
+            `;
+            addBtn.onclick = () => {
+                storeData.halwaVariants.push({
+                    id: 'h_' + Date.now(),
+                    name: 'New Halwa Option',
+                    somali: 'Xalwo Cusub',
+                    price: '10',
+                    unit: 'kg',
+                    image: 'assets/halwa_plain.png'
+                });
+                renderHalwaGrid();
+            };
+            container.appendChild(addBtn);
+
+            // Bind input changes
+            document.querySelectorAll('.halwa-field').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const i = e.target.getAttribute('data-index');
+                    const field = e.target.getAttribute('data-field');
+                    storeData.halwaVariants[i][field] = e.target.value;
+                    if (field === 'image') {
+                        const preview = document.getElementById(`halwa-img-preview-${i}`);
+                        if (preview) preview.src = e.target.value;
+                    }
+                });
+            });
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        window.deleteHalwa = async (index) => {
+            if (await showCrmConfirm("Delete Halwa Product", "Are you sure you want to delete this Halwa product from your catalog?")) {
+                storeData.halwaVariants.splice(index, 1);
+                renderHalwaGrid();
+                showToast("Halwa product deleted");
+            }
+        };
+
+        // ================= SNACKS GRID RENDERER =================
+        function renderSnacksGrid() {
+            const container = document.getElementById('snacks-grid');
+            container.innerHTML = '';
+
+            const snacksList = storeData.snacks || [];
+
+            snacksList.forEach((item, idx) => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <div class="item-card-header">
+                        <span class="item-card-badge" style="background: rgba(255,94,0,0.15); color: var(--accent-orange);">${item.category || 'Snack'}</span>
+                        <button class="btn-delete-item" onclick="deleteSnack(${idx})" style="display: flex; align-items: center; gap: 4px;"><i data-lucide="trash-2"></i><span>Delete</span></button>
+                    </div>
+                    <img src="${item.image || 'assets/use as is.jpg'}" alt="Preview" class="item-preview-img" id="snack-img-preview-${idx}">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Snack / Biscuit Name</label>
+                        <input type="text" class="form-input snack-field" data-index="${idx}" data-field="name" value="${item.name || ''}">
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Category</label>
+                            <select class="form-input snack-field" data-index="${idx}" data-field="category">
+                                <option value="Extra Snacks" ${item.category === 'Extra Snacks' ? 'selected' : ''}>Extra Snacks</option>
+                                <option value="Biscuits Bags" ${item.category === 'Biscuits Bags' ? 'selected' : ''}>Biscuits Bags</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Price (£)</label>
+                            <input type="text" class="form-input snack-field" data-index="${idx}" data-field="price" value="${item.price || '2.50'}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Image Path</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" class="form-input snack-field" id="snack-img-input-${idx}" data-index="${idx}" data-field="image" value="${item.image || ''}">
+                            <label class="btn-upload" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="upload"></i><span>Upload</span>
+                                <input type="file" accept="image/*" style="display: none;" onchange="uploadImage(this, 'snack', ${idx})">
+                            </label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // "+ Add Snack" card
+            const addBtn = document.createElement('div');
+            addBtn.className = 'btn-add-item';
+            addBtn.innerHTML = `
+                <span style="font-size: 2.5rem;">+</span>
+                <span>Add New Snack / Biscuit</span>
+            `;
+            addBtn.onclick = () => {
+                storeData.snacks.push({
+                    id: 's_' + Date.now(),
+                    name: 'New Snack Product',
+                    price: '2.50',
+                    image: 'assets/use as is.jpg',
+                    category: 'Extra Snacks'
+                });
+                renderSnacksGrid();
+            };
+            container.appendChild(addBtn);
+
+            // Bind input changes
+            document.querySelectorAll('.snack-field').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const i = e.target.getAttribute('data-index');
+                    const field = e.target.getAttribute('data-field');
+                    storeData.snacks[i][field] = e.target.value;
+                    if (field === 'image') {
+                        const preview = document.getElementById(`snack-img-preview-${i}`);
+                        if (preview) preview.src = e.target.value;
+                    }
+                });
+            });
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        window.deleteSnack = async (index) => {
+            if (await showCrmConfirm("Delete Snack Product", "Are you sure you want to delete this snack/biscuit product from your catalog?")) {
+                storeData.snacks.splice(index, 1);
+                renderSnacksGrid();
+                showToast("Product deleted");
+            }
+        };
+
+        // ================= IMAGE UPLOAD HANDLER =================
+        window.uploadImage = async (fileInput, type, idx) => {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async () => {
+                const base64 = reader.result;
+                let imagePath = base64;
+
+                if (type === 'halwa') {
+                    if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
+                        storeData.halwaVariants[idx].image = imagePath;
+                    }
+                    const inputEl = document.getElementById(`halwa-img-input-${idx}`);
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById(`halwa-img-preview-${idx}`);
+                    if (previewEl) previewEl.src = imagePath;
+                } else if (type === 'snack') {
+                    if (storeData.snacks && storeData.snacks[idx]) {
+                        storeData.snacks[idx].image = imagePath;
+                    }
+                    const inputEl = document.getElementById(`snack-img-input-${idx}`);
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById(`snack-img-preview-${idx}`);
+                    if (previewEl) previewEl.src = imagePath;
+                } else if (type === 'logo') {
+                    if (!storeData.siteSettings) storeData.siteSettings = {};
+                    storeData.siteSettings.logo = imagePath;
+                    const inputEl = document.getElementById('setting-logo');
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-logo');
+                    if (previewEl) previewEl.src = imagePath;
+                } else if (type === 'bulkModalImage') {
+                    if (!storeData.siteSettings) storeData.siteSettings = {};
+                    storeData.siteSettings.bulkModalImage = imagePath;
+                    const inputEl = document.getElementById('setting-bulkModalImage');
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-bulkModalImage');
+                    if (previewEl) previewEl.src = imagePath;
+                } else if (type === 'heroMainImage') {
+                    if (!storeData.siteSettings) storeData.siteSettings = {};
+                    storeData.siteSettings.heroMainImage = imagePath;
+                    const inputEl = document.getElementById('setting-heroMainImage');
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-heroMainImage');
+                    if (previewEl) previewEl.src = imagePath;
+                } else if (type === 'storyImage') {
+                    if (!storeData.siteSettings) storeData.siteSettings = {};
+                    storeData.siteSettings.storyImage = imagePath;
+                    const inputEl = document.getElementById('setting-storyImage');
+                    if (inputEl) inputEl.value = imagePath;
+                    const previewEl = document.getElementById('preview-storyImage');
+                    if (previewEl) previewEl.src = imagePath;
+                }
+                // Instantly save to local storage and live Supabase Cloud Database so old images are permanently deleted!
+                try {
+                    localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
+                } catch(e) {}
+                saveToSupabase(storeData).then((success) => {
+                    if (success) {
+                        showToast("✅ Image uploaded & saved permanently to database! Old image replaced.");
+                    } else {
+                        showToast("✓ Image updated in browser! Click 'Save All Settings' below to publish.");
+                    }
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+
+        document.getElementById('upload-logo').addEventListener('change', function() {
+            window.uploadImage(this, 'logo', 0);
+        });
+
+        document.getElementById('upload-bulkModalImage').addEventListener('change', function() {
+            window.uploadImage(this, 'bulkModalImage', 0);
+        });
+
+        const uploadHeroMain = document.getElementById('upload-heroMainImage');
+        if (uploadHeroMain) {
+            uploadHeroMain.addEventListener('change', function() {
+                window.uploadImage(this, 'heroMainImage', 0);
+            });
+        }
+
+        const uploadStoryImg = document.getElementById('upload-storyImage');
+        if (uploadStoryImg) {
+            uploadStoryImg.addEventListener('change', function() {
+                window.uploadImage(this, 'storyImage', 0);
+            });
+        }
+
+        [['setting-logo', 'preview-logo'], ['setting-heroMainImage', 'preview-heroMainImage'], ['setting-storyImage', 'preview-storyImage'], ['setting-bulkModalImage', 'preview-bulkModalImage']].forEach(([inputId, previewId]) => {
+            const inp = document.getElementById(inputId);
+            const prev = document.getElementById(previewId);
+            if (inp && prev) {
+                inp.addEventListener('input', () => { prev.src = inp.value; });
+            }
+        });
+
+
+        // ================= SECURITY LOCKOUT (MAX 3 FAILED ATTEMPTS -> 1 HOUR) =================
+        let lockoutTimerInterval = null;
+
+        function checkLockoutState() {
+            const lockoutUntil = parseInt(localStorage.getItem('crm_lockout_until') || '0', 10);
+            const now = Date.now();
+
+            if (lockoutUntil > now) {
+                // Currently locked out!
+                pinInput.disabled = true;
+                btnPinSubmit.disabled = true;
+                lockoutBanner.style.display = 'block';
+                pinError.style.display = 'none';
+
+                updateLockoutCountdown(lockoutUntil);
+                if (lockoutTimerInterval) clearInterval(lockoutTimerInterval);
+                lockoutTimerInterval = setInterval(() => {
+                    updateLockoutCountdown(lockoutUntil);
+                }, 1000);
+                return true;
+            } else {
+                // Not locked out
+                if (lockoutTimerInterval) clearInterval(lockoutTimerInterval);
+                pinInput.disabled = false;
+                btnPinSubmit.disabled = false;
+                lockoutBanner.style.display = 'none';
+                return false;
+            }
+        }
+
+        function updateLockoutCountdown(lockoutUntil) {
+            const now = Date.now();
+            const diffSeconds = Math.max(0, Math.floor((lockoutUntil - now) / 1000));
+
+            if (diffSeconds <= 0) {
+                if (lockoutTimerInterval) clearInterval(lockoutTimerInterval);
+                localStorage.removeItem('crm_lockout_until');
+                localStorage.removeItem('crm_failed_attempts');
+                pinInput.disabled = false;
+                btnPinSubmit.disabled = false;
+                lockoutBanner.style.display = 'none';
+                return;
+            }
+
+            const mins = Math.floor(diffSeconds / 60);
+            const secs = diffSeconds % 60;
+            const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            lockoutBanner.innerHTML = `<i data-lucide="lock" style="vertical-align:middle;"></i> Account Locked due to multiple failed login attempts.<br>Try again in <b>${timeStr}</b> or use email recovery below.`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function registerFailedAttempt() {
+            let failed = parseInt(localStorage.getItem('crm_failed_attempts') || '0', 10);
+            failed += 1;
+            localStorage.setItem('crm_failed_attempts', failed);
+
+            if (failed >= 3) {
+                // Lockout for 1 hour (3600 seconds)
+                const lockTime = Date.now() + 3600 * 1000;
+                localStorage.setItem('crm_lockout_until', lockTime);
+                checkLockoutState();
+                showToast("Too many failed attempts. Account locked for 1 hour.", true);
+            } else {
+                const remaining = 3 - failed;
+                pinError.innerHTML = `Incorrect PIN. <b>${remaining} attempt${remaining > 1 ? 's' : ''} remaining</b> before 1-hour lockout.`;
+                pinError.style.display = 'block';
+                pinInput.style.borderColor = '#EF4444';
+                pinInput.value = '';
+                pinInput.focus();
+            }
+        }
+
+        // ================= PIN AUTHENTICATION =================
+        function checkPin() {
+            if (checkLockoutState()) return;
+
+            const entered = pinInput.value.trim();
+            const required = (storeData && storeData.siteSettings && storeData.siteSettings.adminPin) ? storeData.siteSettings.adminPin : defaultPin;
+
+            if (entered === required) {
+                // Clear lockout & failed attempts
+                localStorage.removeItem('crm_failed_attempts');
+                localStorage.removeItem('crm_lockout_until');
+                sessionStorage.setItem('crm_unlocked', 'true');
+
+                pinError.style.display = 'none';
+                pinModal.style.opacity = '0';
+                setTimeout(() => {
+                    pinModal.style.display = 'none';
+                    const saveBar = document.querySelector('.sticky-save-bar');
+                    if (saveBar) saveBar.style.display = 'flex';
+                }, 400);
+                showToast("Dashboard unlocked successfully");
+            } else {
+                registerFailedAttempt();
+            }
+        }
+
+        btnPinSubmit.addEventListener('click', checkPin);
+        pinInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPin();
+        });
+
+        // ================= LOGOUT BUTTON =================
+        function logoutCrm() {
+            sessionStorage.removeItem('crm_unlocked');
+            const saveBar = document.querySelector('.sticky-save-bar');
+            if (saveBar) saveBar.style.display = 'none';
+            showToast("🔒 Logged out of CRM session.");
+            pinInput.value = '';
+            pinError.style.display = 'none';
+            pinModal.style.display = 'flex';
+            setTimeout(() => {
+                pinModal.style.opacity = '1';
+                pinInput.focus();
+            }, 50);
+            checkLockoutState();
+        }
+
+        document.getElementById('btn-logout-sidebar').addEventListener('click', logoutCrm);
+        document.getElementById('btn-logout-header').addEventListener('click', logoutCrm);
+
+        // ================= FORGOT PASSWORD / EMAIL & KEY RECOVERY =================
+        let generatedToken = null;
+
+        linkForgotPin.addEventListener('click', (e) => {
+            e.preventDefault();
+            recoveryModal.style.display = 'flex';
+            setTimeout(() => {
+                recoveryModal.style.opacity = '1';
+                recoveryEmail.focus();
+            }, 50);
+        });
+
+        btnRecoveryCancel.addEventListener('click', () => {
+            recoveryModal.style.opacity = '0';
+            setTimeout(() => {
+                recoveryModal.style.display = 'none';
+            }, 300);
+        });
+
+        btnSendToken.addEventListener('click', () => {
+            const em = recoveryEmail.value.trim();
+            const requiredEmail = (storeData && storeData.siteSettings && storeData.siteSettings.ownerEmail) ? storeData.siteSettings.ownerEmail : defaultOwnerEmail;
+
+            if (!em) {
+                showToast("Please enter your registered owner email", true);
+                return;
+            }
+            if (em.toLowerCase() !== requiredEmail.toLowerCase()) {
+                showToast("Email address does not match owner email record", true);
+                return;
+            }
+
+            // Generate secure one-time 4-digit token
+            generatedToken = String(Math.floor(1000 + Math.random() * 9000));
+            recoveryKey.value = generatedToken;
+            showToast(`Recovery Token Sent: ${generatedToken}`);
+            showCrmAlert("EMAIL VERIFICATION DEMO", `To: ${em}\n\nYour one-time Furqan Sweets CRM recovery token is: ${generatedToken}\n\nYou can use this token or your Master Recovery Key to reset your security PIN.`);
+        });
+
+        btnRecoveryReset.addEventListener('click', async () => {
+            const em = recoveryEmail.value.trim();
+            const key = recoveryKey.value.trim();
+            const newPin = recoveryNewPin.value.trim();
+
+            const requiredEmail = (storeData && storeData.siteSettings && storeData.siteSettings.ownerEmail) ? storeData.siteSettings.ownerEmail : defaultOwnerEmail;
+            const requiredKey = (storeData && storeData.siteSettings && storeData.siteSettings.masterRecoveryKey) ? storeData.siteSettings.masterRecoveryKey : defaultRecoveryKey;
+
+            if (!em || !key || !newPin) {
+                showToast("Please fill in all recovery fields", true);
+                return;
+            }
+
+            if (newPin.length < 4) {
+                showToast("New PIN must be at least 4 digits", true);
+                return;
+            }
+
+            const isValidEmail = (em.toLowerCase() === requiredEmail.toLowerCase());
+            const isValidKey = (key === requiredKey || (generatedToken && key === generatedToken));
+
+            if (isValidEmail && isValidKey) {
+                // Success! Update PIN and clear lockout
+                if (!storeData.siteSettings) storeData.siteSettings = {};
+                storeData.siteSettings.adminPin = newPin;
+
+                localStorage.removeItem('crm_failed_attempts');
+                localStorage.removeItem('crm_lockout_until');
+                sessionStorage.setItem('crm_unlocked', 'true');
+
+                // Save to cloud server
+                await saveToSupabase(storeData);
+
+                showToast("PIN reset successfully! Dashboard unlocked.");
+                recoveryModal.style.opacity = '0';
+                pinModal.style.opacity = '0';
+                setTimeout(() => {
+                    recoveryModal.style.display = 'none';
+                    pinModal.style.display = 'none';
+                    const saveBar = document.querySelector('.sticky-save-bar');
+                    if (saveBar) saveBar.style.display = 'flex';
+                }, 300);
+            } else {
+                showToast("Invalid recovery credentials. Please check your email and Master Key.", true);
+            }
+        });
+
+        // ================= SAVE ALL DATA =================
+        document.getElementById('btn-save-all').addEventListener('click', async () => {
+            if (!storeData) return;
+
+            // Gather Site Settings safely
+            const getVal = (id, def = '') => {
+                const el = document.getElementById(id);
+                return el ? el.value : def;
+            };
+            storeData.siteSettings = {
+                storeName: getVal('setting-storeName', 'Furqan Sweets'),
+                logo: getVal('setting-logo', 'assets/furqansweets_logo.svg'),
+                openHours: getVal('setting-openHours', '9am - 10pm'),
+                phoneNumber: getVal('setting-phoneNumber', '020 8838 3030'),
+                phoneTel: getVal('setting-phoneTel', 'tel:+4402088383030'),
+                bulkPhone: getVal('setting-bulkPhone', '07956 911 759'),
+                bulkPhoneTel: getVal('setting-bulkPhoneTel', 'tel:+447956911759'),
+                heroTitle: getVal('setting-heroTitle', 'Craving Authentic Somali Sweets?'),
+                heroTitleSomali: getVal('setting-heroTitleSomali', 'Ma u xiistay Macmacaan Soomaaliyeed?'),
+                heroSubtitle: getVal('setting-heroSubtitle', 'Freshly made, perfectly sweet, deeply rich.'),
+                heroSubtitleSomali: getVal('setting-heroSubtitleSomali', 'Cusub, macaan oo si fiican loo sameeyay.'),
+                heroMainImage: getVal('setting-heroMainImage', 'assets/halwa_main.png'),
+                bulkWeight: getVal('setting-bulkWeight', '15kg Base Bucket'),
+                bulkPrice: getVal('setting-bulkPrice', '£120'),
+                bulkDesc: getVal('setting-bulkDesc', 'Serves approx 120 - 150 people. Easily add more kg to fit your guest list.'),
+                bulkTitle: getVal('setting-bulkTitle', 'Perfect for Every Occasion'),
+                bulkTitleSomali: getVal('setting-bulkTitleSomali', 'Ku Habboon Munaasabad Kasta'),
+                bulkBaseKgNum: getVal('setting-bulkBaseKgNum', '15'),
+                bulkBasePriceNum: getVal('setting-bulkBasePriceNum', '120'),
+                bulkExtraKgPrice: getVal('setting-bulkExtraKgPrice', '9'),
+                halwaBasePrice: getVal('setting-halwaBasePrice', '£10 / kg'),
+                adminPin: getVal('setting-adminPin', '2026'),
+                ownerEmail: getVal('setting-ownerEmail', defaultOwnerEmail),
+                masterRecoveryKey: getVal('setting-masterRecoveryKey', defaultRecoveryKey),
+                dojoAccount: getVal('setting-dojoAccount', 'sp218466ugbloc1'),
+                dojoHostname: getVal('setting-dojoHostname', 'sp218466ugbloc1.connect.paymentsense.cloud'),
+                dojoApiKey: getVal('setting-dojoApiKey', 'e9cb6324-a862-48c8-8a47-da902dddad4b'),
+                bulkModalTitle: getVal('setting-bulkModalTitle', 'Customise Your Bulk Order'),
+                bulkModalDesc: getVal('setting-bulkModalDesc', '15kg base bucket can serve about 120 to 150 people.'),
+                bulkModalImage: getVal('setting-bulkModalImage', 'assets/square_bucket_halwa.png'),
+                bulkAddBtn1: getVal('setting-bulkAddBtn1', '1'),
+                bulkAddBtn2: getVal('setting-bulkAddBtn2', '5'),
+                bulkAddBtn3: getVal('setting-bulkAddBtn3', '10'),
+                bulkPayBtnText: getVal('setting-bulkPayBtnText', 'Online Payments • Coming Soon'),
+                bulkCallBtnText: getVal('setting-bulkCallBtnText', 'Call to Order Now (020 8838 3030)'),
+                bulkNoticeText: getVal('setting-bulkNoticeText', '48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.'),
+                storyTitle: getVal('setting-storyTitle', 'Our Heritage'),
+                storyTitleSomali: getVal('setting-storyTitleSomali', 'Dhaxalkeenna qaaliga ah'),
+                storyText: getVal('setting-storyText', 'For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.'),
+                storyTextSomali: getVal('setting-storyTextSomali', 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.'),
+                storyImage: getVal('setting-storyImage', 'assets/halwa_texture.png')
+            };
+
+            // Ensure all halwaVariants and snacks images/names/prices from DOM inputs are synced to storeData
+            document.querySelectorAll('.halwa-field').forEach(input => {
+                const idx = parseInt(input.getAttribute('data-index'), 10);
+                const field = input.getAttribute('data-field');
+                if (!isNaN(idx) && storeData.halwaVariants && storeData.halwaVariants[idx]) {
+                    storeData.halwaVariants[idx][field] = input.value;
+                }
+            });
+            document.querySelectorAll('.snack-field').forEach(input => {
+                const idx = parseInt(input.getAttribute('data-index'), 10);
+                const field = input.getAttribute('data-field');
+                if (!isNaN(idx) && storeData.snacks && storeData.snacks[idx]) {
+                    storeData.snacks[idx][field] = input.value;
+                }
+            });
+
+            // 1. Save to local browser storage immediately for instant live updates
+            try {
+                localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
+            } catch (e) {}
+
+            // 2. Save directly to Supabase Cloud Database so all customers & devices see changes immediately!
+            const cloudSaved = await saveToSupabase(storeData);
+            if (cloudSaved) {
+                showToast("✅ All changes saved to live website & synced globally!");
+            } else {
+                showToast("✅ Saved locally to browser storage!");
+            }
+        });
+
+        // Initial Page Load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            const saveBar = document.querySelector('.sticky-save-bar');
+            if (sessionStorage.getItem('crm_unlocked') === 'true') {
+                const pinModalEl = document.getElementById('pin-modal');
+                if (pinModalEl) pinModalEl.style.display = 'none';
+                if (saveBar) saveBar.style.display = 'flex';
+            } else {
+                if (saveBar) saveBar.style.display = 'none';
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
