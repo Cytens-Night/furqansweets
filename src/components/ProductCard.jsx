@@ -11,7 +11,7 @@ function ProductCard({ product }) {
       <div className="product-info">
         <h3 className="product-title">{product.title}</h3>
         {product.translation && <p className="product-translation">{product.translation}</p>}
-        <p className="product-price">£{product.price.toFixed(2)}</p>
+        <p className="product-price">£{Number(product.price).toFixed(2)}</p>
         <button className="btn-add-to-cart" onClick={() => addToCart(product)}>
           Add to Cart
         </button>
