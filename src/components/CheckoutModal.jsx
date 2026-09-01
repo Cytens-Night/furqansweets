@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { useToast } from '../context/ToastContext';
 
 function CheckoutModal() {
   const { isCheckoutModalOpen, setIsCheckoutModalOpen, currentDojoOrder } = useCart();
+  const { showToast } = useToast();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', date: '', notes: '' });
 
@@ -11,7 +13,7 @@ function CheckoutModal() {
   const handlePay = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.date) {
-      alert('Please fill all required fields');
+      showToast('Please fill all required fields');
       return;
     }
     setStep(2);
@@ -109,6 +111,19 @@ function CheckoutModal() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}><span style={{ color: '#6d4834', fontSize: '0.85rem' }}>Customer:</span><strong style={{ fontSize: '0.9rem' }}>{formData.name}</strong></div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}><span style={{ color: '#6d4834', fontSize: '0.85rem' }}>Item:</span><strong style={{ fontSize: '0.9rem' }}>{currentDojoOrder.title}</strong></div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '10px', borderTop: '1px dashed rgba(74, 35, 17, 0.2)' }}><span style={{ color: '#4A2311', fontWeight: 800, fontSize: '1.1rem' }}>Total Paid:</span><strong style={{ color: '#FF5E00', fontSize: '1.2rem' }}>£{currentDojoOrder.price}.00</strong></div>
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <button onClick={() => {
+                        const msg = `Hello Furqan Sweets! I have just paid online for an Order via Dojo Secure.\n\n*Order:* ${currentDojoOrder.title}\n*Total Paid:* £${currentDojoOrder.price}.00 GBP\n*Customer:* ${formData.name}\n*Phone:* ${formData.phone}\n*Pickup Date:* ${formData.date}\n\nPlease confirm my order!`;
+                        const enc = encodeURIComponent(msg);
+                        window.open(`https://api.whatsapp.com/send?phone=+447956911759&text=${enc}`, '_blank');
+                    }} style={{ width: '100%', background: '#25D366', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '12px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}>
+                        Send WhatsApp Receipt
+                    </button>
+                    <button onClick={() => window.print()} style={{ width: '100%', background: '#f4f3ec', color: '#4a2311', border: '1px solid #e5e4e7', padding: '14px', borderRadius: '12px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}>
+                        Print Receipt
+                    </button>
                 </div>
             </div>
           </div>

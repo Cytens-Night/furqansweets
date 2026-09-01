@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
+import { ToastProvider } from './context/ToastContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CheckoutModal from './components/CheckoutModal';
@@ -13,7 +14,8 @@ import Policy from './pages/Policy';
 
 function App() {
   return (
-    <CartProvider>
+    <ToastProvider>
+      <CartProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -30,7 +32,8 @@ function App() {
         <CheckoutModal />
         <BulkModal />
       </Router>
-    </CartProvider>
+      </CartProvider>
+    </ToastProvider>
   );
 }
 

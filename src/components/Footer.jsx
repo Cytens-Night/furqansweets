@@ -10,7 +10,7 @@ function Footer() {
           <img src="/assets/furqansweets_logo.svg" alt="Furqan Sweets" className="footer-logo" />
           <p>Authentic Somali Sweets, made with love and tradition.<span className="translation">Macmacaan Soomaaliyeed oo dhab ah, oo lagu sameeyay jacayl iyo dhaqan.</span></p>
           <p style={{ marginTop: '15px' }}><strong>Email:</strong> info@furqansweets.com</p>
-          <p><strong>Opening Times:</strong> 9am to 10pm everyday<br /><span style={{ fontSize: '0.85em', opacity: 0.8 }}>(times may vary, please call 020 8838 3030)</span></p>
+          <p><strong>Opening Times:</strong> 9am to 10pm everyday<br /><span style={{ fontSize: '0.85em', opacity: 0.8 }}>(times may vary, please call <a href="tel:02088383030" style={{ color: 'inherit', textDecoration: 'underline' }}>020 8838 3030</a>)</span></p>
         </div>
         <div className="footer-links">
           <h3>Quick Links <span className="translation">Xiriiriyeyaasha Degdega ah</span></h3>
