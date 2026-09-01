@@ -127,7 +127,7 @@ function Home() {
           </h3>
           <div className="collections-scroll-wrapper">
               <div className="collections-row" id="biscuit-bags-row">
-                  {data.products.filter(p => p.category === 'biscuit-bags').map(product => (
+                  {data.snacks.filter(p => p.category === 'Biscuits Bags').map(product => (
                     <ProductCard key={product.id} product={product} />
                   ))}
               </div>
@@ -139,7 +139,7 @@ function Home() {
           </h3>
           <div className="collections-scroll-wrapper">
               <div className="collections-row" id="extra-snacks-row">
-                  {data.products.filter(p => p.category === 'extra-snacks').map(product => (
+                  {data.snacks.filter(p => p.category === 'Extra Snacks').map(product => (
                     <ProductCard key={product.id} product={product} />
                   ))}
               </div>

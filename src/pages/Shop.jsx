@@ -19,7 +19,7 @@ function Shop() {
         <div className="shop-category">
           <h2>Biscuit Bags <span className="translation" style={{ fontSize: '0.65em', fontWeight: 400, color: '#8c5d45' }}>(Buskud)</span></h2>
           <div className="shop-grid">
-            {data.products.filter(p => p.category === 'biscuit-bags').map(product => (
+            {data.snacks.filter(p => p.category === 'Biscuits Bags').map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
@@ -28,7 +28,7 @@ function Shop() {
         <div className="shop-category">
           <h2>Extra Snacks <span className="translation" style={{ fontSize: '0.65em', fontWeight: 400, color: '#8c5d45' }}>(Fudud Dheeraad ah)</span></h2>
           <div className="shop-grid">
-            {data.products.filter(p => p.category === 'extra-snacks').map(product => (
+            {data.snacks.filter(p => p.category === 'Extra Snacks').map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
