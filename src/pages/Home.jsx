@@ -48,11 +48,7 @@ function Home() {
                     <div className="cta-box">
                         <h2>{s.heroTitle || "Craving Authentic Somali Sweets?"}<span className="translation" style={{"marginTop":"10px","fontSize":"0.6em"}}>{s.heroTitleSomali || "Ma u xiistay Macmacaan Soomaaliyeed?"}</span></h2>
                         <p>{s.heroSubtitle || "Freshly made, perfectly sweet, deeply rich."}<span className="translation">{s.heroSubtitleSomali || "Cusub, macaan oo si fiican loo sameeyay."}</span></p>
-                        <button id="hero-order-btn" className="btn-primary" onClick={(e) => {
-                            e.preventDefault();
-                            const shopEl = document.getElementById("shop");
-                            if(shopEl) shopEl.scrollIntoView({behavior:"smooth"});
-                        }}>Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.85em","marginLeft":"8px"}}>Dalbo Hadda</span></button>
+                        <a href={s.phoneTel || "tel:02088383030"} className="btn-primary call-modal-trigger">Call to Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.8em","marginLeft":"8px"}}>(Wac si aad u dalbato)</span></a>
                     </div>
                 </div>
             </div>
