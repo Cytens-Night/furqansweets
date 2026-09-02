@@ -41,9 +41,9 @@ export const DataProvider = ({ children }) => {
         if (rows && rows.length > 0) {
             const row = rows[0];
             const srvData = {
-                siteSettings: row.site_settings_json || {},
-                halwaVariants: row.halwa_variants_json || [],
-                snacks: row.snacks_json || []
+                siteSettings: (row.site_settings_json && Object.keys(row.site_settings_json).length > 0) ? row.site_settings_json : staticData.siteSettings,
+                halwaVariants: (row.halwa_variants_json && row.halwa_variants_json.length > 0) ? row.halwa_variants_json : staticData.halwaVariants,
+                snacks: (row.snacks_json && row.snacks_json.length > 0) ? row.snacks_json : staticData.snacks
             };
             setData(srvData);
             localStorage.setItem('furqan_crm_data', JSON.stringify(srvData));
