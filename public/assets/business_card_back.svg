@@ -1,14 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1050 600" width="1050" height="600">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1125 675" width="1125" height="675">
     <defs>
         <linearGradient id="gold-grad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stop-color="#FFB03A" />
             <stop offset="100%" stop-color="#FF5E00" />
         </linearGradient>
     </defs>
-    <rect width="1050" height="600" fill="#191513" />
-    <rect x="0" y="0" width="1050" height="15" fill="url(#gold-grad)" />
+    
+    <!-- Bleed background -->
+    <rect width="1125" height="675" fill="#FFFFFF" />
+    <rect x="0" y="0" width="1125" height="30" fill="url(#gold-grad)" />
+    
+    <!-- Inner safe zone border -->
+    <rect x="75" y="75" width="975" height="525" fill="none" stroke="#FFB03A" stroke-width="1" rx="10" opacity="0.3" />
 
-    <g transform="translate(80, 100)">
+    <g transform="translate(120, 120)">
         <g transform="scale(0.8)">
             
   <defs>
@@ -111,46 +116,46 @@
   </g>
 
         </g>
-        <text x="0" y="100" font-family="'Inter', sans-serif" font-size="28" font-weight="bold" fill="#F7F5F2">Furqan Sweets Ltd</text>
+        <text x="0" y="100" font-family="'Inter', sans-serif" font-size="28" font-weight="bold" fill="#22140F">Furqan Sweets Ltd</text>
         
         <!-- Address -->
         <g transform="translate(0, 160)">
-            <text x="0" y="0" font-family="'Inter', sans-serif" font-size="20" fill="#A39A92">Visit Us</text>
-            <text x="0" y="30" font-family="'Inter', sans-serif" font-size="24" fill="#F7F5F2" font-weight="500">175 Hillside,</text>
-            <text x="0" y="65" font-family="'Inter', sans-serif" font-size="24" fill="#F7F5F2" font-weight="500">London NW10 8LL</text>
+            <text x="0" y="0" font-family="'Inter', sans-serif" font-size="20" fill="#FF5E00" font-weight="bold">VISIT US</text>
+            <text x="0" y="35" font-family="'Inter', sans-serif" font-size="24" fill="#22140F" font-weight="500">175 Hillside,</text>
+            <text x="0" y="70" font-family="'Inter', sans-serif" font-size="24" fill="#22140F" font-weight="500">London NW10 8LL</text>
         </g>
         
         <!-- Contact -->
-        <g transform="translate(0, 290)">
-            <text x="0" y="0" font-family="'Inter', sans-serif" font-size="20" fill="#A39A92">Contact</text>
-            <text x="0" y="30" font-family="'Inter', sans-serif" font-size="24" fill="#F7F5F2" font-weight="500">020 8838 3030</text>
-            <text x="0" y="65" font-family="'Inter', sans-serif" font-size="24" fill="#F7F5F2" font-weight="500">owner@furqansweets.co.uk</text>
+        <g transform="translate(0, 310)">
+            <text x="0" y="0" font-family="'Inter', sans-serif" font-size="20" fill="#FF5E00" font-weight="bold">CONTACT</text>
+            <text x="0" y="35" font-family="'Inter', sans-serif" font-size="24" fill="#22140F" font-weight="500">020 8838 3030</text>
+            <text x="0" y="70" font-family="'Inter', sans-serif" font-size="24" fill="#22140F" font-weight="500">owner@furqansweets.co.uk</text>
         </g>
         
         <!-- Web -->
-        <g transform="translate(0, 420)">
-            <text x="0" y="0" font-family="'Inter', sans-serif" font-size="24" fill="#FFB03A" font-weight="bold">www.furqansweets.co.uk</text>
+        <g transform="translate(0, 450)">
+            <text x="0" y="0" font-family="'Inter', sans-serif" font-size="26" fill="#FF5E00" font-weight="bold">www.furqansweets.co.uk</text>
         </g>
     </g>
 
     <!-- QR Codes Section -->
-    <g transform="translate(520, 130)">
+    <g transform="translate(560, 160)">
         <g transform="translate(0, 0)">
-            <rect x="0" y="0" width="160" height="160" fill="#fff" rx="10" />
-            <image x="10" y="10" width="140" height="140" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABV0lEQVRoge3aUY6DMAwEUHMCjpCjctUcgRPgBsZOQnfV9pORxlp1Ebx+DYmTqGa/1eZZu9nqeXvxuvQnXsWewfZ40Fi70WSA9ln7V8TIGHJH9Ke0zoYXI2WI3kr7f4wRLcbMYlAj9A9viNjj2ZiiA3+bycUezjwr2S13lBgV+1vXzeXfR2IUbOu5v120zlvyT4yNnXFjs+PYxmIsBxDjY30RhbXxitCv8APH0YQYC7NcRCF6xza23S+XjzdBjIltGM772MbeoseCSuwhbBqkia8Dh7d+KkbFYnzmmcM4R/J8DaoYGYvo+wtQbUy/eS3GxaKZzl215oFDjZ4rRsTmwpPzqoceyyQxJrZ5FubqHRvSPB6cVlxiNGw6w89achRP0YtRsch9j+Yb+x3UPJOLMTLIcgQezVeMmFk03+OGxdgYKnJfp98jwZsYG/OsZNFqi48So2K/1Qv5n+RpjZgDtgAAAABJRU5ErkJggg==" />
-            <text x="80" y="190" font-family="'Inter', sans-serif" font-size="18" fill="#F7F5F2" text-anchor="middle" font-weight="600">Order Online</text>
+            <rect x="0" y="0" width="160" height="160" fill="#fff" stroke="#FFB03A" stroke-width="2" rx="10" />
+            <image x="10" y="10" width="140" height="140" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8iFA/QGos0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABV0lEQVRoge3aUY6DMAwEUHMCjpCjctUcgRPgBsZOQnfV9pORxlp1Ebx+DYmTqGa/1eZZu9nqeXvxuvQnXsWewfZ40Fi70WSA9ln7V8TIGHJH9Ke0zoYXI2WI3kr7f4wRLcbMYlAj9A9viNjj2ZiiA3+bycUezjwr2S13lBgV+1vXzeXfR2IUbOu5v120zlvyT4yNnXFjs+PYxmIsBxDjY30RhbXxitCv8APH0YQYC7NcRCF6xza23S+XjzdBjIltGM772MbeoseCSuwhbBqkia8Dh7d+KkbFYnzmmcM4R/J8DaoYGYvo+wtQbUy/eS3GxaKZzl215oFDjZ4rRsTmwpPzqoceyyQxJrZ5FubqHRvSPB6cVlxiNGw6w89achRP0YtRsch9j+Yb+x3UPJOLMTLIcgQezVeMmFk03+OGxdgYKnJfp98jwZsYG/OsZNFqi48So2K/1Qv5n+RpjZgDtgAAAABJRU5ErkJggg==" />
+            <text x="80" y="195" font-family="'Inter', sans-serif" font-size="18" fill="#22140F" text-anchor="middle" font-weight="600">Order Online</text>
         </g>
         
-        <g transform="translate(250, 0)">
-            <rect x="0" y="0" width="160" height="160" fill="#fff" rx="10" />
-            <image x="10" y="10" width="140" height="140" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACIElEQVRoge2aO3LDMAxE4XHh0kfQUXQ062g6io7gUoXHCD5LSk5SxJDTLZsg5FMKgLP4MCJ/WzfNZeZwv7g1jarr+emHAw4XYlVs9t9PasZwT4ebcXmc8sPcIVbHzNW5KbKdIgoRF2IfwOy2m/MzCrpaXHQi9jlMxkXkDMlIYyZ2HGsaostV9Smxc2mi/VNqiL2FIcltyrw3cEisim1r9Loind8+lF8WsXewiIL53H19XXHbkQpH27FUaFpNrIiFbT96vnMjwhE7Li9xyYnVMJErrnSWbZb4tmtvHyIKxEpYVmuSp0h8tuJuO4bKmVgR01zp80fwuNvTiJKDWB0L5z9lc77O0BBFN91GE8QKmPV0UR5HXeHNnYcje+fRU6G0REmsgs3bICLEJE8jFY79LxArYvtNRMFyYowmvKJTRIFYEfOy7dEy4APKvEJMUHIsxKpYbPapu29q1xC3d90HsfexKI/h8z7w6YVcq9+I1bCYP/Qo7MfvLxpCrIoNihq4icl2OugKDSF2AAufz9lEh4a0yY/se2diNaz1zolNIjjd1JvYEezbNLj1dL7ikW4hVsT6amKSE4l8+kRbTayM3SAbYaDp2I2ALrj2xIrY7CFoTxj5TJ8DzJdJJrEqNvR/h4BiRE+n+52F2HFsQRsShiIccUTsODajPM7TfTheLjmx9zBoSMMwkchnDl2JHcMUm+2SZ12R/Qiau4nYP2N/W1/TGuR0Xg/d/gAAAABJRU5ErkJggg==" />
-            <text x="80" y="190" font-family="'Inter', sans-serif" font-size="18" fill="#F7F5F2" text-anchor="middle" font-weight="600">Directions</text>
+        <g transform="translate(260, 0)">
+            <rect x="0" y="0" width="160" height="160" fill="#fff" stroke="#FFB03A" stroke-width="2" rx="10" />
+            <image x="10" y="10" width="140" height="140" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8iFA/QGos0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACIElEQVRoge2aO3LDMAxE4XHh0kfQUXQ062g6io7gUoXHCD5LSk5SxJDTLZsg5FMKgLP4MCJ/WzfNZeZwv7g1jarr+emHAw4XYlVs9t9PasZwT4ebcXmc8sPcIVbHzNW5KbKdIgoRF2IfwOy2m/MzCrpaXHQi9jlMxkXkDMlIYyZ2HGsaostV9Smxc2mi/VNqiL2FIcltyrw3cEisim1r9Loind8+lF8WsXewiIL53H19XXHbkQpH27FUaFpNrIiFbT96vnMjwhE7Li9xyYnVMJErrnSWbZb4tmtvHyIKxEpYVmuSp0h8tuJuO4bKmVgR01zp80fwuNvTiJKDWB0L5z9lc77O0BBFN91GE8QKmPV0UR5HXeHNnYcje+fRU6G0REmsgs3bICLEJE8jFY79LxArYvtNRMFyYowmvKJTRIFYEfOy7dEy4APKvEJMUHIsxKpYbPapu29q1xC3d90HsfexKI/h8z7w6YVcq9+I1bCYP/Qo7MfvLxpCrIoNihq4icl2OugKDSF2AAufz9lEh4a0yY/se2diNaz1zolNIjjd1JvYEezbNLj1dL7ikW4hVsT6amKSE4l8+kRbTayM3SAbYaDp2I2ALrj2xIrY7CFoTxj5TJ8DzJdJJrEqNvR/h4BiRE+n+52F2HFsQRsShiIccUTsODajPM7TfTheLjmx9zBoSMMwkchnDl2JHcMUm+2SZ12R/Qiau4nYP2N/W1/TGuR0Xg/d/gAAAABJRU5ErkJggg==" />
+            <text x="80" y="195" font-family="'Inter', sans-serif" font-size="18" fill="#22140F" text-anchor="middle" font-weight="600">Directions</text>
         </g>
         
-        <g transform="translate(125, 240)">
-            <rect x="0" y="0" width="160" height="160" fill="#fff" rx="10" />
-            <image x="10" y="10" width="140" height="140" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACGklEQVRoge2aMZLCMAxFxaSg5Ag5CkcjR8tRcgTKLTLxWl+SbWYoWIXtvqogPxrL8/MlR+SzeBQLkfsmV3vebj91pSwy++JGLIutusmX0viyKL9rZp2fVgJieaxutSZrFermY1VuVheZn1oXYl/AahWeV+dRhVJWYl/DBIpxSF3VKhzQEGKnsdAQVYwJWF3dIR7vpIbYnzAXZmBNmePBF4llsTHgKwzTxUXeB7HPMVQBgqy2bdJyYNNbBmJCLInJXX8fYm9ASHSxDMTE+I1YFtOzPaH7cEz3XB/g6EpkiKWwtvnRdMBXSPujeQ9iJzAYDHXF3uVZGwINwfkndgKDQKAK1tzBJ+8+msCMAj6EWAazpLs1bP54yA2D1BBLYfdeBQnFcGXWl6NniGWxUrpi9NGEnm1kogrE0tgEHQ63tnYN8W56I5bEunT0zW8Ttu7oiOUwM2kSD5fi9tjD34nEktgjnnXChinli5ELDSGWxFZr5eDfkCwxT3vVEGJJDL2zhkn0grMfVWhSQyyHzXjfDUbOhxXwbza1IHYCs17jRUPsSg5x+N0HsQzWwk77IeM1h/jFPbEs1pOqIeOVnF8oD8N5Yn/HVi2Bm2EJU4excDv2j41YGptj8mMfmaAN6Z/3NP9G7BxWRv/mowkXbWLnsbhHLnrsQ0wEToNYHhPpZngfP5GCqjT/RiyFFYuR9xmFfjQVU3di/4p9Fr8L5ZEJsuQ38QAAAABJRU5ErkJggg==" />
-            <text x="80" y="190" font-family="'Inter', sans-serif" font-size="18" fill="#F7F5F2" text-anchor="middle" font-weight="600">Leave a Review</text>
+        <g transform="translate(130, 250)">
+            <rect x="0" y="0" width="160" height="160" fill="#fff" stroke="#FFB03A" stroke-width="2" rx="10" />
+            <image x="10" y="10" width="140" height="140" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8iFA/QGos0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACGklEQVRoge2aMZLCMAxFxaSg5Ag5CkcjR8tRcgTKLTLxWl+SbWYoWIXtvqogPxrL8/MlR+SzeBQLkfsmV3vebj91pSwy++JGLIutusmX0viyKL9rZp2fVgJieaxutSZrFermY1VuVheZn1oXYl/AahWeV+dRhVJWYl/DBIpxSF3VKhzQEGKnsdAQVYwJWF3dIR7vpIbYnzAXZmBNmePBF4llsTHgKwzTxUXeB7HPMVQBgqy2bdJyYNNbBmJCLInJXX8fYm9ASHSxDMTE+I1YFtOzPaH7cEz3XB/g6EpkiKWwtvnRdMBXSPujeQ9iJzAYDHXF3uVZGwINwfkndgKDQKAK1tzBJ+8+msCMAj6EWAazpLs1bP54yA2D1BBLYfdeBQnFcGXWl6NniGWxUrpi9NGEnm1kogrE0tgEHQ63tnYN8W56I5bEunT0zW8Ttu7oiOUwM2kSD5fi9tjD34nEktgjnnXChinli5ELDSGWxFZr5eDfkCwxT3vVEGJJDL2zhkn0grMfVWhSQyyHzXjfDUbOhxXwbza1IHYCs17jRUPsSg5x+N0HsQzWwk77IeM1h/jFPbEs1pOqIeOVnF8oD8N5Yn/HVi2Bm2EJU4excDv2j41YGptj8mMfmaAN6Z/3NP9G7BxWRv/mowkXbWLnsbhHLnrsQ0wEToNYHhPpZngfP5GCqjT/RiyFFYuR9xmFfjQVU3di/4p9Fr8L5ZEJsuQ38QAAAABJRU5ErkJggg==" />
+            <text x="80" y="195" font-family="'Inter', sans-serif" font-size="18" fill="#22140F" text-anchor="middle" font-weight="600">Leave a Review</text>
         </g>
     </g>
 </svg>
