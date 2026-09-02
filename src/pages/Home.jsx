@@ -53,12 +53,18 @@ function Home() {
                 </div>
 
                 <div className="bulk-content-right">
-                    <div className="bulk-price-box">
-                        <div className="price-tag">
-                            <span className="amount">{s.bulkPrice}</span>
-                            <span className="unit">/ {s.bulkWeight}</span>
+                    <div className="bulk-pricing-card">
+                        <img src="assets/square_bucket_halwa.png" alt="Bulk Halwa" className="bulk-card-img" />
+                        <div className="bulk-card-details">
+                            <p className="bulk-weight">{s.bulkWeight || "15kg Base Bucket"}</p>
+                            <p className="bulk-price">{s.bulkPrice || "£120"}</p>
                         </div>
-                        <button className="btn-primary" onClick={() => setIsBulkModalOpen(true)}>Customize & Order Now</button>
+                        <p className="bulk-desc">{s.bulkDesc || "Serves approx 120 - 150 people. Easily add more kg to fit your guest list."}</p>
+                        <div style={{"background":"rgba(255, 94, 0, 0.1)","border":"1px solid rgba(255, 94, 0, 0.3)","borderRadius":"10px","padding":"10px 12px","marginBottom":"18px","fontSize":"0.8rem","color":"#7d3511","fontWeight":"600","lineHeight":"1.4","display":"flex","alignItems":"flex-start","gap":"6px"}}>
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{"flexShrink":"0","marginTop":"2px"}}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            <div id="homepage-bulk-notice"><strong>48 Hours Notice Required</strong> for online orders. For emergency or same-day orders, please call us at <a href={s.phoneTel || "tel:02088383030"} style={{"color":"#4a2311","fontWeight":"700","textDecoration":"underline"}}>{s.phoneNumber || "020 8838 3030"}</a>.</div>
+                        </div>
+                        <button id="open-bulk-modal" onClick={(e) => { e.preventDefault(); setIsBulkModalOpen(true); }} className="btn-primary bulk-btn">Customise Bulk Order <span className="translation" style={{"display":"inline","fontSize":"0.8em","marginLeft":"8px"}}>Dalabyo Waawayn</span></button>
                     </div>
                 </div>
             </div>
