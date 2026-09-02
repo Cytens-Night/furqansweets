@@ -95,7 +95,79 @@ function Home() {
           </div>
       </section>
 
+      <section className="brand-story-section">
+            <div className="brand-story-wrapper">
+                <div className="brand-story-content">
+                    <h2>{s.storyTitle || "Our Heritage"} <span className="translation" style={{"fontSize":"0.6em","marginTop":"5px"}}>{s.storyTitleSomali || "Dhaxalkeenna qaaliga ah"}</span></h2>
+                    <p>{s.storyText || "For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care."}<span className="translation">{s.storyTextSomali || "Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah."}</span></p>
+                    <p>Established in 2013, Furqan Sweets was born from a desire to share this rich heritage. Today, we proudly supply our premium halwa and authentic snacks to numerous businesses and events throughout the UK, becoming a trusted name in the community.<span className="translation">La aasaasay sannadkii 2013, Macmacaanka Furqan wuxuu ka dhashay rabitaan ah inaan la wadaagno dhaxalkeenna qaaliga ah. Maanta, waxaan ku hanweynahay inaan geyno xalwadayada tayada sare leh iyo macmacaanka dhabta ah meherado iyo munaasabado badan oo ku baahsan guud ahaan UK.</span></p>
+                    <p>We source only the finest, purest ingredients—rich, aromatic spices, golden butter, and premium nuts—to craft a delicacy that speaks directly to the soul.<span className="translation">Waxaan soo xulnaa oo kaliya waxyaabaha ugu fiican, kuwa ugu saafisan—xawaash udgoon, subag dahabi ah, iyo loos tayo sare leh—si aan u samayno macmacaan toos ula hadlaya nafta.</span></p>
+                </div>
+                <div className="brand-story-image">
+                    <img src={s.storyImage || "assets/halwa_texture.png"} alt="Halwa Texture" className="story-img" />
+                </div>
+            </div>
+        </section>
+
       
+      <section className="visit-us-section" id="visit-us" style={{"margin":"60px auto","maxWidth":"1260px","padding":"50px 35px","backgroundColor":"#fff5ec","borderRadius":"32px","border":"1px solid rgba(255, 94, 0, 0.22)","boxShadow":"0 20px 50px rgba(74, 35, 17, 0.08)","position":"relative","overflow":"hidden"}}>
+            
+            <div style={{"position":"absolute","top":"-100px","left":"-100px","width":"300px","height":"300px","background":"rgba(255, 94, 0, 0.08)","borderRadius":"50%","filter":"blur(90px)","pointerEvents":"none"}}></div>
+            <div style={{"position":"absolute","bottom":"-100px","right":"-100px","width":"300px","height":"300px","background":"rgba(201, 42, 0, 0.06)","borderRadius":"50%","filter":"blur(90px)","pointerEvents":"none"}}></div>
+
+            <div style={{"textAlign":"center","marginBottom":"45px","position":"relative","zIndex":"2"}}>
+                <div style={{"display":"inline-flex","alignItems":"center","gap":"8px","background":"rgba(255, 94, 0, 0.12)","border":"1px solid rgba(255, 94, 0, 0.35)","color":"#c92a00","padding":"6px 18px","borderRadius":"50px","fontSize":"0.8rem","fontWeight":"700","letterSpacing":"1.5px","textTransform":"uppercase","marginBottom":"14px"}}>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    London Flagship Bakehouse
+                </div>
+                <h2 className="section-title" style={{"marginBottom":"8px","color":"#4a2311","fontSize":"2.3rem","letterSpacing":"-0.5px"}}>Visit Our Bakery &amp; Store <span className="translation" style={{"fontSize":"0.55em","display":"block","color":"#8c5d45","fontWeight":"500","marginTop":"6px"}}>Booqo Wershadayada &amp; Dukaanka London</span></h2>
+                <p style={{"color":"#6b4c3a","fontSize":"1.08rem","maxWidth":"680px","margin":"0 auto","lineHeight":"1.6"}}>Get instant directions or scan the QR code to visit our London NW10 flagship store for authentic Somali sweets.</p>
+            </div>
+
+            <div className="visit-us-grid" style={{"display":"grid","gridTemplateColumns":"repeat(auto-fit, minmax(360px, 1fr))","gap":"35px","alignItems":"stretch","position":"relative","zIndex":"2"}}>
+                
+                <div className="store-info-card" style={{"background":"#ffffff","border":"1px solid rgba(255, 94, 0, 0.2)","borderRadius":"26px","padding":"32px","boxShadow":"0 15px 35px rgba(74, 35, 17, 0.07)","display":"flex","flexDirection":"column","justifyContent":"space-between"}}>
+                    <div>
+                        <h3 style={{"color":"#c92a00","fontSize":"1.45rem","fontWeight":"700","marginBottom":"20px","display":"flex","alignItems":"center","gap":"12px"}}>
+                            <span style={{"background":"rgba(255, 94, 0, 0.12)","width":"42px","height":"42px","borderRadius":"12px","display":"flex","alignItems":"center","justifyContent":"center","color":"#c92a00"}}>
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </span>
+                            Furqan Sweets Flagship Store
+                        </h3>
+                        <div style={{"color":"#4a2311","fontSize":"1.02rem","lineHeight":"1.8","marginBottom":"25px","display":"flex","flexDirection":"column","gap":"15px"}}>
+                            <div style={{"display":"flex","alignItems":"flex-start","gap":"14px"}}>
+                                <span style={{"color":"#FF5E00","marginTop":"3px"}}>
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                </span>
+                                <div>
+                                    <strong style={{"color":"#c92a00","display":"block","fontSize":"0.85rem","textTransform":"uppercase","letterSpacing":"0.5px","marginBottom":"2px"}}>Address</strong> 
+                                    <span style={{"fontWeight":"500"}}>Furqan Sweet, 175 Hillside, London NW10 8LL</span>
+                                </div>
+                            </div>
+                            <div style={{"display":"flex","alignItems":"center","gap":"14px"}}>
+                                <span style={{"color":"#FF5E00"}}>
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                </span>
+                                <div>
+                                    <strong style={{"color":"#c92a00","display":"block","fontSize":"0.85rem","textTransform":"uppercase","letterSpacing":"0.5px","marginBottom":"2px"}}>Phone</strong> 
+                                    <a href={s.phoneTel || "tel:02088383030"} style={{"color":"#4a2311","textDecoration":"none","fontWeight":"700"}}>{s.phoneNumber || "020 8838 3030"}</a>
+                                </div>
+                            </div>
+                            <div style={{"display":"flex","alignItems":"center","gap":"14px"}}>
+                                <span style={{"color":"#FF5E00"}}>
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                </span>
+                                <div>
+                                    <strong style={{"color":"#c92a00","display":"block","fontSize":"0.85rem","textTransform":"uppercase","letterSpacing":"0.5px","marginBottom":"2px"}}>Opening Hours</strong> 
+                                    <span>{s.openHours || "9:00 AM – 10:00 PM"} <span style={{"opacity":"0.85"}}>(Everyday)</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <a href="https://maps.google.com/?q=Furqan+Sweet,+175+Hillside,+London+NW10+8LL" target="_blank" className="store-nav-badge" style={{"display":"flex","alignItems":"center","justifyContent":"space-between","background":"#fff5ec","border":"1px solid rgba(255, 94, 0, 0.35)","borderRadius":"20px","padding":"18px 20px","textDecoration":"none","color":"#4a2311","transition":"all 0.3s ease","boxShadow":"0 8px 25px rgba(74, 35, 17, 0.06)"}}>
+                        <div className="store-nav-badge-left" style={{"display":"flex","alignItems":"center","gap":"16px"}}>
                             <div style={{"background":"#fff","padding":"6px","borderRadius":"12px","border":"1px solid rgba(74,35,17,0.08)","boxShadow":"0 4px 12px rgba(74,35,17,0.08)","display":"flex","alignItems":"center","justifyContent":"center","flexShrink":"0"}}>
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DFurqan%2BSweet%2B175%2BHillside%2BLondon%2BNW10%2B8LL&color=4A2311&bgcolor=FFFFFF" alt="Google Maps QR" style={{"width":"60px","height":"60px","display":"block","borderRadius":"6px"}} />
                             </div>
