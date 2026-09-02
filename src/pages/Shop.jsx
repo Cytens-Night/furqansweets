@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
-import data from '../data.json';
+import { useData } from '../context/DataContext';
 
 function Shop() {
+  const { data } = useData();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

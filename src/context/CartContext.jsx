@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import { useData } from './DataContext';
 
 const CartContext = createContext();
 
@@ -9,10 +10,12 @@ export const CartProvider = ({ children }) => {
   const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
 
+  const { data } = useData();
+
   // Bulk State
-  const bulkBaseKg = 15;
-  const bulkBasePrice = 120;
-  const bulkExtraKgPrice = 9;
+  const bulkBaseKg = Number(data?.siteSettings?.bulkBaseKgNum || 15);
+  const bulkBasePrice = Number(data?.siteSettings?.bulkBasePriceNum || 120);
+  const bulkExtraKgPrice = Number(data?.siteSettings?.bulkExtraKgPrice || 9);
   const [extraKilos, setExtraKilos] = useState({ plain: 0, sesame: 0, nuts: 0 });
   const [mainFlavour, setMainFlavour] = useState('Traditional Plain Halwa (Xalwo Caadi)');
 
