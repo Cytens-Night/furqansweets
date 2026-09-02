@@ -8,7 +8,7 @@ export const useData = () => useContext(DataContext);
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState(staticData);
 
-  const loadData = () => {
+  const syncFromLocal = () => {
     try {
       const localStr = localStorage.getItem('furqan_crm_data');
       if (localStr) {
@@ -21,23 +21,55 @@ export const DataProvider = ({ children }) => {
     } catch (e) {
       console.error('Failed to parse CRM data from localStorage', e);
     }
-    // Fallback to static if empty
+    // Fallback if local is empty/invalid
     setData(staticData);
   };
 
-  useEffect(() => {
-    // Initial load
-    loadData();
+  const syncFromSupabase = async () => {
+    try {
+      const SUPABASE_URL = "https://twzkccwkatbczcflyxet.supabase.co";
+      const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU";
+      
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/store_config?id=eq.furqan-main&select=*`, {
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+      });
+      if (res.ok) {
+        const rows = await res.json();
+        if (rows && rows.length > 0) {
+            const row = rows[0];
+            const srvData = {
+                siteSettings: row.site_settings_json || {},
+                halwaVariants: row.halwa_variants_json || [],
+                snacks: row.snacks_json || []
+            };
+            setData(srvData);
+            localStorage.setItem('furqan_crm_data', JSON.stringify(srvData));
+        }
+      }
+    } catch (e) {
+      console.error('Failed to fetch from Supabase', e);
+    }
+  };
 
-    // Listen to changes in other tabs or iframe
+  useEffect(() => {
+    // 1. Instantly load from local cache for speed
+    syncFromLocal();
+    
+    // 2. Fetch fresh data from Supabase in the background
+    syncFromSupabase();
+
+    // 3. Listen to changes in other tabs or CRM iframe (saves to localStorage)
     const handleStorage = (e) => {
       if (e.key === 'furqan_crm_data') {
-        loadData();
+        syncFromLocal();
       }
     };
     
-    // We also can poll every second since iframe might not reliably trigger 'storage' event in some browsers
-    const intervalId = setInterval(loadData, 2000);
+    // Fallback polling for iframe sync issues
+    const intervalId = setInterval(syncFromLocal, 2000);
 
     window.addEventListener('storage', handleStorage);
     return () => {
