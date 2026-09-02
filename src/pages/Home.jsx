@@ -25,7 +25,36 @@ function Home() {
         </div>
       
       
-      
+      <section className="hero-section">
+            <div className="hero-content">
+                <h1 className="main-title">{s.heroTitle || "Craving Authentic Somali Sweets?"} <span className="translation">{s.heroTitleSomali || "Ma u xiistay Macmacaan Soomaaliyeed?"}</span></h1>
+                <p className="subtitle">{s.heroSubtitle || "Freshly made, perfectly sweet, deeply rich."} <span className="translation">{s.heroSubtitleSomali || "Cusub, macaan oo si fiican loo sameeyay."}</span></p>
+                <div className="hero-actions">
+                    <button id="hero-order-btn" className="btn-primary" onClick={(e) => {
+                        e.preventDefault();
+                        const shopEl = document.getElementById("shop");
+                        if(shopEl) shopEl.scrollIntoView({behavior:"smooth"});
+                    }}>Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.85em","marginLeft":"8px"}}>Dalbo Hadda</span></button>
+                    <a href="#bulk" className="btn-secondary">Wholesale &amp; Bulk <span className="translation" style={{"display":"inline","fontSize":"0.85em","marginLeft":"8px"}}>Jumlad</span></a>
+                </div>
+                <div className="hero-variants">
+                    {data?.halwaVariants?.map(variant => (
+                        <div className="variant-card" key={variant.id}>
+                            <img src={variant.image} alt={variant.name} className="variant-img" />
+                            <div className="variant-info">
+                                <h3>{variant.name} <span className="translation">{variant.somali}</span></h3>
+                                <p className="price">£{variant.price} / {variant.unit}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="hero-image">
+                <div className="image-decoration"></div>
+                <img src={s.heroMainImage || "assets/halwa_main.png"} alt="Delicious Somali Halwa" className="main-halwa-img" />
+            </div>
+        </section>
+
       <section className="bulk-orders-section" id="bulk">
             <div className="bulk-orders-wrapper">
                 <div className="bulk-content-left">
