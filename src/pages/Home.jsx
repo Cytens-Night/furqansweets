@@ -37,18 +37,20 @@ function Home() {
                     }}>Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.85em","marginLeft":"8px"}}>Dalbo Hadda</span></button>
                     <a href="#bulk" className="btn-secondary">Wholesale &amp; Bulk <span className="translation" style={{"display":"inline","fontSize":"0.85em","marginLeft":"8px"}}>Jumlad</span></a>
                 </div>
-                <div className="hero-variants">
-                    {data?.halwaVariants?.map(variant => (
-                        <div className="variant-card" key={variant.id}>
-                            <img src={variant.image} alt={variant.name} className="variant-img" />
-                            <div className="variant-info">
-                                <h3>{variant.name} <span className="translation">{variant.somali}</span></h3>
-                                <p className="price">£{variant.price} / {variant.unit}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
             </div>
+
+            <div className="hero-variants">
+                {data?.halwaVariants?.map(variant => (
+                    <div className="variant-card" key={variant.id}>
+                        <img src={variant.image} alt={variant.name} className="variant-img" />
+                        <div className="variant-info">
+                            <h3>{variant.name} <span className="translation">{variant.somali}</span></h3>
+                            <p className="price">£{variant.price} / {variant.unit}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             <div className="hero-image">
                 <div className="image-decoration"></div>
                 <img src={s.heroMainImage || "assets/halwa_main.png"} alt="Delicious Somali Halwa" className="main-halwa-img" />
