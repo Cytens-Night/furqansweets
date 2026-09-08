@@ -78,9 +78,10 @@
 /* ================== 3D FLIP & EXPANDING WHITE LUXURY BOX BODY ================== */
 .black-box-flipper {
     position: relative;
-    width: 100%;
-    max-width: 360px;
-    height: 505px;
+    width: 94vw;
+    max-width: 400px;
+    height: auto;
+    min-height: 530px;
     transform-style: preserve-3d;
     transition: max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
                 height 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -128,6 +129,7 @@
 
 /* WHEN PREVIEWS ARE UNBOXED: BOX EXPANDS AND EASES INTO SHOWCASE VIEW! */
 .black-box-flipper.expanded-showcase {
+    width: 96vw;
     max-width: 580px;
     height: auto;
     min-height: 530px;
@@ -1384,3 +1386,10 @@
     100% { left: 100%; }
 }
 
+
+/* === MOBILE FIX === */
+.black-box-flipper, .black-box-flipper.expanded-showcase { height: auto !important; min-height: 85vh !important; width: 94vw !important; max-width: 420px !important; }
+.box-face { padding: 20px 15px !important; }
+.brand-tag-line { font-size: 3.5vw !important; }
+.box-buttons-group { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
+@media (min-width: 768px) { .black-box-flipper { max-width: 420px !important; width: 100% !important; min-height: 580px !important; } .black-box-flipper.expanded-showcase { max-width: 680px !important; width: 100% !important; } .brand-tag-line { font-size: 0.85rem !important; } .box-face { padding: 34px 26px !important; } }
