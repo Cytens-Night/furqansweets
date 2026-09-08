@@ -1707,76 +1707,101 @@
             if (await showCrmConfirm("Delete Snack Product", "Are you sure you want to delete this snack/biscuit product from your catalog?")) {
                 storeData.snacks.splice(index, 1);
                 renderSnacksGrid();
-                showToast("Product deleted");
-            }
-        };
-
-        // ================= IMAGE UPLOAD HANDLER =================
+                showToast("Product deleted")        // ================= IMAGE UPLOAD HANDLER =================
         window.uploadImage = async (fileInput, type, idx) => {
             const file = fileInput.files[0];
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = async () => {
-                const base64 = reader.result;
-                let imagePath = base64;
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const max_size = 1000;
 
-                if (type === 'halwa') {
-                    if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
-                        storeData.halwaVariants[idx].image = imagePath;
-                    }
-                    const inputEl = document.getElementById(`halwa-img-input-${idx}`);
-                    if (inputEl) inputEl.value = imagePath;
-                    const previewEl = document.getElementById(`halwa-img-preview-${idx}`);
-                    if (previewEl) previewEl.src = imagePath;
-                } else if (type === 'snack') {
-                    if (storeData.snacks && storeData.snacks[idx]) {
-                        storeData.snacks[idx].image = imagePath;
-                    }
-                    const inputEl = document.getElementById(`snack-img-input-${idx}`);
-                    if (inputEl) inputEl.value = imagePath;
-                    const previewEl = document.getElementById(`snack-img-preview-${idx}`);
-                    if (previewEl) previewEl.src = imagePath;
-                } else if (type === 'logo') {
-                    if (!storeData.siteSettings) storeData.siteSettings = {};
-                    storeData.siteSettings.logo = imagePath;
-                    const inputEl = document.getElementById('setting-logo');
-                    if (inputEl) inputEl.value = imagePath;
-                    const previewEl = document.getElementById('preview-logo');
-                    if (previewEl) previewEl.src = imagePath;
-                } else if (type === 'bulkModalImage') {
-                    if (!storeData.siteSettings) storeData.siteSettings = {};
-                    storeData.siteSettings.bulkModalImage = imagePath;
-                    const inputEl = document.getElementById('setting-bulkModalImage');
-                    if (inputEl) inputEl.value = imagePath;
-                    const previewEl = document.getElementById('preview-bulkModalImage');
-                    if (previewEl) previewEl.src = imagePath;
-                } else if (type === 'heroMainImage') {
-                    if (!storeData.siteSettings) storeData.siteSettings = {};
-                    storeData.siteSettings.heroMainImage = imagePath;
-                    const inputEl = document.getElementById('setting-heroMainImage');
-                    if (inputEl) inputEl.value = imagePath;
-                    const previewEl = document.getElementById('preview-heroMainImage');
-                    if (previewEl) previewEl.src = imagePath;
-                } else if (type === 'storyImage') {
-                    if (!storeData.siteSettings) storeData.siteSettings = {};
-                    storeData.siteSettings.storyImage = imagePath;
-                    const inputEl = document.getElementById('setting-storyImage');
-                    if (inputEl) inputEl.value = imagePath;
-                    const previewEl = document.getElementById('preview-storyImage');
-                    if (previewEl) previewEl.src = imagePath;
-                }
-                // Instantly save to local storage and live Supabase Cloud Database so old images are permanently deleted!
-                try {
-                    localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
-                } catch(e) {}
-                saveToSupabase(storeData).then((success) => {
-                    if (success) {
-                        showToast("✅ Image uploaded & saved permanently to database! Old image replaced.");
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
                     } else {
-                        showToast("✓ Image updated in browser! Click 'Save All Settings' below to publish.");
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
                     }
-                });
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+                    const base64 = canvas.toDataURL(mimeType, 0.8);
+                    const imagePath = base64;
+
+                    if (type === 'halwa') {
+                        if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
+                            storeData.halwaVariants[idx].image = imagePath;
+                        }
+                        const inputEl = document.getElementById(`halwa-img-input-${idx}`);
+                        if (inputEl) inputEl.value = imagePath;
+                        const previewEl = document.getElementById(`halwa-img-preview-${idx}`);
+                        if (previewEl) previewEl.src = imagePath;
+                    } else if (type === 'snack') {
+                        if (storeData.snacks && storeData.snacks[idx]) {
+                            storeData.snacks[idx].image = imagePath;
+                        }
+                        const inputEl = document.getElementById(`snack-img-input-${idx}`);
+                        if (inputEl) inputEl.value = imagePath;
+                        const previewEl = document.getElementById(`snack-img-preview-${idx}`);
+                        if (previewEl) previewEl.src = imagePath;
+                    } else if (type === 'logo') {
+                        if (!storeData.siteSettings) storeData.siteSettings = {};
+                        storeData.siteSettings.logo = imagePath;
+                        const inputEl = document.getElementById('setting-logo');
+                        if (inputEl) inputEl.value = imagePath;
+                        const previewEl = document.getElementById('preview-logo');
+                        if (previewEl) previewEl.src = imagePath;
+                    } else if (type === 'bulkModalImage') {
+                        if (!storeData.siteSettings) storeData.siteSettings = {};
+                        storeData.siteSettings.bulkModalImage = imagePath;
+                        const inputEl = document.getElementById('setting-bulkModalImage');
+                        if (inputEl) inputEl.value = imagePath;
+                        const previewEl = document.getElementById('preview-bulkModalImage');
+                        if (previewEl) previewEl.src = imagePath;
+                    } else if (type === 'heroMainImage') {
+                        if (!storeData.siteSettings) storeData.siteSettings = {};
+                        storeData.siteSettings.heroMainImage = imagePath;
+                        const inputEl = document.getElementById('setting-heroMainImage');
+                        if (inputEl) inputEl.value = imagePath;
+                        const previewEl = document.getElementById('preview-heroMainImage');
+                        if (previewEl) previewEl.src = imagePath;
+                    } else if (type === 'storyImage') {
+                        if (!storeData.siteSettings) storeData.siteSettings = {};
+                        storeData.siteSettings.storyImage = imagePath;
+                        const inputEl = document.getElementById('setting-storyImage');
+                        if (inputEl) inputEl.value = imagePath;
+                        const previewEl = document.getElementById('preview-storyImage');
+                        if (previewEl) previewEl.src = imagePath;
+                    }
+
+                    // Instantly save to local storage and live Supabase Cloud Database so old images are permanently deleted!
+                    try {
+                        localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
+                    } catch(err) {}
+                    
+                    saveToSupabase(storeData).then((success) => {
+                        if (success) {
+                            showToast("✅ Image uploaded & saved permanently to database!");
+                        } else {
+                            showToast("❌ Upload failed. The image might still be too large. Try saving all settings.", true);
+                        }
+                    });
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         };
