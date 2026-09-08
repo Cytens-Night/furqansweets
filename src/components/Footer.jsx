@@ -12,7 +12,7 @@ function Footer() {
         <div className="footer-brand">
           <img src={s.logo || "/assets/furqansweets_logo.svg"} alt={s.storeName || "Furqan Sweets"} className="footer-logo" />
           <p>Authentic Somali Sweets, made with love and tradition.<span className="translation">Macmacaan Soomaaliyeed oo dhab ah, oo lagu sameeyay jacayl iyo dhaqan.</span></p>
-          <p style={{ marginTop: '15px' }}><strong>Email:</strong> {s.ownerEmail || 'info@furqansweets.com'}</p>
+          <p style={{ marginTop: '15px' }}><strong>Email:</strong> {s.publicEmail || 'info@furqansweets.com'}</p>
           <p><strong>Opening Times:</strong> {s.openHours}<br /><span style={{ fontSize: '0.85em', opacity: 0.8 }}>(times may vary, please call <a href={s.phoneTel} style={{ color: 'inherit', textDecoration: 'underline' }}>{s.phoneNumber}</a>)</span></p>
         </div>
         <div className="footer-links">

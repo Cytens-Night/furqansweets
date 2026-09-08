@@ -996,6 +996,10 @@
                         <label class="form-label">Wholesale / Bulk Phone Link</label>
                         <input type="text" id="setting-bulkPhoneTel" class="form-input" value="tel:+447956911759">
                     </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Public Contact Email (Display)</label>
+                        <input type="email" id="setting-publicEmail" class="form-input" value="info@furqansweets.com">
+                    </div>
                 </div>
             </div>
 
@@ -1491,6 +1495,7 @@
             setVal('setting-phoneTel', s.phoneTel || 'tel:+4402088383030');
             setVal('setting-bulkPhone', s.bulkPhone || '07956 911 759');
             setVal('setting-bulkPhoneTel', s.bulkPhoneTel || 'tel:+447956911759');
+            setVal('setting-publicEmail', s.publicEmail || 'info@furqansweets.com');
             setVal('setting-heroTitle', s.heroTitle || 'Craving Authentic Somali Sweets?');
             setVal('setting-heroTitleSomali', s.heroTitleSomali || 'Ma u xiistay Macmacaan Soomaaliyeed?');
             setVal('setting-heroSubtitle', s.heroSubtitle || 'Freshly made, perfectly sweet, deeply rich.');
@@ -2089,6 +2094,7 @@
                 phoneTel: getVal('setting-phoneTel', 'tel:+4402088383030'),
                 bulkPhone: getVal('setting-bulkPhone', '07956 911 759'),
                 bulkPhoneTel: getVal('setting-bulkPhoneTel', 'tel:+447956911759'),
+                publicEmail: getVal('setting-publicEmail', 'info@furqansweets.com'),
                 heroTitle: getVal('setting-heroTitle', 'Craving Authentic Somali Sweets?'),
                 heroTitleSomali: getVal('setting-heroTitleSomali', 'Ma u xiistay Macmacaan Soomaaliyeed?'),
                 heroSubtitle: getVal('setting-heroSubtitle', 'Freshly made, perfectly sweet, deeply rich.'),

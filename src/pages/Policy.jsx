@@ -21,7 +21,7 @@ function Policy({ type }) {
           <h3>Payment Processing</h3>
           <p>All online payments are securely processed by our PCI-compliant payment provider, Dojo (Paymentsense Ltd). We do not store your credit card or payment information on our servers.</p>
           <h3>Contact Us</h3>
-          <p>If you have any questions regarding this privacy policy, please contact us at info@furqansweets.com.</p>
+          <p>If you have any questions regarding this privacy policy, please contact us at {s.publicEmail || 'info@furqansweets.com'}.</p>
         </>
       )
     },
