@@ -42,6 +42,12 @@ function Footer() {
 
       <div className="footer-bottom">
         <p>&copy; 2026 FURQAN SWEETS LTD. All rights reserved. <span className="translation">Dhammaan xuquuqaha way xifdisan yihiin.</span></p>
+        {(s.tradingAddress || s.crn) && (
+          <div style={{ marginTop: '10px', fontSize: '0.85em', color: 'rgba(0,0,0,0.6)' }}>
+            {s.tradingAddress && <span>Trading Address: {s.tradingAddress} </span>}
+            {s.crn && <span>| Company Registration Number: {s.crn}</span>}
+          </div>
+        )}
       </div>
     </footer>
   );

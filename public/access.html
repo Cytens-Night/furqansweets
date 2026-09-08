@@ -1000,6 +1000,14 @@
                         <label class="form-label">Public Contact Email (Display)</label>
                         <input type="email" id="setting-publicEmail" class="form-input" value="info@furqansweets.com">
                     </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Registered Trading Address</label>
+                        <input type="text" id="setting-tradingAddress" class="form-input" placeholder="e.g. 123 Halwa Street, London, NW10 4XX">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Company Registration Number (CRN)</label>
+                        <input type="text" id="setting-crn" class="form-input" placeholder="e.g. 12345678">
+                    </div>
                 </div>
             </div>
 
@@ -1205,8 +1213,9 @@
                         <input type="text" id="setting-dojoHostname" class="form-input" value="sp218466ugbloc1.connect.paymentsense.cloud">
                     </div>
                     <div class="form-group" style="grid-column: span 2;">
-                        <label class="form-label">Dojo API Key / Security Key</label>
-                        <input type="password" id="setting-dojoApiKey" class="form-input" value="e9cb6324-a862-48c8-8a47-da902dddad4b">
+                        <div style="padding: 15px; background: #FFF3E0; border-left: 4px solid #FF5E00; color: #5D2906; border-radius: 6px;">
+                            <strong>Security Notice:</strong> The Dojo API Secret Key is now securely stored in the server environment (Supabase Edge Functions). It can no longer be edited from the public CRM to comply with PCI-DSS standards.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1496,6 +1505,8 @@
             setVal('setting-bulkPhone', s.bulkPhone || '07956 911 759');
             setVal('setting-bulkPhoneTel', s.bulkPhoneTel || 'tel:+447956911759');
             setVal('setting-publicEmail', s.publicEmail || 'info@furqansweets.com');
+            setVal('setting-tradingAddress', s.tradingAddress || '');
+            setVal('setting-crn', s.crn || '');
             setVal('setting-heroTitle', s.heroTitle || 'Craving Authentic Somali Sweets?');
             setVal('setting-heroTitleSomali', s.heroTitleSomali || 'Ma u xiistay Macmacaan Soomaaliyeed?');
             setVal('setting-heroSubtitle', s.heroSubtitle || 'Freshly made, perfectly sweet, deeply rich.');
@@ -1514,7 +1525,6 @@
             setVal('setting-masterRecoveryKey', s.masterRecoveryKey || 'FURQAN-2026-RECOVERY');
             setVal('setting-dojoAccount', s.dojoAccount || 'sp218466ugbloc1');
             setVal('setting-dojoHostname', s.dojoHostname || 'sp218466ugbloc1.connect.paymentsense.cloud');
-            setVal('setting-dojoApiKey', s.dojoApiKey || 'e9cb6324-a862-48c8-8a47-da902dddad4b');
             setVal('setting-bulkModalTitle', s.bulkModalTitle || 'Customise Your Bulk Order');
             setVal('setting-bulkModalDesc', s.bulkModalDesc || '15kg base bucket can serve about 120 to 150 people.');
             setVal('setting-bulkModalImage', s.bulkModalImage || 'assets/square_bucket_halwa.png');
@@ -2095,6 +2105,8 @@
                 bulkPhone: getVal('setting-bulkPhone', '07956 911 759'),
                 bulkPhoneTel: getVal('setting-bulkPhoneTel', 'tel:+447956911759'),
                 publicEmail: getVal('setting-publicEmail', 'info@furqansweets.com'),
+                tradingAddress: getVal('setting-tradingAddress', ''),
+                crn: getVal('setting-crn', ''),
                 heroTitle: getVal('setting-heroTitle', 'Craving Authentic Somali Sweets?'),
                 heroTitleSomali: getVal('setting-heroTitleSomali', 'Ma u xiistay Macmacaan Soomaaliyeed?'),
                 heroSubtitle: getVal('setting-heroSubtitle', 'Freshly made, perfectly sweet, deeply rich.'),
@@ -2114,7 +2126,6 @@
                 masterRecoveryKey: getVal('setting-masterRecoveryKey', defaultRecoveryKey),
                 dojoAccount: getVal('setting-dojoAccount', 'sp218466ugbloc1'),
                 dojoHostname: getVal('setting-dojoHostname', 'sp218466ugbloc1.connect.paymentsense.cloud'),
-                dojoApiKey: getVal('setting-dojoApiKey', 'e9cb6324-a862-48c8-8a47-da902dddad4b'),
                 bulkModalTitle: getVal('setting-bulkModalTitle', 'Customise Your Bulk Order'),
                 bulkModalDesc: getVal('setting-bulkModalDesc', '15kg base bucket can serve about 120 to 150 people.'),
                 bulkModalImage: getVal('setting-bulkModalImage', 'assets/square_bucket_halwa.png'),

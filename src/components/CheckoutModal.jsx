@@ -8,25 +8,60 @@ function CheckoutModal() {
   const { isCheckoutModalOpen, setIsCheckoutModalOpen, currentDojoOrder } = useCart();
   const { showToast } = useToast();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [dojoError, setDojoError] = useState(null);
+  const [dojoSuccess, setDojoSuccess] = useState(null);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', date: '', notes: '' });
 
   if (!isCheckoutModalOpen) return null;
 
-  const handlePay = (e) => {
+  const handlePay = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.date) {
       showToast('Please fill all required fields');
       return;
     }
     setStep(2);
-    setTimeout(() => {
-      setStep(3);
-    }, 2500); // simulate processing
+    setLoading(true);
+    setDojoError(null);
+
+    try {
+      const response = await fetch("https://twzkccwkatbczcflyxet.supabase.co/functions/v1/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          amount: currentDojoOrder.price * 100, // minor units (pence)
+          currency: "GBP",
+          reference: `fs-order-${Date.now()}`,
+          description: `Order: ${currentDojoOrder.title}`
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to contact payment server.");
+      }
+
+      setDojoSuccess(data);
+      setStep(3); // Move to real success/drop-in step
+    } catch (err) {
+      console.error(err);
+      setDojoError(err.message);
+      setStep(4); // Error step
+    } finally {
+      setLoading(false);
+    }
   };
 
   const close = () => {
     setIsCheckoutModalOpen(false);
     setStep(1);
+    setLoading(false);
+    setDojoError(null);
+    setDojoSuccess(null);
     setFormData({ name: '', phone: '', email: '', date: '', notes: '' });
   };
 
@@ -88,37 +123,15 @@ function CheckoutModal() {
 
             <div style={{ marginBottom: '18px' }}>
                 <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#4A2311', marginBottom: '8px' }}>Select Dojo Payment Method:</label>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
-                    <button type="button" className="dojo-method-btn active" style={{ padding: '10px 8px', border: '2px solid #FF5E00', background: 'rgba(255, 94, 0, 0.1)', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer', textAlign: 'center' }}>💳 Credit / Debit Card</button>
-                    <button type="button" className="dojo-method-btn" style={{ padding: '10px 8px', border: '1.5px solid rgba(74, 35, 17, 0.2)', background: '#ffffff', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer', textAlign: 'center' }}>📱 Apple / Google Pay</button>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                    <button type="button" className="dojo-method-btn active" style={{ padding: '10px 8px', border: '2px solid #FF5E00', background: 'rgba(255, 94, 0, 0.1)', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer', textAlign: 'center' }}>💳 Secure Online Checkout</button>
                     <button type="button" className="dojo-method-btn" style={{ padding: '10px 8px', border: '1.5px solid rgba(74, 35, 17, 0.2)', background: '#ffffff', borderRadius: '10px', fontWeight: 700, fontSize: '0.8rem', color: '#4A2311', cursor: 'pointer', textAlign: 'center' }}>🏬 Shop Terminal POS</button>
                 </div>
             </div>
 
-            <div style={{ background: '#ffffff', border: '1px solid rgba(74, 35, 17, 0.15)', borderRadius: '12px', padding: '14px', marginBottom: '18px' }}>
-                <div style={{ marginBottom: '10px' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>Name on Card</label>
-                    <input type="text" placeholder="Cardholder Name" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>Card Number</label>
-                    <input type="tel" placeholder="•••• •••• •••• ••••" maxLength="19" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box', letterSpacing: '1px' }} />
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                    <div>
-                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>Expiry Date</label>
-                        <input type="tel" placeholder="MM / YY" maxLength="7" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#6d4834', marginBottom: '4px' }}>CVC / Security</label>
-                        <input type="tel" placeholder="123" maxLength="4" style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(74, 35, 17, 0.25)', borderRadius: '8px', fontSize: '0.95rem', boxSizing: 'border-box' }} />
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" className="btn-primary" style={{ width: '100%', background: 'linear-gradient(135deg, #168038 0%, #0D5E25 100%)', color: '#FFFFFF', border: '2px solid rgba(255, 255, 255, 0.2)', boxShadow: '0 8px 25px rgba(22, 128, 56, 0.45)', fontWeight: 800, fontSize: '1.15rem', padding: '17px 20px', borderRadius: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', letterSpacing: '0.5px', transition: 'all 0.25s ease' }}>
+            <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', background: 'linear-gradient(135deg, #168038 0%, #0D5E25 100%)', color: '#FFFFFF', border: '2px solid rgba(255, 255, 255, 0.2)', boxShadow: '0 8px 25px rgba(22, 128, 56, 0.45)', fontWeight: 800, fontSize: '1.15rem', padding: '17px 20px', borderRadius: '16px', cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', letterSpacing: '0.5px', transition: 'all 0.25s ease', opacity: loading ? 0.7 : 1 }}>
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                <span>PAY £{currentDojoOrder.price}.00 NOW • DOJO SECURE</span>
+                <span>PROCEED TO PAY £{currentDojoOrder.price}.00 • DOJO SECURE</span>
             </button>
             <div style={{ textAlign: 'center', marginTop: '10px', fontSize: '0.72rem', color: '#8c5d45' }}>
                 Powered by <strong>Dojo (Paymentsense Ltd)</strong> • FCA Regulated • SSL Encrypted
@@ -130,6 +143,7 @@ function CheckoutModal() {
           <div style={{ textAlign: 'center', padding: '40px 20px' }}>
               <div style={{ width: '56px', height: '56px', border: '5px solid rgba(255, 94, 0, 0.2)', borderTopColor: '#FF5E00', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 20px' }}></div>
               <h3 style={{ margin: '0 0 8px', color: '#4A2311', fontSize: '1.25rem' }}>Authorising Dojo Payment...</h3>
+              <p style={{ color: '#8c5d45', fontSize: '0.9rem' }}>Contacting secure Dojo server.</p>
           </div>
         )}
 
