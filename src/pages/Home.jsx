@@ -82,7 +82,7 @@ function Home() {
 
                 <div className="bulk-content-right">
                     <div className="bulk-pricing-card">
-                        <img src="assets/square_bucket_halwa.png" alt="Bulk Halwa" className="bulk-card-img" />
+                        <img src={s.bulkModalImage || "assets/square_bucket_halwa.png"} alt="Bulk Halwa" className="bulk-card-img" />
                         <div className="bulk-card-details">
                             <p className="bulk-weight">{s.bulkWeight || "15kg Base Bucket"}</p>
                             <p className="bulk-price">{s.bulkPrice || "£120"}</p>

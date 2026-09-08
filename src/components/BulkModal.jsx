@@ -48,7 +48,7 @@ function BulkModal() {
           <h2>Customise Your Bulk Order</h2>
         </div>
         <div className="modal-body">
-          <img src="/assets/square_bucket_halwa.png" alt="Square Bucket of Halwa" className="modal-halwa-img" />
+          <img src={s.bulkModalImage || "/assets/square_bucket_halwa.png"} alt="Square Bucket of Halwa" className="modal-halwa-img" />
           <p className="modal-desc">15kg base bucket can serve about 120 to 150 people.</p>
           <div style={{ background: '#FFF3E0', borderLeft: '4px solid #FF5E00', padding: '10px 14px', borderRadius: '8px', marginBottom: '15px', textAlign: 'left', fontSize: '0.82rem', color: '#5D2906', lineHeight: '1.4', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '1px' }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
