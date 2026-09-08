@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useToast } from '../context/ToastContext';
+import { useData } from '../context/DataContext';
 
 function CheckoutModal() {
+  const { siteSettings: s = {} } = useData();
   const { isCheckoutModalOpen, setIsCheckoutModalOpen, currentDojoOrder } = useCart();
   const { showToast } = useToast();
   const [step, setStep] = useState(1);
@@ -75,7 +77,7 @@ function CheckoutModal() {
                     <input type="date" name="date" value={formData.date} onChange={handleChange} style={{ width: '100%', padding: '11px 14px', border: '1.5px solid rgba(74, 35, 17, 0.25)', borderRadius: '10px', fontSize: '0.95rem', boxSizing: 'border-box', fontFamily: 'inherit', color: '#4A2311' }} required />
                     <div style={{ marginTop: '5px', fontSize: '0.75rem', color: '#c92a00', fontWeight: 700, lineHeight: 1.35, display: 'flex', alignItems: 'flex-start', gap: '5px' }}>
                         <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '1px' }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                        <div>Bulk orders require 48 hours advance notice. For emergencies or urgent same-day orders, call <a href="tel:02088383030" style={{ color: '#c92a00', textDecoration: 'underline' }}>020 8838 3030</a>.</div>
+                        <div>Bulk orders require 48 hours advance notice. For emergencies or urgent same-day orders, call <a href={s.phoneTel || "tel:02088383030"} style={{ color: '#c92a00', textDecoration: 'underline' }}>{s.phoneNumber || "020 8838 3030"}</a>.</div>
                     </div>
                 </div>
                 <div>
@@ -147,7 +149,8 @@ function CheckoutModal() {
                     <button onClick={() => {
                         const msg = `Hello Furqan Sweets! I have just paid online for an Order via Dojo Secure.\n\n*Order:* ${currentDojoOrder.title}\n*Total Paid:* £${currentDojoOrder.price}.00 GBP\n*Customer:* ${formData.name}\n*Phone:* ${formData.phone}\n*Pickup Date:* ${formData.date}\n\nPlease confirm my order!`;
                         const enc = encodeURIComponent(msg);
-                        window.open(`https://api.whatsapp.com/send?phone=+447956911759&text=${enc}`, '_blank');
+                        const telRaw = (s.bulkPhoneTel || "+447956911759").replace('tel:', '');
+                        window.open(`https://api.whatsapp.com/send?phone=${telRaw}&text=${enc}`, '_blank');
                     }} style={{ width: '100%', background: '#25D366', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '12px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}>
                         Send WhatsApp Receipt
                     </button>

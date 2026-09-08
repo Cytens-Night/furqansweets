@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { useData } from '../context/DataContext';
 
 function BulkModal() {
+  const { siteSettings: s = {} } = useData();
   const {
     isBulkModalOpen,
     setIsBulkModalOpen,
@@ -50,7 +52,7 @@ function BulkModal() {
           <p className="modal-desc">15kg base bucket can serve about 120 to 150 people.</p>
           <div style={{ background: '#FFF3E0', borderLeft: '4px solid #FF5E00', padding: '10px 14px', borderRadius: '8px', marginBottom: '15px', textAlign: 'left', fontSize: '0.82rem', color: '#5D2906', lineHeight: '1.4', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '1px' }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-             <div><strong>48 Hours Advance Notice Required:</strong> All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at <a href="tel:02088383030" style={{ color: '#4A2311', fontWeight: 'bold', textDecoration: 'underline' }}>020 8838 3030</a>.</div>
+             <div><strong>48 Hours Advance Notice Required:</strong> All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at <a href={s.phoneTel || "tel:02088383030"} style={{ color: '#4A2311', fontWeight: 'bold', textDecoration: 'underline' }}>{s.phoneNumber || "020 8838 3030"}</a>.</div>
           </div>
           
           <div className="bulk-flavour-controls" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '10px' }}>
