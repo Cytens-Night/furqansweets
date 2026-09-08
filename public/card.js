@@ -1,4 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // === FETCH LIVE SETTINGS FROM CRM/SUPABASE ===
+    fetch('https://twzkccwkatbczcflyxet.supabase.co/rest/v1/store_config?id=eq.furqan-main&select=*', {
+        headers: {
+            "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3emtjY3drYXRiY3pjZmx5eGV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDM2NDcsImV4cCI6MjEwMTA3OTY0N30.hx3N-k7Ptc3i4lYa1G3tLUxOq5PjEAw6UZ7ctHSXiXU"
+        }
+    }).then(r => r.json()).then(data => {
+        if(data && data[0] && data[0].site_settings_json) {
+            const s = data[0].site_settings_json;
+            if(s.logo) {
+                document.querySelectorAll('.logo-image, .brand-logo-img').forEach(el => el.src = s.logo);
+            }
+            if(s.heroMainImage) {
+                const hoverImg = document.querySelector('.hover-card-img-box img');
+                if(hoverImg) hoverImg.src = s.heroMainImage;
+            }
+        }
+    }).catch(e => console.error("Failed to load live settings", e));
+    
     // 0. CINEMATIC LOADING SCREEN & AUDIO (SAYS FURQAN SWEETS OUT LOUD!)
     const loaderContainer = document.getElementById('loader-container');
     const loadingAudio = document.getElementById('loading-audio');

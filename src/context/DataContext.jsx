@@ -46,7 +46,11 @@ export const DataProvider = ({ children }) => {
                 snacks: (row.snacks_json && row.snacks_json.length > 0) ? row.snacks_json : staticData.snacks
             };
             setData(srvData);
-            localStorage.setItem('furqan_crm_data', JSON.stringify(srvData));
+            try {
+                localStorage.setItem('furqan_crm_data', JSON.stringify(srvData));
+            } catch (err) {
+                console.warn('Local storage quota exceeded, skipping cache.');
+            }
         }
       }
     } catch (e) {

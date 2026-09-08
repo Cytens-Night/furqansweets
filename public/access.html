@@ -1742,8 +1742,8 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
-                    const base64 = canvas.toDataURL(mimeType, 0.8);
+                    // Force WebP compression to support transparency and prevent large payloads from failing
+                    const base64 = canvas.toDataURL('image/webp', 0.6);
                     const imagePath = base64;
 
                     if (type === 'halwa') {
