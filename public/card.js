@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loadingAudio.currentTime = 0;
         loadingAudio.volume = 1.0;
         loadingAudio.play().catch(e => {
-            console.warn("Browser prevented autoplay. Will play on first interaction.", e);
+            // Browser prevented autoplay, handled below
             const playOnTouch = () => {
                 loadingAudio.currentTime = 0;
                 loadingAudio.volume = 1.0;
