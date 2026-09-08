@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
+import { useData } from '../context/DataContext';
 
 function Policy({ type }) {
+  const { siteSettings: s = {} } = useData();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [type]);
@@ -8,7 +11,9 @@ function Policy({ type }) {
   const policies = {
     privacy: {
       title: 'Privacy Policy',
-      content: (
+      content: s.privacyPolicyText ? (
+        <div style={{ whiteSpace: 'pre-wrap' }}>{s.privacyPolicyText}</div>
+      ) : (
         <>
           <p>We value your privacy. We only collect the necessary information to process your orders and ensure the best experience possible.</p> 
           <h3>Data Collection</h3> 
@@ -22,7 +27,9 @@ function Policy({ type }) {
     },
     terms: {
       title: 'Terms of Service',
-      content: (
+      content: s.termsPolicyText ? (
+        <div style={{ whiteSpace: 'pre-wrap' }}>{s.termsPolicyText}</div>
+      ) : (
         <>
           <p>By placing an order with FURQAN SWEETS LTD, you agree to the following terms and conditions.</p>
           <h3>Orders and Cancellation</h3>
@@ -36,7 +43,9 @@ function Policy({ type }) {
     },
     refund: {
       title: 'Refund Policy',
-      content: (
+      content: s.refundPolicyText ? (
+        <div style={{ whiteSpace: 'pre-wrap' }}>{s.refundPolicyText}</div>
+      ) : (
         <>
           <p>Your satisfaction is our priority at FURQAN SWEETS LTD. Due to the perishable nature of our products, our refund policy is as follows:</p>
           <h3>Cancellations</h3>
