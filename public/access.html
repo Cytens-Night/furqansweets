@@ -1707,7 +1707,11 @@
             if (await showCrmConfirm("Delete Snack Product", "Are you sure you want to delete this snack/biscuit product from your catalog?")) {
                 storeData.snacks.splice(index, 1);
                 renderSnacksGrid();
-                showToast("Product deleted")        // ================= IMAGE UPLOAD HANDLER =================
+                showToast("Product deleted");
+            }
+        };
+
+        // ================= IMAGE UPLOAD HANDLER =================
         window.uploadImage = async (fileInput, type, idx) => {
             const file = fileInput.files[0];
             if (!file) return;
