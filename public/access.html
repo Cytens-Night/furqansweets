@@ -912,6 +912,10 @@
                     <i data-lucide="download"></i>
                     <span class="nav-text">Download Card (Back)</span>
                 </a>
+                <li class="nav-item" data-target="tab-legal">
+                    <i data-lucide="scale"></i>
+                    <span class="nav-text">Legal & Policies</span>
+                </li>
                 <a href="index.html" target="_blank" class="nav-item" style="text-decoration: none;">
                     <i data-lucide="external-link"></i>
                     <span class="nav-text">View Storefront</span>
@@ -1181,26 +1185,6 @@
                     </div>
                 </div>
             </div>
-            <div class="form-section">
-                <div class="section-header">
-                    <h2 class="section-title">Legal & Policies</h2>
-                    <span class="form-hint">These documents will be displayed on the /policy pages. Use blank lines for spacing.</span>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group" style="grid-column: span 2;">
-                        <label class="form-label">Privacy Policy Content</label>
-                        <textarea id="setting-privacyPolicyText" class="form-input" style="min-height: 150px; resize: vertical;" placeholder="Enter privacy policy text here..."></textarea>
-                    </div>
-                    <div class="form-group" style="grid-column: span 2;">
-                        <label class="form-label">Terms of Service Content</label>
-                        <textarea id="setting-termsPolicyText" class="form-input" style="min-height: 150px; resize: vertical;" placeholder="Enter terms of service text here..."></textarea>
-                    </div>
-                    <div class="form-group" style="grid-column: span 2;">
-                        <label class="form-label">Refund Policy Content</label>
-                        <textarea id="setting-refundPolicyText" class="form-input" style="min-height: 150px; resize: vertical;" placeholder="Enter refund policy text here..."></textarea>
-                    </div>
-                </div>
-            </div>
 
             <div class="form-section">
                 <div class="section-header">
@@ -1223,6 +1207,44 @@
                             <strong>Security Notice:</strong> The Dojo API Secret Key is now securely stored in the server environment (Supabase Edge Functions). It can no longer be edited from the public CRM to comply with PCI-DSS standards.
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: LEGAL & POLICIES -->
+        <section id="tab-legal" class="tab-panel" style="display: none;">
+            <div class="panel-header">
+                <h1 class="panel-title">Legal & Policies</h1>
+                <p class="panel-subtitle">Manage the public policies displayed on your website.</p>
+            </div>
+            
+            <div class="form-section" style="background: #ffffff; border: 1px solid #e2d8ce; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <div class="section-header">
+                    <h2 class="section-title" style="color: #4A2311; font-size: 1.3rem;">Privacy Policy</h2>
+                    <span class="form-hint">Displayed at furqansweets.co.uk/policy/privacy</span>
+                </div>
+                <div class="form-group">
+                    <textarea id="setting-privacyPolicyText" class="form-input" style="min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter privacy policy text here..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-section" style="background: #ffffff; border: 1px solid #e2d8ce; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <div class="section-header">
+                    <h2 class="section-title" style="color: #4A2311; font-size: 1.3rem;">Terms of Service</h2>
+                    <span class="form-hint">Displayed at furqansweets.co.uk/policy/terms</span>
+                </div>
+                <div class="form-group">
+                    <textarea id="setting-termsPolicyText" class="form-input" style="min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter terms of service text here..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-section" style="background: #ffffff; border: 1px solid #e2d8ce; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <div class="section-header">
+                    <h2 class="section-title" style="color: #4A2311; font-size: 1.3rem;">Refund Policy</h2>
+                    <span class="form-hint">Displayed at furqansweets.co.uk/policy/refund</span>
+                </div>
+                <div class="form-group">
+                    <textarea id="setting-refundPolicyText" class="form-input" style="min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter refund policy text here..."></textarea>
                 </div>
             </div>
         </section>

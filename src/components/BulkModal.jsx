@@ -64,7 +64,7 @@ function BulkModal() {
             <div className="main-bucket-card" style={{ background: '#FFF9F2', border: '2px solid #FF5E00', borderRadius: '16px', padding: '16px', textAlign: 'left' }}>
                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                   <span style={{ fontWeight: 800, fontSize: '1.02rem', color: '#4A2311' }}>1. Main Base Bucket (Fixed: 1 Bucket)</span>
-                  <span className="base-info-pill" style={{ background: '#FF5E00', color: '#fff', fontWeight: 700, fontSize: '0.8rem', padding: '4px 10px', borderRadius: '50px' }}>15kg • £120</span>
+                  <span className="base-info-pill" style={{ background: '#FF5E00', color: '#fff', fontWeight: 700, fontSize: '0.8rem', padding: '4px 10px', borderRadius: '50px' }}>{bulkBaseKg}kg • £{bulkBasePrice}</span>
               </div>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#6d4834', marginBottom: '8px' }}>Select Main Bucket Flavour:</label>
               
@@ -102,7 +102,7 @@ function BulkModal() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', borderBottom: '1px solid #f0e6dc', paddingBottom: '10px' }}>
                     <div>
                         <span style={{ fontWeight: 800, fontSize: '0.98rem', color: '#4A2311', display: 'block' }}>2. Add Extra Kilos by Flavour</span>
-                        <span style={{ fontSize: '0.78rem', color: '#8c5d45' }}>Optional extra weight (£9 / extra kg)</span>
+                        <span style={{ fontSize: '0.78rem', color: '#8c5d45' }}>Optional extra weight (£{bulkExtraKgPrice} / extra kg)</span>
                     </div>
                     <button onClick={() => setExtraKilos({})} style={{ background: '#f0e6dc', color: '#4A2311', border: 'none', padding: '5px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}>Reset Extras</button>
                 </div>
@@ -126,7 +126,7 @@ function BulkModal() {
 
             <div className="bulk-summary-panel" style={{ background: '#FDFBF7', border: '1.5px solid #EAE0D5', borderRadius: '16px', padding: '14px 18px', textAlign: 'left' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', color: '#6d4834', marginBottom: '6px' }}>
-                    <span>Main Base Bucket (15kg):</span>
+                    <span>Main Base Bucket ({bulkBaseKg}kg):</span>
                     <strong style={{ textAlign: 'right', maxWidth: '58%' }}>{mainFlavour}</strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', color: '#6d4834', marginBottom: '8px' }}>
