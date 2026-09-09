@@ -16,10 +16,10 @@ export const CartProvider = ({ children }) => {
   const bulkBaseKg = Number(data?.siteSettings?.bulkBaseKgNum || 15);
   const bulkBasePrice = Number(data?.siteSettings?.bulkBasePriceNum || 120);
   const bulkExtraKgPrice = Number(data?.siteSettings?.bulkExtraKgPrice || 9);
-  const [extraKilos, setExtraKilos] = useState({ plain: 0, sesame: 0, nuts: 0 });
-  const [mainFlavour, setMainFlavour] = useState('Traditional Plain Halwa (Xalwo Caadi)');
+  const [extraKilos, setExtraKilos] = useState({});
+  const [mainFlavour, setMainFlavour] = useState('');
 
-  const totalExtraKg = extraKilos.plain + extraKilos.sesame + extraKilos.nuts;
+  const totalExtraKg = Object.values(extraKilos).reduce((a, b) => a + (Number(b) || 0), 0);
   const currentBulkWeight = bulkBaseKg + totalExtraKg;
   const totalBulkPrice = bulkBasePrice + (totalExtraKg * bulkExtraKgPrice);
 

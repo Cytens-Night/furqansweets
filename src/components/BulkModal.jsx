@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useData } from '../context/DataContext';
 
 function BulkModal() {
-  const { siteSettings: s = {} } = useData();
+  const { data, siteSettings: s = {} } = useData();
   const {
     isBulkModalOpen,
     setIsBulkModalOpen,
@@ -31,14 +31,19 @@ function BulkModal() {
     });
   };
 
-  const flavours = [
-    { value: 'Traditional Plain Halwa (Xalwo Caadi)', title: 'Traditional Plain Halwa', sub: 'Xalwo Caadi • Classic authentic taste' },
-    { value: 'Sesame Halwa (Xalwo Sisinta)', title: 'Sesame Halwa', sub: 'Xalwo Sisinta • Rich toasted sesame aroma' },
-    { value: 'Mixed Nuts Halwa (Xalwo Loos)', title: 'Mixed Nuts Halwa', sub: 'Xalwo Loos • Loaded with premium nuts & cardamom' },
-    { value: 'Assorted Mixed Halwa (Isku-dhafan)', title: 'Assorted Mixed Halwa', sub: 'Isku-dhafan • Perfect variety of all signature flavours' }
-  ];
+  const flavours = (data?.halwaVariants || []).map(v => ({
+    value: v.name,
+    title: v.name,
+    sub: v.somali || ''
+  }));
 
-  const selectedFlavour = flavours.find(f => f.value === mainFlavour);
+  const selectedFlavour = flavours.find(f => f.value === mainFlavour) || flavours[0];
+
+  React.useEffect(() => {
+    if (!mainFlavour && flavours.length > 0) {
+      setMainFlavour(flavours[0].value);
+    }
+  }, [mainFlavour, flavours, setMainFlavour]);
 
   return (
     <div className="modal-overlay" style={{ display: 'flex', zIndex: 100000 }} onClick={() => setIsBulkModalOpen(false)}>
@@ -71,7 +76,7 @@ function BulkModal() {
                           </div>
                           <div>
                               <div style={{ fontWeight: 800, fontSize: '0.98rem', color: '#4A2311', lineHeight: 1.2 }}>{selectedFlavour?.title}</div>
-                              <div style={{ fontSize: '0.78rem', color: '#8c5d45', fontWeight: 600 }}>{selectedFlavour?.sub.split(' • ')[0]}</div>
+                              <div style={{ fontSize: '0.78rem', color: '#8c5d45', fontWeight: 600 }}>{selectedFlavour?.sub}</div>
                           </div>
                       </div>
                       <svg viewBox="0 0 24 24" width="20" height="20" stroke="#FF5E00" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}><polyline points="6 9 12 15 18 9"/></svg>
@@ -99,25 +104,21 @@ function BulkModal() {
                         <span style={{ fontWeight: 800, fontSize: '0.98rem', color: '#4A2311', display: 'block' }}>2. Add Extra Kilos by Flavour</span>
                         <span style={{ fontSize: '0.78rem', color: '#8c5d45' }}>Optional extra weight (£9 / extra kg)</span>
                     </div>
-                    <button onClick={() => setExtraKilos({ plain: 0, sesame: 0, nuts: 0 })} style={{ background: '#f0e6dc', color: '#4A2311', border: 'none', padding: '5px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}>Reset Extras</button>
+                    <button onClick={() => setExtraKilos({})} style={{ background: '#f0e6dc', color: '#4A2311', border: 'none', padding: '5px 12px', borderRadius: '8px', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}>Reset Extras</button>
                 </div>
                 
-                {[
-                  { key: 'plain', title: 'Traditional Plain', sub: 'Xalwo Caadi' },
-                  { key: 'sesame', title: 'Sesame Halwa', sub: 'Xalwo Sisinta' },
-                  { key: 'nuts', title: 'Mixed Nuts Halwa', sub: 'Xalwo Loos' }
-                ].map((flavour, idx) => (
-                  <div key={flavour.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: idx < 2 ? '1px dashed #f0e6dc' : 'none' }}>
+                {flavours.map((flavour, idx) => (
+                  <div key={flavour.value} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: idx < flavours.length - 1 ? '1px dashed #f0e6dc' : 'none' }}>
                       <div style={{ flex: 1 }}>
                           <span style={{ fontWeight: 700, fontSize: '0.92rem', color: '#4A2311', display: 'block' }}>{flavour.title}</span>
                           <span style={{ fontSize: '0.73rem', color: '#8c5d45' }}>{flavour.sub}</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <button onClick={() => handleExtraKgChange(flavour.key, -1)} style={{ width: '30px', height: '30px', borderRadius: '8px', border: '1px solid #d9b8a3', background: '#fff', color: '#4A2311', fontWeight: 800, fontSize: '1.1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
-                          <span style={{ minWidth: '32px', textAlign: 'center', fontWeight: 800, fontSize: '1.02rem', color: '#FF5E00' }}>{extraKilos[flavour.key]}</span>
+                          <button onClick={() => handleExtraKgChange(flavour.value, -1)} style={{ width: '30px', height: '30px', borderRadius: '8px', border: '1px solid #d9b8a3', background: '#fff', color: '#4A2311', fontWeight: 800, fontSize: '1.1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>-</button>
+                          <span style={{ minWidth: '32px', textAlign: 'center', fontWeight: 800, fontSize: '1.02rem', color: '#FF5E00' }}>{extraKilos[flavour.value] || 0}</span>
                           <span style={{ fontSize: '0.78rem', color: '#6d4834', fontWeight: 700, marginRight: '2px' }}>kg</span>
-                          <button onClick={() => handleExtraKgChange(flavour.key, 1)} style={{ padding: '6px 9px', borderRadius: '8px', border: 'none', background: '#FF5E00', color: '#fff', fontWeight: 700, fontSize: '0.78rem', cursor: 'pointer' }}>+1kg</button>
-                          <button onClick={() => handleExtraKgChange(flavour.key, 5)} style={{ padding: '6px 9px', borderRadius: '8px', border: 'none', background: '#4A2311', color: '#fff', fontWeight: 700, fontSize: '0.78rem', cursor: 'pointer' }}>+5kg</button>
+                          <button onClick={() => handleExtraKgChange(flavour.value, 1)} style={{ padding: '6px 9px', borderRadius: '8px', border: 'none', background: '#FF5E00', color: '#fff', fontWeight: 700, fontSize: '0.78rem', cursor: 'pointer' }}>+1kg</button>
+                          <button onClick={() => handleExtraKgChange(flavour.value, 5)} style={{ padding: '6px 9px', borderRadius: '8px', border: 'none', background: '#4A2311', color: '#fff', fontWeight: 700, fontSize: '0.78rem', cursor: 'pointer' }}>+5kg</button>
                       </div>
                   </div>
                 ))}
@@ -148,7 +149,7 @@ function BulkModal() {
             
             <button className="btn-primary bulk-checkout-btn" onClick={() => {
               setIsBulkModalOpen(false);
-              const extraDesc = [extraKilos.plain && `${extraKilos.plain}kg Plain`, extraKilos.sesame && `${extraKilos.sesame}kg Sesame`, extraKilos.nuts && `${extraKilos.nuts}kg Nuts`].filter(Boolean).join(', ');
+              const extraDesc = Object.entries(extraKilos).filter(([_, qty]) => qty > 0).map(([flavour, qty]) => `${qty}kg ${flavour}`).join(', ');
               const title = `Bulk Halwa (${mainFlavour})` + (extraDesc ? ` + Extras: ${extraDesc}` : '');
               openCheckout(title, totalBulkPrice, `${currentBulkWeight}kg`);
             }}>
