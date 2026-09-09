@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useData } from '../context/DataContext';
 
 function Policy({ type }) {
-  const { siteSettings: s = {} } = useData();
+  const { data } = useData();
+  const s = data?.siteSettings || {};
 
   useEffect(() => {
     window.scrollTo(0, 0);

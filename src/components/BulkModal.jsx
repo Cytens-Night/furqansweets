@@ -3,7 +3,8 @@ import { useCart } from '../context/CartContext';
 import { useData } from '../context/DataContext';
 
 function BulkModal() {
-  const { data, siteSettings: s = {} } = useData();
+  const { data } = useData();
+  const s = data?.siteSettings || {};
   const {
     isBulkModalOpen,
     setIsBulkModalOpen,

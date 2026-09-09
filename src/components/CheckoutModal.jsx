@@ -4,7 +4,8 @@ import { useToast } from '../context/ToastContext';
 import { useData } from '../context/DataContext';
 
 function CheckoutModal() {
-  const { siteSettings: s = {} } = useData();
+  const { data } = useData();
+  const s = data?.siteSettings || {};
   const { isCheckoutModalOpen, setIsCheckoutModalOpen, currentDojoOrder } = useCart();
   const { showToast } = useToast();
   const [step, setStep] = useState(1);
