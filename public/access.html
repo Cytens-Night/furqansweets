@@ -1230,7 +1230,7 @@
                     <span class="form-hint">Displayed at furqansweets.co.uk/policy/privacy</span>
                 </div>
                 <div class="form-group">
-                    <textarea id="setting-privacyPolicyText" class="form-input" style="min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter privacy policy text here..."></textarea>
+                    <textarea id="setting-privacyPolicyText" class="form-input" style="color: #111; min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter privacy policy text here..."></textarea>
                 </div>
             </div>
 
@@ -1240,7 +1240,7 @@
                     <span class="form-hint">Displayed at furqansweets.co.uk/policy/terms</span>
                 </div>
                 <div class="form-group">
-                    <textarea id="setting-termsPolicyText" class="form-input" style="min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter terms of service text here..."></textarea>
+                    <textarea id="setting-termsPolicyText" class="form-input" style="color: #111; min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter terms of service text here..."></textarea>
                 </div>
             </div>
 
@@ -1250,7 +1250,7 @@
                     <span class="form-hint">Displayed at furqansweets.co.uk/policy/refund</span>
                 </div>
                 <div class="form-group">
-                    <textarea id="setting-refundPolicyText" class="form-input" style="min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter refund policy text here..."></textarea>
+                    <textarea id="setting-refundPolicyText" class="form-input" style="color: #111; min-height: 250px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.6; padding: 20px; background: #fafafa; border: 1px solid #ebebeb;" placeholder="Enter refund policy text here..."></textarea>
                 </div>
             </div>
         </section>
@@ -1550,7 +1550,11 @@
             setVal('setting-heroSubtitle', s.heroSubtitle || 'Freshly made, perfectly sweet, deeply rich.');
             setVal('setting-heroSubtitleSomali', s.heroSubtitleSomali || 'Cusub, macaan oo si fiican loo sameeyay.');
             
-            const getS = (key, def) => (s[key] && typeof s[key] === 'string' && s[key].trim() !== '') ? s[key] : (s[key] ? s[key] : def);
+            const getS = (key, def) => {
+                if (s[key] === undefined || s[key] === null) return def;
+                if (typeof s[key] === 'string' && s[key].trim() === '') return def;
+                return s[key];
+            };
 
             setVal('setting-bulkWeight', getS('bulkWeight', '15kg Base Bucket'));
             setVal('setting-bulkPrice', getS('bulkPrice', '£120'));
