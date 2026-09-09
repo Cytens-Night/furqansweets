@@ -1129,6 +1129,15 @@
                         <label class="form-label">Bulk Section Title (Somali Translation)</label>
                         <input type="text" id="setting-bulkTitleSomali" class="form-input" value="Ku Habboon Munaasabad Kasta">
                     </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-header">
+                    <h2 class="section-title">Bulk Order Modal Popup</h2>
+                    <span class="form-hint">Settings for the "Customise Your Bulk Order" popup screen.</span>
+                </div>
+                <div class="form-grid">
                     <div class="form-group">
                         <label class="form-label">Bulk Modal Title</label>
                         <input type="text" id="setting-bulkModalTitle" class="form-input" value="Customise Your Bulk Order">
@@ -1296,6 +1305,10 @@
         const defaultPin = "2026";
         const defaultOwnerEmail = "owner@furqansweets.co.uk";
         const defaultRecoveryKey = "FURQAN-2026-RECOVERY";
+
+        const defaultPrivacyText = "We value your privacy. We only collect the necessary information to process your orders and ensure the best experience possible.\n\nData Collection\nAny personal details shared with us, such as names, phone numbers, or addresses for orders, are kept strictly confidential and are not shared with third parties.\n\nPayment Processing\nAll online payments are securely processed by our PCI-compliant payment provider, Dojo (Paymentsense Ltd). We do not store your credit card or payment information on our servers.\n\nContact Us\nIf you have any questions regarding this privacy policy, please contact us at info@furqansweets.com.";
+        const defaultTermsText = "By placing an order with FURQAN SWEETS LTD, you agree to the following terms and conditions.\n\nOrders and Cancellation\nAll online bulk orders require a minimum of 48 hours notice. Cancellations must be made at least 24 hours prior to the pickup date to receive a full refund.\n\nProduct Information\nOur halwa is made with fresh ingredients. Please note that products containing nuts are prepared in the same facility and cross-contamination may occur.\n\nPayment\nFull payment is required at the time of order placement. We accept all major credit and debit cards securely through Dojo.";
+        const defaultRefundText = "Your satisfaction is our priority at FURQAN SWEETS LTD. Due to the perishable nature of our products, our refund policy is as follows:\n\nCancellations\nOrders can be cancelled with a full refund if the request is made at least 24 hours before the scheduled pickup time.\n\nIssues with Orders\nIf you are unsatisfied with your order upon collection, please let us know immediately so we can rectify the issue or process a refund.\n\nRefund Processing Time\nApproved refunds are processed back to the original payment method (via Dojo) and may take 3-5 business days to appear on your statement.";
 
         // DOM Elements
         const toastContainer = document.getElementById('toast-container');
@@ -1539,9 +1552,9 @@
             setVal('setting-storyText', s.storyText || 'For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.');
             setVal('setting-storyTextSomali', s.storyTextSomali || 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.');
             setVal('setting-storyImage', s.storyImage || 'assets/halwa_texture.png');
-            setVal('setting-privacyPolicyText', s.privacyPolicyText || '');
-            setVal('setting-termsPolicyText', s.termsPolicyText || '');
-            setVal('setting-refundPolicyText', s.refundPolicyText || '');
+            setVal('setting-privacyPolicyText', s.privacyPolicyText || defaultPrivacyText);
+            setVal('setting-termsPolicyText', s.termsPolicyText || defaultTermsText);
+            setVal('setting-refundPolicyText', s.refundPolicyText || defaultRefundText);
 
             const logoSrc = s.logo || 'assets/furqansweets_logo.svg';
             const pLogo = document.getElementById('preview-logo');
