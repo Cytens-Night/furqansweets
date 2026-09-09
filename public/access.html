@@ -1218,7 +1218,7 @@
         </section>
 
         <!-- TAB 5: LEGAL & POLICIES -->
-        <section id="tab-legal" class="tab-panel" style="display: none;">
+        <section id="tab-legal" class="tab-panel">
             <div class="panel-header">
                 <h1 class="panel-title">Legal & Policies</h1>
                 <p class="panel-subtitle">Manage the public policies displayed on your website.</p>
@@ -1549,38 +1549,41 @@
             setVal('setting-heroTitleSomali', s.heroTitleSomali || 'Ma u xiistay Macmacaan Soomaaliyeed?');
             setVal('setting-heroSubtitle', s.heroSubtitle || 'Freshly made, perfectly sweet, deeply rich.');
             setVal('setting-heroSubtitleSomali', s.heroSubtitleSomali || 'Cusub, macaan oo si fiican loo sameeyay.');
-            setVal('setting-bulkWeight', s.bulkWeight || '15kg Base Bucket');
-            setVal('setting-bulkPrice', s.bulkPrice || '£120');
-            setVal('setting-bulkDesc', s.bulkDesc || 'Serves approx 120 - 150 people. Easily add more kg to fit your guest list.');
-            setVal('setting-bulkTitle', s.bulkTitle || 'Perfect for Every Occasion');
-            setVal('setting-bulkTitleSomali', s.bulkTitleSomali || 'Ku Habboon Munaasabad Kasta');
-            setVal('setting-bulkBaseKgNum', s.bulkBaseKgNum || '15');
-            setVal('setting-bulkBasePriceNum', s.bulkBasePriceNum || '120');
-            setVal('setting-bulkExtraKgPrice', s.bulkExtraKgPrice || '9');
+            
+            const getS = (key, def) => (s[key] && typeof s[key] === 'string' && s[key].trim() !== '') ? s[key] : (s[key] ? s[key] : def);
+
+            setVal('setting-bulkWeight', getS('bulkWeight', '15kg Base Bucket'));
+            setVal('setting-bulkPrice', getS('bulkPrice', '£120'));
+            setVal('setting-bulkDesc', getS('bulkDesc', 'Serves approx 120 - 150 people. Easily add more kg to fit your guest list.'));
+            setVal('setting-bulkTitle', getS('bulkTitle', 'Perfect for Every Occasion'));
+            setVal('setting-bulkTitleSomali', getS('bulkTitleSomali', 'Ku Habboon Munaasabad Kasta'));
+            setVal('setting-bulkBaseKgNum', getS('bulkBaseKgNum', '15'));
+            setVal('setting-bulkBasePriceNum', getS('bulkBasePriceNum', '120'));
+            setVal('setting-bulkExtraKgPrice', getS('bulkExtraKgPrice', '9'));
             setVal('setting-halwaBasePrice', s.halwaBasePrice || '£10 / kg');
             setVal('setting-adminPin', s.adminPin || '2026');
             setVal('setting-ownerEmail', s.ownerEmail || 'owner@furqansweets.co.uk');
             setVal('setting-masterRecoveryKey', s.masterRecoveryKey || 'FURQAN-2026-RECOVERY');
             setVal('setting-dojoAccount', s.dojoAccount || 'sp218466ugbloc1');
             setVal('setting-dojoHostname', s.dojoHostname || 'sp218466ugbloc1.connect.paymentsense.cloud');
-            setVal('setting-bulkModalTitle', s.bulkModalTitle || 'Customise Your Bulk Order');
-            setVal('setting-bulkModalDesc', s.bulkModalDesc || '15kg base bucket can serve about 120 to 150 people.');
-            setVal('setting-bulkModalImage', s.bulkModalImage || 'assets/square_bucket_halwa.png');
-            setVal('setting-heroMainImage', s.heroMainImage || 'assets/halwa_main.png');
-            setVal('setting-bulkAddBtn1', s.bulkAddBtn1 || '1');
-            setVal('setting-bulkAddBtn2', s.bulkAddBtn2 || '5');
-            setVal('setting-bulkAddBtn3', s.bulkAddBtn3 || '10');
-            setVal('setting-bulkPayBtnText', s.bulkPayBtnText || 'Online Payments • Coming Soon');
-            setVal('setting-bulkCallBtnText', s.bulkCallBtnText || 'Call to Order Now (020 8838 3030)');
-            setVal('setting-bulkNoticeText', s.bulkNoticeText || '48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.');
-            setVal('setting-storyTitle', s.storyTitle || 'Our Heritage');
-            setVal('setting-storyTitleSomali', s.storyTitleSomali || 'Dhaxalkeenna qaaliga ah');
-            setVal('setting-storyText', s.storyText || 'For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.');
-            setVal('setting-storyTextSomali', s.storyTextSomali || 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.');
-            setVal('setting-storyImage', s.storyImage || 'assets/halwa_texture.png');
-            setVal('setting-privacyPolicyText', s.privacyPolicyText || defaultPrivacyText);
-            setVal('setting-termsPolicyText', s.termsPolicyText || defaultTermsText);
-            setVal('setting-refundPolicyText', s.refundPolicyText || defaultRefundText);
+            setVal('setting-bulkModalTitle', getS('bulkModalTitle', 'Customise Your Bulk Order'));
+            setVal('setting-bulkModalDesc', getS('bulkModalDesc', '15kg base bucket can serve about 120 to 150 people.'));
+            setVal('setting-bulkModalImage', getS('bulkModalImage', 'assets/square_bucket_halwa.png'));
+            setVal('setting-heroMainImage', getS('heroMainImage', 'assets/halwa_main.png'));
+            setVal('setting-bulkAddBtn1', getS('bulkAddBtn1', '1'));
+            setVal('setting-bulkAddBtn2', getS('bulkAddBtn2', '5'));
+            setVal('setting-bulkAddBtn3', getS('bulkAddBtn3', '10'));
+            setVal('setting-bulkPayBtnText', getS('bulkPayBtnText', 'Online Payments • Coming Soon'));
+            setVal('setting-bulkCallBtnText', getS('bulkCallBtnText', 'Call to Order Now (020 8838 3030)'));
+            setVal('setting-bulkNoticeText', getS('bulkNoticeText', '48 Hours Advance Notice Required: All bulk online orders require at least 48 hours notice. For emergencies or urgent same-day orders, please call us directly at 020 8838 3030.'));
+            setVal('setting-storyTitle', getS('storyTitle', 'Our Heritage'));
+            setVal('setting-storyTitleSomali', getS('storyTitleSomali', 'Dhaxalkeenna qaaliga ah'));
+            setVal('setting-storyText', getS('storyText', 'For generations, the art of making authentic Somali Halwa has been a cherished tradition in our family, passed down with love and meticulous care.'));
+            setVal('setting-storyTextSomali', getS('storyTextSomali', 'Qarniyo badan, farshaxanka samaynta Xalwada Soomaaliyeed ee dhabta ah waxay ahayd caado qaali ah oo qoyskeena soo jireen u ah, iyadoo lagu kalgacal iyo daryeel taxaddar leh loo gudbiyay.'));
+            setVal('setting-storyImage', getS('storyImage', 'assets/halwa_texture.png'));
+            setVal('setting-privacyPolicyText', getS('privacyPolicyText', defaultPrivacyText));
+            setVal('setting-termsPolicyText', getS('termsPolicyText', defaultTermsText));
+            setVal('setting-refundPolicyText', getS('refundPolicyText', defaultRefundText));
 
             const logoSrc = s.logo || 'assets/furqansweets_logo.svg';
             const pLogo = document.getElementById('preview-logo');
