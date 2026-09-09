@@ -1754,35 +1754,59 @@
             const file = fileInput.files[0];
             if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-                    const max_size = 1000;
+            try {
+                let drawable;
+                let imgWidth, imgHeight;
 
-                    if (width > height) {
-                        if (width > max_size) {
-                            height *= max_size / width;
-                            width = max_size;
-                        }
-                    } else {
-                        if (height > max_size) {
-                            width *= max_size / height;
-                            height = max_size;
-                        }
+                if (window.createImageBitmap) {
+                    // Modern approach: Handles EXIF rotation and iOS memory limits correctly
+                    drawable = await window.createImageBitmap(file);
+                    imgWidth = drawable.width;
+                    imgHeight = drawable.height;
+                } else {
+                    // Fallback for very old browsers
+                    const dataUrl = await new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.readAsDataURL(file);
+                    });
+                    drawable = new Image();
+                    await new Promise((resolve) => {
+                        drawable.onload = resolve;
+                        drawable.src = dataUrl;
+                    });
+                    imgWidth = drawable.width;
+                    imgHeight = drawable.height;
+                }
+
+                const canvas = document.createElement('canvas');
+                let width = imgWidth;
+                let height = imgHeight;
+                const max_size = 1000;
+
+                if (width > height) {
+                    if (width > max_size) {
+                        height = Math.round(height * (max_size / width));
+                        width = max_size;
                     }
+                } else {
+                    if (height > max_size) {
+                        width = Math.round(width * (max_size / height));
+                        height = max_size;
+                    }
+                }
 
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                
+                // Clear and draw properly
+                ctx.clearRect(0, 0, width, height);
+                ctx.drawImage(drawable, 0, 0, width, height);
 
-                    // Force WebP compression to support transparency and prevent large payloads from failing
-                    const base64 = canvas.toDataURL('image/webp', 0.6);
-                    const imagePath = base64;
+                // Use WebP for better compression
+                const base64 = canvas.toDataURL('image/webp', 0.7);
+                const imagePath = base64;
 
                     if (type === 'halwa') {
                         if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
@@ -1842,10 +1866,10 @@
                             showToast("❌ Upload failed. The image might still be too large. Try saving all settings.", true);
                         }
                     });
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+            } catch (err) {
+                console.error("Image upload error:", err);
+                showToast("❌ Failed to process image.", true);
+            }
         };
 
         document.getElementById('upload-logo').addEventListener('change', function() {
