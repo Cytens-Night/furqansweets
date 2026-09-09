@@ -831,7 +831,7 @@ a:hover .translation::after, button:hover .translation::after {
 
 .brand-story-image .story-img {
     width: 100%;
-    height: auto;
+    aspect-ratio: 1/1;
     display: block;
     object-fit: cover;
     transform: scale(1.05);
@@ -1621,12 +1621,7 @@ a:hover .translation::after, button:hover .translation::after {
     touch-action: manipulation !important;
   }
   
-  /* Fluid Images */
-  .main-halwa-img, .story-img, .variant-img, .bulk-card-img {
-    max-width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
-  }
+
   
   /* Stacked Grids */
   .reviews-grid, .occasions-grid, .snacks-grid, .showcase-grid-in-card {
