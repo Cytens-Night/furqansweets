@@ -21,11 +21,9 @@ function BulkModal() {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  if (!isBulkModalOpen) return null;
-
   const handleExtraKgChange = (flavour, delta) => {
     setExtraKilos(prev => {
-      const current = prev[flavour];
+      const current = prev[flavour] || 0;
       const next = current + delta;
       return { ...prev, [flavour]: Math.max(0, next) };
     });
@@ -44,6 +42,8 @@ function BulkModal() {
       setMainFlavour(flavours[0].value);
     }
   }, [mainFlavour, flavours, setMainFlavour]);
+
+  if (!isBulkModalOpen) return null;
 
   return (
     <div className="modal-overlay" style={{ display: 'flex', zIndex: 100000 }} onClick={() => setIsBulkModalOpen(false)}>
@@ -130,9 +130,9 @@ function BulkModal() {
                     <strong style={{ textAlign: 'right', maxWidth: '58%' }}>{mainFlavour}</strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', color: '#6d4834', marginBottom: '8px' }}>
-                    <span>Extra Kilos ({(extraKilos.plain + extraKilos.sesame + extraKilos.nuts)}kg):</span>
+                    <span>Extra Kilos ({Object.values(extraKilos).reduce((a, b) => a + (Number(b) || 0), 0)}kg):</span>
                     <strong style={{ textAlign: 'right', maxWidth: '58%' }}>
-                      {[extraKilos.plain && `${extraKilos.plain}kg Plain`, extraKilos.sesame && `${extraKilos.sesame}kg Sesame`, extraKilos.nuts && `${extraKilos.nuts}kg Nuts`].filter(Boolean).join(', ') || 'None'}
+                      {Object.entries(extraKilos).filter(([_, qty]) => qty > 0).map(([flavour, qty]) => `${qty}kg ${flavour}`).join(', ') || 'None'}
                     </strong>
                 </div>
                 <div style={{ borderTop: '1px solid #EAE0D5', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
