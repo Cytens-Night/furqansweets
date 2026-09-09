@@ -233,6 +233,22 @@
             left: 0;
             z-index: 1000;
             box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.hidden {
+            transform: translateY(-100%);
+        }
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px;
+            margin-right: -8px;
+        }
+        .hamburger-btn:hover {
+            color: var(--accent-gold);
         }
 
         .sidebar-header {
@@ -728,62 +744,64 @@
                 width: 100%;
                 height: 72px;
                 position: fixed;
-                top: auto;
-                bottom: 0;
+                top: 0;
+                bottom: auto;
                 left: 0;
                 right: 0;
                 flex-direction: row;
-                justify-content: flex-start;
-                padding: 6px 12px;
-                border-bottom: none;
-                border-top: 1px solid var(--border-color);
-                box-shadow: 0 -10px 25px rgba(0,0,0,0.85);
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 16px;
+                border-bottom: 1px solid var(--border-color);
+                border-top: none;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+                overflow: visible;
+                background: rgba(25, 21, 19, 0.98);
+                backdrop-filter: blur(20px);
             }
-            .sidebar::-webkit-scrollbar {
-                display: none;
-            }
-            .sidebar-header, .sidebar-footer { display: none; }
+            .sidebar-header { display: flex; flex: none; width: auto; }
+            .brand-title, .brand-tagline { display: block; }
+            .sidebar-footer { display: none; }
+            .hamburger-btn { display: block; }
             .nav-list {
                 display: flex;
-                flex-direction: row;
-                width: max-content;
-                justify-content: flex-start;
-                padding: 0 6px;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: rgba(25, 21, 19, 0.98);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+                padding: 0;
                 margin: 0;
-                gap: 10px;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+                max-height: 0;
+                overflow: hidden;
+                width: 100%;
+                transition: max-height 0.3s ease-out;
             }
-            .nav-list::-webkit-scrollbar {
-                display: none;
+            .nav-list.mobile-open {
+                max-height: 500px;
+                padding: 10px 0;
             }
             .nav-item {
-                padding: 10px 16px;
-                justify-content: center;
-                flex: 0 0 auto;
-                border-radius: 12px;
-                flex-direction: row;
-                gap: 8px;
-                font-size: 0.85rem;
-                white-space: nowrap;
+                width: 100%;
+                padding: 16px 24px;
+                border-radius: 0;
+                justify-content: flex-start;
+                font-size: 1.05rem;
             }
-            .nav-item i { margin: 0; width: 20px; height: 20px; }
             .main-wrapper {
                 margin-left: 0;
-                margin-top: 20px;
-                padding: 16px 12px 160px 12px;
+                margin-top: 74px;
+                padding: 16px 12px 100px 12px;
                 width: 100%;
             }
             .sticky-save-bar {
-                left: auto;
-                right: 18px;
-                bottom: 84px;
+                left: 10px;
+                right: 10px;
+                bottom: 20px;
                 padding: 0;
             }
             .items-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -878,8 +896,8 @@
     </div>
 
     <!-- LEFT SIDEBAR NAVIGATION -->
-    <aside class="sidebar">
-        <div>
+    <aside class="sidebar" id="navbar">
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
             <div class="sidebar-header">
                 <img src="assets/furqansweets_logo.svg" alt="Furqan Sweets" class="sidebar-logo">
                 <div>
@@ -887,8 +905,13 @@
                     <div class="brand-tagline">CRM Dashboard</div>
                 </div>
             </div>
+            
+            <button class="hamburger-btn" id="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
 
-            <ul class="nav-list">
+        <ul class="nav-list" id="nav-list">
                 <li class="nav-item active" data-target="tab-settings">
                     <i data-lucide="settings"></i>
                     <span class="nav-text">Store & Site Texts</span>
@@ -1428,12 +1451,39 @@
             });
         }
 
+        // ================= DYNAMIC NAVBAR =================
+        const navbar = document.getElementById('navbar');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navList = document.getElementById('nav-list');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 80) {
+                if (!navList.classList.contains('mobile-open')) {
+                    navbar.classList.add('hidden');
+                }
+            } else {
+                navbar.classList.remove('hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navList.classList.toggle('mobile-open');
+            });
+        }
+
         // ================= NAVIGATION TABS =================
         const navItems = document.querySelectorAll('.nav-item');
         const tabPanels = document.querySelectorAll('.tab-panel');
 
         navItems.forEach(item => {
             item.addEventListener('click', () => {
+                if (navList.classList.contains('mobile-open')) {
+                    navList.classList.remove('mobile-open');
+                }
+                
                 navItems.forEach(i => i.classList.remove('active'));
                 tabPanels.forEach(p => p.classList.remove('active'));
 
