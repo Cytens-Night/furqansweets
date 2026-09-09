@@ -13,9 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <!-- PROFESSIONAL REACT-STYLE LUCIDE SVG ICONS -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
     <style>
         :root {
             --bg-dark: #0F0D0C;
@@ -1755,24 +1753,35 @@
             const file = fileInput.files[0];
             if (!file) return;
 
-            try {
-                let finalFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const max_size = 1000;
 
-                if (typeof window.imageCompression === 'function') {
-                    const options = {
-                        maxSizeMB: 0.5,
-                        maxWidthOrHeight: 1000,
-                        useWebWorker: true,
-                        fileType: 'image/jpeg'
-                    };
-                    finalFile = await window.imageCompression(file, options);
-                } else {
-                    console.warn("imageCompression library not found, using raw file");
-                }
-                
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const imagePath = e.target.result;
+                    if (width > height) {
+                        if (width > max_size) {
+                            height = Math.round(height * (max_size / width));
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width = Math.round(width * (max_size / height));
+                            height = max_size;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const base64 = canvas.toDataURL('image/jpeg', 0.8);
+                    const imagePath = base64;
 
                     if (type === 'halwa') {
                         if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
@@ -1820,7 +1829,6 @@
                         if (previewEl) previewEl.src = imagePath;
                     }
 
-                    // Instantly save to local storage and live Supabase Cloud Database so old images are permanently deleted!
                     try {
                         localStorage.setItem('furqan_crm_data', JSON.stringify(storeData));
                     } catch(err) {}
@@ -1833,11 +1841,9 @@
                         }
                     });
                 };
-                reader.readAsDataURL(finalFile);
-            } catch (err) {
-                console.error("Image upload error:", err);
-                showToast("❌ Failed to process image.", true);
-            }
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         };
 
         document.getElementById('upload-logo').addEventListener('change', function() {
