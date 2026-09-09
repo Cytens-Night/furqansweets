@@ -1756,15 +1756,19 @@
             if (!file) return;
 
             try {
-                // Use browser-image-compression to perfectly handle iOS EXIF rotation, subsampling bugs, and WebP conversion
-                const options = {
-                    maxSizeMB: 0.5,
-                    maxWidthOrHeight: 1000,
-                    useWebWorker: true,
-                    fileType: 'image/webp'
-                };
-                
-                const compressedFile = await imageCompression(file, options);
+                let finalFile = file;
+
+                if (typeof window.imageCompression === 'function') {
+                    const options = {
+                        maxSizeMB: 0.5,
+                        maxWidthOrHeight: 1000,
+                        useWebWorker: true,
+                        fileType: 'image/jpeg'
+                    };
+                    finalFile = await window.imageCompression(file, options);
+                } else {
+                    console.warn("imageCompression library not found, using raw file");
+                }
                 
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -1829,7 +1833,7 @@
                         }
                     });
                 };
-                reader.readAsDataURL(compressedFile);
+                reader.readAsDataURL(finalFile);
             } catch (err) {
                 console.error("Image upload error:", err);
                 showToast("❌ Failed to process image.", true);
