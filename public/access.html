@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- PROFESSIONAL REACT-STYLE LUCIDE SVG ICONS -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
     <style>
         :root {
             --bg-dark: #0F0D0C;
@@ -1755,58 +1756,19 @@
             if (!file) return;
 
             try {
-                let drawable;
-                let imgWidth, imgHeight;
-
-                if (window.createImageBitmap) {
-                    // Modern approach: Handles EXIF rotation and iOS memory limits correctly
-                    drawable = await window.createImageBitmap(file);
-                    imgWidth = drawable.width;
-                    imgHeight = drawable.height;
-                } else {
-                    // Fallback for very old browsers
-                    const dataUrl = await new Promise((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = (e) => resolve(e.target.result);
-                        reader.readAsDataURL(file);
-                    });
-                    drawable = new Image();
-                    await new Promise((resolve) => {
-                        drawable.onload = resolve;
-                        drawable.src = dataUrl;
-                    });
-                    imgWidth = drawable.width;
-                    imgHeight = drawable.height;
-                }
-
-                const canvas = document.createElement('canvas');
-                let width = imgWidth;
-                let height = imgHeight;
-                const max_size = 1000;
-
-                if (width > height) {
-                    if (width > max_size) {
-                        height = Math.round(height * (max_size / width));
-                        width = max_size;
-                    }
-                } else {
-                    if (height > max_size) {
-                        width = Math.round(width * (max_size / height));
-                        height = max_size;
-                    }
-                }
-
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
+                // Use browser-image-compression to perfectly handle iOS EXIF rotation, subsampling bugs, and WebP conversion
+                const options = {
+                    maxSizeMB: 0.5,
+                    maxWidthOrHeight: 1000,
+                    useWebWorker: true,
+                    fileType: 'image/webp'
+                };
                 
-                // Clear and draw properly
-                ctx.clearRect(0, 0, width, height);
-                ctx.drawImage(drawable, 0, 0, width, height);
-
-                // Use WebP for better compression
-                const base64 = canvas.toDataURL('image/webp', 0.7);
-                const imagePath = base64;
+                const compressedFile = await imageCompression(file, options);
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imagePath = e.target.result;
 
                     if (type === 'halwa') {
                         if (storeData.halwaVariants && storeData.halwaVariants[idx]) {
@@ -1866,6 +1828,8 @@
                             showToast("❌ Upload failed. The image might still be too large. Try saving all settings.", true);
                         }
                     });
+                };
+                reader.readAsDataURL(compressedFile);
             } catch (err) {
                 console.error("Image upload error:", err);
                 showToast("❌ Failed to process image.", true);
