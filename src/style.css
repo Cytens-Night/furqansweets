@@ -1692,7 +1692,7 @@ a:hover .translation::after, button:hover .translation::after {
     gap: 20px !important;
   }
   
-  /* Banners */
+  /* Banners and Maps */
   .store-nav-badge, .google-reviews-banner {
     flex-direction: column !important;
     text-align: center !important;
@@ -1708,6 +1708,13 @@ a:hover .translation::after, button:hover .translation::after {
   }
   .google-reviews-banner-left > div {
     justify-content: center !important;
+  }
+  
+  .map-display-card {
+    padding: 20px !important;
+  }
+  .map-display-card > div:last-child {
+    height: 250px !important;
   }
   
   /* Fluid Modals */
