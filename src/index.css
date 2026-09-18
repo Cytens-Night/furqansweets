@@ -132,12 +132,7 @@ code {
     touch-action: manipulation !important;
   }
   
-  /* Fluid Images */
-  .main-halwa-img, .story-img, .variant-img, .bulk-card-img {
-    max-width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
-  }
+
   
   /* Stacked Grids */
   .reviews-grid, .occasions-grid, .snacks-grid, .showcase-grid-in-card {
@@ -153,12 +148,7 @@ code {
     overflow-y: auto !important;
   }
   
-  /* Top Nav Stacking */
-  .top-menu, .main-nav {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 12px !important;
-  }
+  /* Top Nav Stacking (Removed in favor of dynamic hamburger) */
   .main-header {
     flex-direction: column !important;
     gap: 15px !important;

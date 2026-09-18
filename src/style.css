@@ -115,10 +115,28 @@ body::-webkit-scrollbar, html::-webkit-scrollbar {
     font-size: 0.95rem;
     font-weight: 300;
     letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-.welcome-banner p {
+.welcome-banner-item {
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.welcome-banner-note {
+    font-size: 0.8em;
+    opacity: 0.8;
+    margin-left: 5px;
+}
+
+.welcome-banner-divider {
+    opacity: 0.4;
 }
 
 .welcome-banner .translation {
@@ -129,14 +147,28 @@ body::-webkit-scrollbar, html::-webkit-scrollbar {
 
 .top-menu {
     background-color: #fff;
-    padding: 20px 50px;
+    padding: 15px 50px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+}
+.top-menu-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+}
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4a2311;
+    padding: 5px;
 }
 
 .header-logo-container {
@@ -207,12 +239,33 @@ body::-webkit-scrollbar, html::-webkit-scrollbar {
     .top-menu {
         flex-direction: column;
         padding: 15px 20px;
-        gap: 15px;
+        gap: 0;
+        align-items: stretch;
+    }
+    .top-menu-inner {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .mobile-menu-btn {
+        display: flex;
     }
     .main-nav {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
         gap: 15px;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+    .main-nav.mobile-open {
+        max-height: 300px;
+        opacity: 1;
+        padding: 20px 0 10px 0;
     }
 }
 
@@ -221,6 +274,19 @@ body::-webkit-scrollbar, html::-webkit-scrollbar {
     padding: 40px 20px 0 20px;
     max-width: 1400px;
     margin: 0 auto;
+}
+
+/* VISIT US SECTION */
+.visit-us-section {
+    margin: 60px auto;
+    max-width: 1260px;
+    padding: 50px 35px;
+    background-color: #fff5ec;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 94, 0, 0.22);
+    box-shadow: 0 20px 50px rgba(74, 35, 17, 0.08);
+    position: relative;
+    overflow: hidden;
 }
 
 .section-title {
@@ -1637,15 +1703,29 @@ a:hover .translation::after, button:hover .translation::after {
     overflow-y: auto !important;
   }
   
-  /* Top Nav Stacking */
-  .top-menu, .main-nav {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 12px !important;
-  }
+  /* Top Nav Stacking (Removed in favor of dynamic hamburger) */
   .main-header {
     flex-direction: column !important;
     gap: 15px !important;
     padding: 15px !important;
   }
+}
+
+
+@media (max-width: 768px) {
+    .visit-us-section {
+        margin: 40px 15px;
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-banner {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .welcome-banner-divider {
+        display: none;
+    }
 }

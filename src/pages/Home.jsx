@@ -12,15 +12,15 @@ function Home() {
   return (
     <>
       
-      <div className="welcome-banner" style={{"display":"flex","justifyContent":"center","alignItems":"center","gap":"15px","flexWrap":"wrap"}}>
-            <p style={{"margin":"0","display":"flex","alignItems":"center","gap":"8px"}}>
+      <div className="welcome-banner">
+            <p className="welcome-banner-item">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <strong>Open Everyday:</strong> {s.openHours} <span style={{"fontSize":"0.8em","opacity":"0.8","marginLeft":"5px"}}>(Times may vary)</span>
+                <strong>Open Everyday:</strong> {s.openHours} <span className="welcome-banner-note">(Times may vary)</span>
             </p>
-            <span style={{"opacity":"0.4"}}>|</span>
-            <p style={{"margin":"0","display":"flex","alignItems":"center","gap":"8px"}}>
+            <span className="welcome-banner-divider">|</span>
+            <p className="welcome-banner-item">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                <a href={s.phoneTel} className="call-modal-trigger" style={{"color":"#ffb03a","textDecoration":"none","fontWeight":"bold"}}>{s.phoneNumber}</a>
+                <a href={s.phoneTel} className="call-modal-trigger">{s.phoneNumber}</a>
             </p>
         </div>
       
@@ -144,7 +144,7 @@ function Home() {
         </section>
 
       
-      <section className="visit-us-section" id="visit-us" style={{"margin":"60px auto","maxWidth":"1260px","padding":"50px 35px","backgroundColor":"#fff5ec","borderRadius":"32px","border":"1px solid rgba(255, 94, 0, 0.22)","boxShadow":"0 20px 50px rgba(74, 35, 17, 0.08)","position":"relative","overflow":"hidden"}}>
+      <section className="visit-us-section" id="visit-us">
             
             <div style={{"position":"absolute","top":"-100px","left":"-100px","width":"300px","height":"300px","background":"rgba(255, 94, 0, 0.08)","borderRadius":"50%","filter":"blur(90px)","pointerEvents":"none"}}></div>
             <div style={{"position":"absolute","bottom":"-100px","right":"-100px","width":"300px","height":"300px","background":"rgba(201, 42, 0, 0.06)","borderRadius":"50%","filter":"blur(90px)","pointerEvents":"none"}}></div>
