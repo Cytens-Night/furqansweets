@@ -48,7 +48,13 @@ function Home() {
                     <div className="cta-box">
                         <h2>{s.heroTitle || "Craving Authentic Somali Sweets?"}<span className="translation" style={{"marginTop":"10px","fontSize":"0.6em"}}>{s.heroTitleSomali || "Ma u xiistay Macmacaan Soomaaliyeed?"}</span></h2>
                         <p>{s.heroSubtitle || "Freshly made, perfectly sweet, deeply rich."}<span className="translation">{s.heroSubtitleSomali || "Cusub, macaan oo si fiican loo sameeyay."}</span></p>
-                        <a href={s.phoneTel || "tel:02088383030"} className="btn-primary call-modal-trigger">Call to Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.8em","marginLeft":"8px"}}>(Wac si aad u dalbato)</span></a>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <a href={s.phoneTel || "tel:02088383030"} className="btn-primary call-modal-trigger">Call to Make an Order <span className="translation" style={{"display":"inline","fontSize":"0.8em","marginLeft":"8px"}}>(Wac si aad u dalbato)</span></a>
+                            <div style={{ display: 'flex', gap: '10px' }}>
+                                <a href="#bulk" className="btn-primary" style={{ flex: 1, backgroundColor: 'transparent', border: '1px solid #FF5E00', color: '#FF5E00' }}>Bulk Orders</a>
+                                <Link to="/shop" className="btn-primary" style={{ flex: 1, backgroundColor: 'transparent', border: '1px solid #FF5E00', color: '#FF5E00' }}>Shop Snacks</Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
