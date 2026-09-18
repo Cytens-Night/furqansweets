@@ -1221,200 +1221,6 @@ a:hover .translation::after, button:hover .translation::after {
     }
     .brand-story-wrapper {
         gap: 24px;
-.footer-bottom p {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* =========================================
-   POLICY MODAL SPECIFICS
-   ========================================= */
-.policy-modal-content {
-    max-width: 700px;
-}
-
-.policy-text h3 {
-    color: #4a2311;
-    margin-top: 20px;
-}
-
-.policy-text p {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-/* =========================================
-   OCCASION SVG ICONS
-   ========================================= */
-.occasion-icon svg {
-    width: 32px;
-    height: 32px;
-    color: #ff5e00;
-    filter: drop-shadow(0 2px 5px rgba(255, 94, 0, 0.2));
-}
-
-/* =========================================
-   CALL ACTION MODAL & TOAST
-   ========================================= */
-.call-modal-content {
-    text-align: center;
-    max-width: 450px;
-}
-
-.call-icon-wrapper {
-    width: 80px;
-    height: 80px;
-    background-color: #fff5ec;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto 20px auto;
-    color: #ff5e00;
-    box-shadow: 0 0 0 10px rgba(255, 94, 0, 0.1);
-    animation: pulseRing 2s infinite;
-}
-
-.call-icon-wrapper svg {
-    width: 40px;
-    height: 40px;
-}
-
-@keyframes pulseRing {
-    0% { box-shadow: 0 0 0 0 rgba(255, 94, 0, 0.4); }
-    70% { box-shadow: 0 0 0 20px rgba(255, 94, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 94, 0, 0); }
-}
-
-.call-modal-content h2 {
-    color: #4a2311;
-    margin-bottom: 10px;
-}
-
-.call-modal-content p {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.call-number {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #c92a00;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
-}
-
-.call-actions {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.call-actions button {
-    cursor: pointer;
-    border: none;
-}
-
-.btn-secondary {
-    background-color: #f0e6dd;
-    color: #4a2311;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    transition: background-color 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #e0d0c0;
-}
-
-.toast {
-    position: fixed;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #28a745;
-    color: #fff;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
-    transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 10001;
-}
-
-.toast.show {
-    bottom: 40px;
-}
-
-.toast svg {
-    width: 24px;
-    height: 24px;
-    animation: shakeIcon 0.5s infinite alternate;
-}
-
-@keyframes shakeIcon {
-    from { transform: rotate(-10deg); }
-    to { transform: rotate(10deg); }
-}
-
-/* ==========================================================================
-   MASTER ALL-DEVICE RESPONSIVE OPTIMIZATION SUITE
-   (4K Monitors, Wide Desktops, Laptops, Tablets, Standard Mobile, Compact SE, Short Viewports)
-   ========================================================================== */
-
-/* 1. ULTRA-WIDE SCREENS & 4K MONITORS (min-width: 1400px) */
-@media (min-width: 1400px) {
-    .hero-container,
-    .brand-story-section,
-    .reviews-section,
-    .bulk-orders-wrapper {
-        max-width: 1400px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .hero-title {
-        font-size: 3.5rem;
-    }
-}
-
-/* 2. LAPTOPS & SMALLER DESKTOPS (max-width: 1200px) */
-@media (max-width: 1200px) {
-    .main-header {
-        padding: 16px 30px;
-    }
-    .hero-container {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-    }
-    .hero-cta {
-        grid-column: span 2;
-    }
-    .cta-box {
-        padding: 35px;
-    }
-}
-
-/* 3. TABLETS & FOLDABLE INNER SCREENS (max-width: 992px) */
-@media (max-width: 992px) {
-    .main-header {
-        padding: 14px 24px;
-    }
-    .main-nav {
-        gap: 20px;
-    }
-    .bulk-orders-wrapper {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    .brand-story-wrapper {
-        gap: 24px;
     }
 }
 
@@ -1884,6 +1690,24 @@ a:hover .translation::after, button:hover .translation::after {
   .reviews-grid, .occasions-grid, .snacks-grid, .showcase-grid-in-card {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
+  }
+  
+  /* Banners */
+  .store-nav-badge, .google-reviews-banner {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 20px !important;
+    padding: 20px !important;
+  }
+  .store-nav-badge-left {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  .google-reviews-banner-left {
+    text-align: center !important;
+  }
+  .google-reviews-banner-left > div {
+    justify-content: center !important;
   }
   
   /* Fluid Modals */
