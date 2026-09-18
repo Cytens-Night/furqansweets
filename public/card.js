@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let isPreviewShown = false;
 
     const openWebsiteUrl = () => {
-        window.open('index.html?from=card', '_blank', 'noopener,noreferrer');
+        window.open('/?from=card', '_blank', 'noopener,noreferrer');
     };
 
     const setPreviewActive = (active) => {
@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
             price: "£10 / kg",
             rating: "4.9 / 5.0",
             image: "assets/halwa_main.png",
-            url: "index.html#halwa",
+            url: "/#halwa",
             status: "AVAILABLE NOW",
             desc: "Experience the authentic taste of Mogadishu with our Classic Somali Halwa. Handcrafted with golden butter, aromatic spices, and roasted sesame seeds for an unforgettable rich melt-in-your-mouth texture.",
             notesTitle: "INGREDIENTS & NOTES",
@@ -428,7 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
             price: "£15 / kg",
             rating: "5.0 / 5.0",
             image: "assets/halwa_plain.png",
-            url: "index.html#halwa",
+            url: "/#halwa",
             status: "BEST SELLER",
             desc: "Our royal recipe loaded with extra crunchy cashew nuts and double aromatic green cardamom. Crafted specifically for weddings, Eid celebrations, and prestigious gatherings.",
             notesTitle: "INGREDIENTS & NOTES",
